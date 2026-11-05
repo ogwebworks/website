@@ -40,7 +40,7 @@ export default function MagneticButton({
       style={{ x, y }}
       onPointerMove={onMove}
       onPointerLeave={reset}
-      className={`group inline-flex w-fit items-center gap-3 rounded-full px-7 py-4 text-base font-semibold transition-shadow ${styles}`}
+      className={`group inline-flex w-fit shrink-0 items-center gap-3 whitespace-nowrap rounded-full px-7 py-4 text-base font-semibold transition-shadow ${styles}`}
     >
       {children}
       <span className="grid h-7 w-7 place-items-center overflow-hidden rounded-full bg-ink/10" aria-hidden="true">

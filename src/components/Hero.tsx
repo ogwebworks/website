@@ -6,9 +6,9 @@ import MagneticButton from "./MagneticButton";
 import HeroVisual from "./HeroVisual";
 
 const words = [
-  { text: "Original.", className: "text-paper" },
-  { text: "Digital.", className: "text-gradient" },
-  { text: "Solutions!", className: "text-transparent [-webkit-text-stroke:1.5px_var(--color-paper)] sm:[-webkit-text-stroke:2px_var(--color-paper)]" },
+  { text: "Original.", className: "text-paper", glow: "rgb(244 245 248 / 0.75)" },
+  { text: "Digital.", className: "text-gradient", glow: "rgb(198 244 50 / 0.85)" },
+  { text: "Solutions!", className: "text-transparent [-webkit-text-stroke:1.5px_var(--color-paper)] sm:[-webkit-text-stroke:2px_var(--color-paper)]", glow: "rgb(123 97 255 / 0.95)" },
 ];
 
 export default function Hero() {
@@ -42,7 +42,9 @@ export default function Hero() {
       </m.div>
 
       <m.div style={{ y: textY }} className="container-x relative flex min-h-[calc(100svh-8rem)] flex-col justify-center pb-16">
-        {/* Entrance animations are pure CSS: they play on first paint, before any JavaScript runs. */}
+        {/* Entrance animations are pure CSS: they play on first paint, before any JavaScript runs.
+            Below 1280px the intro is centred and fills the first screen; the visual follows below. */}
+        <div className="flex min-h-[calc(100svh-9rem)] flex-col items-center justify-center text-center xl:min-h-0 xl:items-start xl:text-left">
         <p
           className="hero-rise mb-6 inline-flex w-fit items-center gap-2 rounded-full border border-line bg-white/[0.03] px-3.5 py-1.5 text-xs font-medium uppercase tracking-[0.18em] text-mute"
           style={{ "--delay": "0ms" } as React.CSSProperties}
@@ -54,23 +56,28 @@ export default function Hero() {
           Digital agency · Worldwide
         </p>
 
-        <h1 className="font-display text-[clamp(3.2rem,11vw,8rem)] font-bold leading-[0.9] tracking-[-0.045em] xl:text-[clamp(4rem,8.6vw,8rem)]">
+        <h1 className="font-display text-[clamp(3.4rem,18vw,8rem)] font-bold leading-[0.92] tracking-[-0.045em] xl:text-[clamp(4rem,8.6vw,8rem)]">
           <span className="sr-only">OG WebWorks: Original. Digital. Solutions!</span>
           {words.map((w, i) => (
-            <span key={w.text} className="block overflow-hidden pb-[0.06em]" aria-hidden="true">
-              <span className={`hero-word block ${w.className}`} style={{ "--delay": `${i * 90}ms` } as React.CSSProperties}>
+            <span key={w.text} className="block pb-[0.06em]" aria-hidden="true">
+              {/* "Bulb" reveal: each word flickers on in turn, then keeps a soft glowing halo */}
+              <span
+                className={`bulb ${w.className}`}
+                data-text={w.text}
+                style={{ "--delay": `${150 + i * 550}ms`, "--glow": w.glow } as React.CSSProperties}
+              >
                 {w.text}
               </span>
             </span>
           ))}
         </h1>
 
-        <p className="hero-rise mt-8 max-w-xl text-lg text-paper/75 sm:text-xl" style={{ "--delay": "250ms" } as React.CSSProperties}>
+        <p className="hero-rise mt-8 max-w-xl text-lg text-paper/75 sm:text-xl" style={{ "--delay": "1400ms" } as React.CSSProperties}>
           We design and build fast, original websites, then grow them with SEO, AI search (AEO & GEO) and ads. When
           something breaks, we fix it.
         </p>
 
-        <div className="hero-rise mt-10 flex flex-col gap-4 sm:flex-row sm:items-center" style={{ "--delay": "380ms" } as React.CSSProperties}>
+        <div className="hero-rise mt-10 flex w-full flex-col items-center gap-4 sm:w-auto sm:flex-row xl:items-center" style={{ "--delay": "1550ms" } as React.CSSProperties}>
           <MagneticButton href="#contact">Get a Free Proposal</MagneticButton>
 
           <form onSubmit={startCheck} className="flex w-full max-w-md items-center rounded-full border border-line bg-white/[0.04] p-1.5 focus-within:border-lime/60">
@@ -91,9 +98,10 @@ export default function Hero() {
             </button>
           </form>
         </div>
+        </div>
 
         {/* Hero visual (phones/tablets/small laptops): in flow, below the calls to action */}
-        <div className="hero-rise mx-auto mt-14 w-full max-w-lg lg:max-w-2xl xl:hidden" style={{ "--delay": "450ms" } as React.CSSProperties}>
+        <div className="hero-rise mx-auto mt-6 w-full max-w-lg lg:max-w-2xl xl:hidden" style={{ "--delay": "1700ms" } as React.CSSProperties}>
           <HeroVisual />
         </div>
       </m.div>
