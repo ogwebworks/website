@@ -9,29 +9,32 @@ See [ROADMAP.md](./ROADMAP.md) for strategy, sitemap and phases.
 - Tailwind CSS v4 (design tokens in `src/app/globals.css`)
 - 3D: three.js + React Three Fiber + drei (`src/components/HeroScene.tsx`), lazy-loaded after idle, paused off-screen, skipped for reduced motion
 - Motion: `motion` (Framer Motion) + Lenis smooth scroll
-- Hosting: **Cloudflare Pages (free plan, commercial use allowed)**. Fully static export (`out/`) + a Pages Function for the form (`functions/api/proposal.ts`)
+- Hosting: **Cloudflare Workers (free plan, commercial use allowed)**. Static export (`out/`) served as Worker static assets, plus a tiny Worker (`worker/`) for the form API. Config: `wrangler.jsonc`
 
 ## Develop
 ```bash
 npm install
 npm run dev      # http://localhost:3000
-npm run preview  # production build served by Cloudflare's runtime (incl. form API) on :8788
+npm run preview  # production build on the local Cloudflare Workers runtime (incl. form API)
 npm run lint
 ```
 
-## Deploy (Cloudflare Pages, free)
-1. Cloudflare dashboard → **Workers & Pages → Create → Pages → Connect to Git** → pick `ogwebworks/website`.
-2. Framework preset: **None** · Build command: `npm run build` · Output directory: `out`.
-3. Environment variable: `NODE_VERSION` = `22`.
-4. Deploy. Every branch gets a preview URL; set the production branch to `main`.
-5. **Custom domains** → add `ogwebworks.com` (easiest if the domain's DNS is on Cloudflare).
+## Deploy (Cloudflare Workers, free)
+Dashboard → **Workers & Pages → Create → Import a repository** → `ogwebworks/website`:
+- Build command: `npm run build`
+- Deploy command: `npx wrangler deploy`
+- The Worker name must match `"name"` in `wrangler.jsonc` (currently `website`)
+
+Every push to the production branch deploys; other branches get preview versions.
+Add `ogwebworks.com` under the Worker's **Settings → Domains & Routes**.
 
 > Note: `npm run dev` serves pages but not the form API (that runs on Cloudflare). Use `npm run preview` to test the form locally.
 
 ## Structure
 ```
 src/app/            layout, homepage, robots.ts, sitemap.ts, icon.svg
-functions/api/      Cloudflare Pages Function for the proposal form
+worker/             Cloudflare Worker entry + proposal form handler
+wrangler.jsonc      Cloudflare Workers config (static assets from ./out)
 public/_headers     security + caching headers for Cloudflare
 src/components/     Header, Hero, HeroScene (3D), Pillars, Stats, Statement, Process,
                     AiCallout, Comparison, Pricing, Faq, ProposalForm, Footer
@@ -42,7 +45,7 @@ public/llms.txt     AI-crawler summary (GEO)
 ## Before launch (TODO)
 - [ ] Replace placeholder wordmark with the Phase 1 logo
 - [ ] Confirm email address, prices and response-time promises in `src/lib/site.ts` / `Pricing.tsx`
-- [ ] Wire `functions/api/proposal.ts` to email (Resend) and CRM via Pages environment variables
+- [ ] Wire `worker/proposal.ts` to email (Resend) and CRM via Worker secrets
 - [ ] Privacy policy, terms and cookie consent (GDPR/CCPA)
 - [ ] Analytics (GA4 + Search Console + Clarity)
 - [ ] Open Graph image

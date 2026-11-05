@@ -1,14 +1,11 @@
-/**
- * Cloudflare Pages Function: POST /api/proposal
- * Free on the Cloudflare Pages plan (100k requests/day).
- */
+/** POST /api/proposal: validates proposal-form leads. */
 type Payload = Record<string, unknown>;
 
 const str = (v: unknown, max = 500) => (typeof v === "string" ? v.trim().slice(0, max) : "");
 const json = (data: unknown, status = 200) =>
   new Response(JSON.stringify(data), { status, headers: { "Content-Type": "application/json" } });
 
-export const onRequestPost = async ({ request }: { request: Request }) => {
+export async function handleProposal(request: Request): Promise<Response> {
   let body: Payload;
   try {
     body = (await request.json()) as Payload;
@@ -38,4 +35,4 @@ export const onRequestPost = async ({ request }: { request: Request }) => {
   console.log("[proposal] new lead", JSON.stringify({ ...lead, receivedAt: new Date().toISOString() }));
 
   return json({ ok: true });
-};
+}
