@@ -42,7 +42,7 @@ export default function Header() {
           }`}
           onMouseLeave={() => setMega(false)}
         >
-          <a href="#top" aria-label="OG WebWorks home" className="shrink-0">
+          <a href="#top" className="shrink-0">
             <Logo />
           </a>
 

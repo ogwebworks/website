@@ -26,7 +26,7 @@ function Core() {
   });
   return (
     <mesh ref={mesh} scale={1.15}>
-      <icosahedronGeometry args={[1, 48]} />
+      <icosahedronGeometry args={[1, 20]} />
       <MeshDistortMaterial
         color="#8f95c9"
         roughness={0.12}
@@ -116,7 +116,7 @@ function Rig({ children }: { children: React.ReactNode }) {
 export default function HeroScene() {
   const wrap = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(true);
-  const [dpr, setDpr] = useState(1.5);
+  const [dpr, setDpr] = useState(1.25);
 
   // Stop rendering when the hero is off-screen (saves battery and CPU).
   useEffect(() => {
@@ -135,7 +135,7 @@ export default function HeroScene() {
         camera={{ position: [0, 0, 7.4], fov: 42 }}
         gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
       >
-        <PerformanceMonitor onDecline={() => setDpr(1)} onIncline={() => setDpr(1.75)} />
+        <PerformanceMonitor onDecline={() => setDpr(1)} onIncline={() => setDpr(1.5)} />
         <ambientLight intensity={0.3} />
         <directionalLight position={[3, 4, 5]} intensity={1.2} />
         <Rig>
@@ -146,10 +146,10 @@ export default function HeroScene() {
           <Ring color={VIOLET} radius={2.35} tilt={[1.0, -0.6, 0.4]} speed={-0.25} />
           <Ring color={CORAL} radius={2.65} tilt={[1.5, 0.7, -0.3]} speed={0.18} />
           <Shards />
-          <Sparkles count={70} scale={[8, 5, 3]} size={2.2} speed={0.35} color="#ffffff" opacity={0.5} />
+          <Sparkles count={45} scale={[8, 5, 3]} size={2.2} speed={0.35} color="#ffffff" opacity={0.5} />
         </Rig>
         {/* Procedural studio lighting: no HDR download needed */}
-        <Environment resolution={256} frames={1}>
+        <Environment resolution={128} frames={1}>
           <color attach="background" args={["#141729"]} />
           <Lightformer form="rect" intensity={6} color={LIME} position={[-5, 2, 2]} rotation-y={Math.PI / 2} scale={[8, 4, 1]} />
           <Lightformer form="rect" intensity={8} color={VIOLET} position={[5, -1, 2]} rotation-y={-Math.PI / 2} scale={[8, 5, 1]} />

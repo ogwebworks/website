@@ -5,7 +5,8 @@ import { site } from "@/lib/site";
 import SmoothScroll from "@/components/SmoothScroll";
 import MotionProvider from "@/components/MotionProvider";
 
-const inter = Inter({ variable: "--font-inter", subsets: ["latin"], display: "swap" });
+// Body font is not preloaded, so it stays off the critical path for the hero headline (LCP).
+const inter = Inter({ variable: "--font-inter", subsets: ["latin"], display: "swap", preload: false });
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-space-grotesk",
   subsets: ["latin"],

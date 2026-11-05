@@ -7,10 +7,11 @@ const text =
   "Most agencies hand you a template and a monthly invoice. We hand you an original, a site that loads instantly, ranks, gets cited by AI, and actually converts.";
 
 function Word({ children, progress, range }: { children: string; progress: MotionValue<number>; range: [number, number] }) {
-  const opacity = useTransform(progress, range, [0.12, 1]);
   const highlight = /original|instantly|ranks|AI|converts/i.test(children);
+  // Animate colour (not opacity) between contrast-safe tones (>= 3:1 on ink, WCAG large text).
+  const color = useTransform(progress, range, highlight ? ["#5f7a2a", "#c6f432"] : ["#62677a", "#f4f5f8"]);
   return (
-    <m.span style={{ opacity }} className={`mr-[0.25em] inline-block ${highlight ? "text-lime" : ""}`}>
+    <m.span style={{ color }} className="mr-[0.25em] inline-block">
       {children}
     </m.span>
   );

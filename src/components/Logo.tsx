@@ -18,6 +18,7 @@ export default function Logo({ className = "" }: { className?: string }) {
         </text>
       </svg>
       <span className="font-display text-[1.15rem] font-semibold tracking-tight">
+        <span className="sr-only">OG </span>
         Web<span className="text-lime">Works</span>
       </span>
     </span>

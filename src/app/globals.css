@@ -101,6 +101,116 @@ body {
   }
 }
 
+/* ---------- Hero entrance (CSS-only, runs before hydration) ---------- */
+@keyframes hero-word-in {
+  from { transform: translateY(110%) rotate(4deg); }
+  to { transform: none; }
+}
+@keyframes hero-rise-in {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes scroll-cue { from { transform: translateY(-16px); } to { transform: translateY(40px); } }
+
+.hero-word {
+  animation: hero-word-in 0.9s var(--ease-out-expo) both;
+  animation-delay: var(--delay, 0ms);
+}
+.hero-rise {
+  animation: hero-rise-in 0.8s var(--ease-out-expo) both;
+  animation-delay: var(--delay, 0ms);
+}
+.hero-fade-in { animation: fade-in 1.2s ease both; }
+.scroll-cue { animation: scroll-cue 1.6s ease-in-out infinite; }
+
+/* ---------- CSS 3D orb (compositor-only animations) ---------- */
+.orb-scene {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  perspective: 1000px;
+  transform-style: preserve-3d;
+  --size: min(44vw, 20rem);
+  @media (width >= 64rem) { --size: min(26vw, 22rem); }
+}
+.orb-scene > * { grid-area: 1 / 1; }
+.orb-glow {
+  width: calc(var(--size) * 2.2);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgb(123 97 255 / 0.35), rgb(198 244 50 / 0.08) 60%, transparent);
+  animation: pulse-glow 6s ease-in-out infinite;
+}
+.orb-core {
+  position: relative;
+  width: var(--size);
+  aspect-ratio: 1;
+  animation: orb-float 7s ease-in-out infinite;
+}
+.orb-skin {
+  position: absolute;
+  inset: 0;
+  border-radius: 46% 54% 58% 42% / 44% 48% 52% 56%;
+  background:
+    radial-gradient(circle at 30% 26%, rgb(255 255 255 / 0.9) 0 3%, transparent 12%),
+    conic-gradient(from 210deg at 50% 50%, #c6f432, #7ef0c8, #7b61ff, #ff5c39, #7b61ff, #c6f432);
+  box-shadow:
+    inset -22px -30px 60px rgb(6 7 13 / 0.85),
+    inset 14px 18px 40px rgb(255 255 255 / 0.25),
+    0 0 90px -10px rgb(123 97 255 / 0.65);
+  animation: orb-spin 18s linear infinite;
+}
+.orb-shine {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle at 34% 30%, rgb(255 255 255 / 0.35), transparent 40%),
+    radial-gradient(circle at 70% 75%, rgb(6 7 13 / 0.7), transparent 55%);
+  mix-blend-mode: soft-light;
+}
+.orb-ring {
+  width: calc(var(--size) * var(--s));
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 1.5px solid var(--c);
+  box-shadow: 0 0 14px -2px var(--c), inset 0 0 14px -2px var(--c);
+  transform: rotateX(var(--rx)) rotateY(var(--ry));
+  animation: ring-spin var(--d) linear infinite;
+}
+.orb-ring-rev { animation-direction: reverse; }
+.orb-ring > span {
+  position: absolute;
+  top: -5px;
+  left: calc(50% - 5px);
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--c);
+  box-shadow: 0 0 16px 2px var(--c);
+}
+.orb-shard {
+  width: calc(var(--size) * 0.09);
+  aspect-ratio: 1;
+  background: var(--c);
+  opacity: 0.9;
+  border-radius: 3px;
+  box-shadow: 0 0 20px -4px var(--c);
+  translate: calc(var(--size) * var(--x)) calc(var(--size) * var(--y));
+  animation: shard-float var(--t) ease-in-out infinite;
+}
+@keyframes orb-spin { to { transform: rotate(360deg); } }
+@keyframes orb-float { 50% { transform: translateY(-12px) scale(1.02); } }
+@keyframes ring-spin {
+  from { transform: rotateX(var(--rx)) rotateY(var(--ry)) rotateZ(0deg); }
+  to { transform: rotateX(var(--rx)) rotateY(var(--ry)) rotateZ(360deg); }
+}
+@keyframes shard-float {
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); }
+  50% { transform: translate3d(0, -18px, 0) rotate(160deg); }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.001ms !important;
