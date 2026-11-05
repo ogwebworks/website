@@ -1,0 +1,17 @@
+# OG WebWorks
+
+> OG WebWorks (ogwebworks.com) is an international digital agency. Tagline: "Original. Digital. Solutions!" We design and develop custom websites, build brands, and grow businesses with SEO, AEO (answer engine optimization), GEO (generative engine optimization) and paid ads. We also provide monthly website maintenance and fast website error resolution.
+
+## Services
+- Website Development: custom, high-performance websites (Next.js, WordPress and more)
+- Website Maintenance: monthly care plans with updates, backups, security and uptime monitoring
+- Brand Development: logos, identity systems, brand voice
+- SEO: technical, on-page and content SEO
+- AEO: optimization for answer boxes, featured snippets and voice search
+- GEO: optimization for citations in AI assistants (ChatGPT, Perplexity, Gemini, Claude)
+- Ads Management: Google, Meta and LinkedIn campaigns
+- Website Error Resolution: diagnosis and repair of broken, hacked or down websites
+
+## Key pages
+- [Home](https://ogwebworks.com/)
+- [Get a free proposal](https://ogwebworks.com/#contact)

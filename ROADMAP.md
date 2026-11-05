@@ -214,7 +214,7 @@ Review stars, "No long-term contracts", "You own your site and accounts", respon
 - Generate marketing pages statically (SSG/ISR); no per-request rendering for content.
 - Use `next/font` and `next/image`, and lazy-load third-party scripts with `next/script` (`lazyOnload`). Load analytics and chat after user interaction.
 - Animations: CSS first. Load Framer Motion/GSAP only in the components that use them.
-- Set a JS budget: < 120 KB of gzipped JS on the homepage, checked by Lighthouse CI on every pull request.
+- JS budget: ≤ 250 KB of gzipped JS on first load (measured: React/Next runtime ≈ 150 KB + Motion ≈ 70 KB + app code). Heavy 3D (Three.js ≈ 265 KB gz) **must** stay lazy-loaded after the page becomes interactive and is skipped for reduced-motion users. Enforce with Lighthouse CI on every pull request.
 
 *Alternative we considered:* Astro has the better default performance for content sites (it ships no JS by default) and is backed by Cloudflare since its January 2026 acquisition. We chose Next.js for how far it can grow as an app platform. If we ever want both, a split works: Astro for the marketing pages and Next.js at `app.ogwebworks.com`.
 | Forms / backend | Serverless functions + **Resend** (email) + CRM webhook | No server to maintain |
