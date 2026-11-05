@@ -3,7 +3,7 @@
 **Domain:** ogwebworks.com
 **Tagline:** *Original. Digital. Solutions!*
 **Services:** Website development & maintenance · Brand development · SEO · AEO · GEO · Ads campaign management · Website error resolution
-**Status:** Planning (v1.0 · November 2026)
+**Status:** Planning (v1.1 · November 2026)
 
 ---
 
@@ -201,13 +201,22 @@ Review stars, "No long-term contracts", "You own your site and accounts", respon
 
 ## 7. Tech stack
 
-### 7.1 Recommendation
+### 7.1 Decision: Next.js on Vercel (decided in v1.1)
 | Layer | Choice | Why |
 |---|---|---|
-| Framework | **Astro** (+ React/Preact islands where we need interactivity) | Ships almost no JavaScript by default, which makes good Core Web Vitals scores easy for a content-heavy marketing site |
-| Styling | **Tailwind CSS** + design tokens | Fast to build and consistent |
-| CMS | **Sanity**, **Decap/Tina** (Git-based), or Astro Content Collections (Markdown) for v1 | Non-developers can edit blog posts and case studies |
-| Hosting | **Cloudflare Pages** or **Vercel** | Global CDN, free SSL, preview deploys |
+| Framework | **Next.js (App Router, React Server Components, TypeScript)** | One codebase for the marketing site *and* the products we'll add later (Site Check tool, client portal, dashboards). Next.js is also a skill international clients ask for, so our own site sells it |
+| Styling | **Tailwind CSS** + design tokens (+ shadcn/ui for accessible primitives) | Fast to build and consistent |
+| CMS | **Sanity** (or MDX in the repo for v1) | Non-developers can edit blog posts and case studies; works with Next.js Draft Mode for previews |
+| Hosting | **Vercel Pro** (~$20/user/month) | The Hobby plan is non-commercial only, so an agency site needs Pro. Global edge network, preview deploys, Speed Insights, image optimization |
+
+**Performance rules for Next.js** (Next ships a React runtime, so speed takes some discipline):
+- Server Components by default. Use `"use client"` only for real interactivity (menu, forms, Site Check).
+- Generate marketing pages statically (SSG/ISR); no per-request rendering for content.
+- Use `next/font` and `next/image`, and lazy-load third-party scripts with `next/script` (`lazyOnload`). Load analytics and chat after user interaction.
+- Animations: CSS first. Load Framer Motion/GSAP only in the components that use them.
+- Set a JS budget: < 120 KB of gzipped JS on the homepage, checked by Lighthouse CI on every pull request.
+
+*Alternative we considered:* Astro has the better default performance for content sites (it ships no JS by default) and is backed by Cloudflare since its January 2026 acquisition. We chose Next.js for how far it can grow as an app platform. If we ever want both, a split works: Astro for the marketing pages and Next.js at `app.ogwebworks.com`.
 | Forms / backend | Serverless functions + **Resend** (email) + CRM webhook | No server to maintain |
 | Analytics | **GA4** + **Google Search Console** + **Microsoft Clarity** (heatmaps, free) + optionally Plausible | Shows both the numbers and the behaviour behind them |
 | Booking | Cal.com or Calendly embed | |
@@ -282,7 +291,7 @@ This is the usual problem for a new agency, and there are honest ways around it:
 | **1. Brand** | 2–3 | Logo, palette, type, voice, brand guide | Brand kit |
 | **2. Content** | 2–4 (in parallel) | Homepage and service page copy, About story, FAQs, 3–5 launch blog posts, case studies or concepts | Copy deck |
 | **3. UX/UI design** | 3–5 | Wireframes (mobile first) → high-fidelity Figma designs → design system (components, tokens, dark mode) | Figma file |
-| **4. Build (MVP)** | 5–8 | Astro setup, components, Home, Services ×7, Work, Pricing, About, Contact/Proposal, Blog, legal pages, schema, analytics, forms → CRM | Staging site |
+| **4. Build (MVP)** | 5–8 | Next.js + Vercel setup, components, Home, Services ×7, Work, Pricing, About, Contact/Proposal, Blog, legal pages, schema, analytics, forms → CRM | Staging site |
 | **5. QA & launch** | 9 | Cross-browser and device testing, Lighthouse and accessibility audits, 301 redirects (if replacing an old site), Search Console, GBP, launch announcement | **Live ogwebworks.com** |
 | **6. Growth** (ongoing) | Months 3–12 | Free Site Check tool v1 → v2, 4–8 posts/month, industry and location pages, A/B testing the hero and CTAs, video testimonials, client portal, AI chat assistant | Monthly KPI reports |
 
@@ -306,17 +315,20 @@ This is the usual problem for a new agency, and there are honest ways around it:
 
 ---
 
-## 12. Decisions needed from you
+## 12. Decisions
 
-1. **Target market:** local (which city or country?), international (US/UK/UAE), or both? This drives pricing currency, local SEO pages, language and legal requirements.
-2. **Ideal clients:** any industries you want to focus on (e.g. e-commerce, clinics, real estate, SaaS)?
-3. **Existing brand assets:** do you already have a logo and colours, or should we design them?
-4. **Portfolio:** how many real projects and testimonials can we show today?
-5. **Pricing transparency:** comfortable publishing "starting at" prices (recommended)?
-6. **Stack:** Astro (recommended) or WordPress?
-7. **CRM and booking:** any existing tools (HubSpot, Zoho, Calendly)?
-8. **Team page:** real photos and names of the founder or team (strongly recommended for trust and E-E-A-T)?
-9. **Contact channels:** phone, WhatsApp, email, physical address?
+### Decided (v1.1)
+- ✅ **Market: international.** This means USD pricing (with a GBP/EUR display toggle later), English first, GDPR and CCPA-ready consent and privacy pages, and time-zone-friendly booking (Cal.com showing the visitor's local time). We'll target "industry + service" keywords rather than city keywords, and use Clutch, DesignRush and G2-style directories for trust. Add hreflang and translated pages only once there's demand from a market.
+- ✅ **Logo: none yet.** The full identity gets designed in Phase 1 (logo system, palette, type, brand guide) before UI design starts.
+- ✅ **Stack: Next.js on Vercel Pro** (see §7.1).
+
+### Still open
+1. **Ideal clients:** any industries you want to focus on (e.g. e-commerce, clinics, real estate, SaaS)?
+2. **Portfolio:** how many real projects and testimonials can we show today?
+3. **Pricing transparency:** comfortable publishing "starting at" prices (recommended)?
+4. **CRM and booking:** any existing tools (HubSpot, Zoho, Calendly)?
+5. **Team page:** real photos and names of the founder or team (strongly recommended for trust and E-E-A-T)?
+6. **Contact channels:** phone, WhatsApp, email, physical address?
 
 ---
 
