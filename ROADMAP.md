@@ -201,13 +201,13 @@ Review stars, "No long-term contracts", "You own your site and accounts", respon
 
 ## 7. Tech stack
 
-### 7.1 Decision: Next.js on Vercel (decided in v1.1)
+### 7.1 Decision: Next.js, hosted free on Cloudflare Pages (v1.2)
 | Layer | Choice | Why |
 |---|---|---|
 | Framework | **Next.js (App Router, React Server Components, TypeScript)** | One codebase for the marketing site *and* the products we'll add later (Site Check tool, client portal, dashboards). Next.js is also a skill international clients ask for, so our own site sells it |
 | Styling | **Tailwind CSS** + design tokens (+ shadcn/ui for accessible primitives) | Fast to build and consistent |
 | CMS | **Sanity** (or MDX in the repo for v1) | Non-developers can edit blog posts and case studies; works with Next.js Draft Mode for previews |
-| Hosting | **Vercel Pro** (~$20/user/month) | The Hobby plan is non-commercial only, so an agency site needs Pro. Global edge network, preview deploys, Speed Insights, image optimization |
+| Hosting | **Cloudflare Pages, free plan** | $0, commercial use allowed, unlimited static bandwidth, global CDN, preview URL per branch. The site is a static export; the form runs as a Pages Function (100k requests/day free). Vercel Hobby was ruled out because it is non-commercial only, and Pro (~$20/user/mo) was declined |
 
 **Performance rules for Next.js** (Next ships a React runtime, so speed takes some discipline):
 - Server Components by default. Use `"use client"` only for real interactivity (menu, forms, Site Check).
@@ -320,7 +320,7 @@ This is the usual problem for a new agency, and there are honest ways around it:
 ### Decided (v1.1)
 - ✅ **Market: international.** This means USD pricing (with a GBP/EUR display toggle later), English first, GDPR and CCPA-ready consent and privacy pages, and time-zone-friendly booking (Cal.com showing the visitor's local time). We'll target "industry + service" keywords rather than city keywords, and use Clutch, DesignRush and G2-style directories for trust. Add hreflang and translated pages only once there's demand from a market.
 - ✅ **Logo: none yet.** The full identity gets designed in Phase 1 (logo system, palette, type, brand guide) before UI design starts.
-- ✅ **Stack: Next.js on Vercel Pro** (see §7.1).
+- ✅ **Stack: Next.js, static export on Cloudflare Pages (free)** (see §7.1). Revisit when we build app features (client portal, live Site Check): options then are OpenNext on Cloudflare Workers, or a paid host.
 
 ### Still open
 1. **Ideal clients:** any industries you want to focus on (e.g. e-commerce, clinics, real estate, SaaS)?
