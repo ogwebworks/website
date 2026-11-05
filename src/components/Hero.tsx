@@ -1,12 +1,9 @@
 "use client";
 
-import dynamic from "next/dynamic";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { m, useScroll, useTransform } from "motion/react";
 import MagneticButton from "./MagneticButton";
-import OrbCss from "./OrbCss";
-
-const HeroScene = dynamic(() => import("./HeroScene"), { ssr: false, loading: () => <OrbCss /> });
+import HeroVisual from "./HeroVisual";
 
 const words = [
   { text: "Original.", className: "text-paper" },
@@ -14,45 +11,8 @@ const words = [
   { text: "Solutions!", className: "text-transparent [-webkit-text-stroke:1.5px_var(--color-paper)] sm:[-webkit-text-stroke:2px_var(--color-paper)]" },
 ];
 
-type Nav = Navigator & { connection?: { saveData?: boolean }; deviceMemory?: number };
-
-/**
- * Real-time WebGL only where it's cheap to run: large screens with a mouse, enough CPU/RAM,
- * no data-saver and no reduced-motion preference. It starts on the first interaction (or after
- * a long idle fallback), so it never competes with the page's initial load.
- */
-function useWebGLWhenReady() {
-  const [ready, setReady] = useState(false);
-  useEffect(() => {
-    const nav = navigator as Nav;
-    const capable =
-      window.matchMedia("(min-width: 1024px) and (pointer: fine)").matches &&
-      !window.matchMedia("(prefers-reduced-motion: reduce)").matches &&
-      !nav.connection?.saveData &&
-      (nav.deviceMemory ?? 8) >= 4 &&
-      (nav.hardwareConcurrency ?? 8) >= 4;
-    if (!capable) return;
-
-    const events = ["pointermove", "pointerdown", "wheel", "keydown", "scroll"] as const;
-    let timer = 0;
-    const cleanup = () => {
-      events.forEach((e) => window.removeEventListener(e, go));
-      clearTimeout(timer);
-    };
-    function go() {
-      cleanup();
-      setReady(true);
-    }
-    events.forEach((e) => window.addEventListener(e, go, { passive: true, once: true }));
-    timer = window.setTimeout(go, 6000);
-    return cleanup;
-  }, []);
-  return ready;
-}
-
 export default function Hero() {
   const ref = useRef<HTMLElement>(null);
-  const show3D = useWebGLWhenReady();
   const [url, setUrl] = useState("");
 
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
@@ -73,19 +33,12 @@ export default function Hero() {
       <div className="absolute -left-56 top-0 -z-20 h-[44rem] w-[44rem] rounded-full bg-[radial-gradient(closest-side,rgb(123_97_255/0.28),transparent)]" aria-hidden="true" />
       <div className="absolute -right-40 bottom-[-10rem] -z-20 h-[38rem] w-[38rem] rounded-full bg-[radial-gradient(closest-side,rgb(198_244_50/0.14),transparent)]" aria-hidden="true" />
 
-      {/* 3D scene */}
+      {/* Hero visual (wide screens >= 1280px): laptop + growth cards, right side */}
       <m.div
         style={{ scale: sceneScale, opacity: sceneOpacity }}
-        className="absolute inset-x-0 top-0 -z-10 h-[62svh] opacity-50 sm:h-full sm:opacity-60 lg:inset-y-0 lg:left-[42%] lg:opacity-100"
-        aria-hidden="true"
+        className="absolute right-[1%] top-1/2 hidden w-[50%] max-w-[48rem] -translate-y-[46%] xl:block"
       >
-        {show3D ? (
-          <div className="hero-fade-in h-full w-full">
-            <HeroScene />
-          </div>
-        ) : (
-          <OrbCss />
-        )}
+        <HeroVisual />
       </m.div>
 
       <m.div style={{ y: textY }} className="container-x relative flex min-h-[calc(100svh-8rem)] flex-col justify-center pb-16">
@@ -101,7 +54,7 @@ export default function Hero() {
           Digital agency · Worldwide
         </p>
 
-        <h1 className="font-display text-[clamp(3.2rem,11vw,9.5rem)] font-bold leading-[0.9] tracking-[-0.045em]">
+        <h1 className="font-display text-[clamp(3.2rem,11vw,8rem)] font-bold leading-[0.9] tracking-[-0.045em] xl:text-[clamp(4rem,8.6vw,8rem)]">
           <span className="sr-only">OG WebWorks: Original. Digital. Solutions!</span>
           {words.map((w, i) => (
             <span key={w.text} className="block overflow-hidden pb-[0.06em]" aria-hidden="true">
@@ -137,6 +90,11 @@ export default function Hero() {
               Free Site Check →
             </button>
           </form>
+        </div>
+
+        {/* Hero visual (phones/tablets/small laptops): in flow, below the calls to action */}
+        <div className="hero-rise mx-auto mt-14 w-full max-w-lg lg:max-w-2xl xl:hidden" style={{ "--delay": "450ms" } as React.CSSProperties}>
+          <HeroVisual />
         </div>
       </m.div>
 

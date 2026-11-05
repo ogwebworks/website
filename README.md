@@ -7,7 +7,7 @@ See [ROADMAP.md](./ROADMAP.md) for strategy, sitemap and phases.
 ## Stack
 - Next.js 16 (App Router, Server Components, Turbopack) + TypeScript
 - Tailwind CSS v4 (design tokens in `src/app/globals.css`)
-- 3D: three.js + React Three Fiber + drei (`src/components/HeroScene.tsx`), lazy-loaded after idle, paused off-screen, skipped for reduced motion
+- Hero visual: CSS-3D laptop + SVG growth/AI/score/fix cards (`src/components/HeroVisual.tsx`, styles `.hv-*` in `globals.css`), no WebGL, mouse parallax on desktop
 - Motion: `motion` (Framer Motion) + Lenis smooth scroll
 - Hosting: **Cloudflare Workers (free plan, commercial use allowed)**. Static export (`out/`) served as Worker static assets, plus a tiny Worker (`worker/`) for the form API. Config: `wrangler.jsonc`
 

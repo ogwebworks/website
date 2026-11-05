@@ -44,7 +44,7 @@ export default function Footer() {
       <div className="border-t border-line">
         <div className="container-x flex flex-col justify-between gap-3 py-6 text-sm text-mute sm:flex-row">
           <p>© 2026 {site.legalName}. {site.tagline}</p>
-          <p>Built with Next.js, Three.js & a lot of coffee.</p>
+          <p>Built with Next.js, CSS 3D & a lot of coffee.</p>
         </div>
       </div>
     </footer>
