@@ -62,9 +62,9 @@ export default function Hero() {
             <span key={w.text} className="block pb-[0.06em]" aria-hidden="true">
               {/* "Bulb" reveal: each word flickers on in turn, then keeps a soft glowing halo */}
               <span
-                className={`bulb ${w.className}`}
+                className={`bulb ${i === 2 ? "bulb-falter" : ""} ${w.className}`}
                 data-text={w.text}
-                style={{ "--delay": `${150 + i * 550}ms`, "--glow": w.glow } as React.CSSProperties}
+                style={{ "--delay": `${150 + i * 750}ms`, "--glow": w.glow } as React.CSSProperties}
               >
                 {w.text}
               </span>
@@ -72,12 +72,12 @@ export default function Hero() {
           ))}
         </h1>
 
-        <p className="hero-rise mt-8 max-w-xl text-lg text-paper/75 sm:text-xl" style={{ "--delay": "1400ms" } as React.CSSProperties}>
+        <p className="hero-rise mt-8 max-w-xl text-lg text-paper/75 sm:text-xl" style={{ "--delay": "1500ms" } as React.CSSProperties}>
           We design and build fast, original websites, then grow them with SEO, AI search (AEO & GEO) and ads. When
           something breaks, we fix it.
         </p>
 
-        <div className="hero-rise mt-10 flex w-full flex-col items-center gap-4 sm:w-auto sm:flex-row xl:items-center" style={{ "--delay": "1550ms" } as React.CSSProperties}>
+        <div className="hero-rise mt-10 flex w-full flex-col items-center gap-4 sm:w-auto sm:flex-row xl:items-center" style={{ "--delay": "1650ms" } as React.CSSProperties}>
           <MagneticButton href="#contact">Get a Free Proposal</MagneticButton>
 
           <form onSubmit={startCheck} className="flex w-full max-w-md items-center rounded-full border border-line bg-white/[0.04] p-1.5 focus-within:border-lime/60">
@@ -101,7 +101,7 @@ export default function Hero() {
         </div>
 
         {/* Hero visual (phones/tablets/small laptops): in flow, below the calls to action */}
-        <div className="hero-rise mx-auto mt-6 w-full max-w-lg lg:max-w-2xl xl:hidden" style={{ "--delay": "1700ms" } as React.CSSProperties}>
+        <div className="hero-rise mx-auto mt-6 w-full max-w-lg lg:max-w-2xl xl:hidden" style={{ "--delay": "1800ms" } as React.CSSProperties}>
           <HeroVisual />
         </div>
       </m.div>
