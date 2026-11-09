@@ -78,3 +78,11 @@ export const faqs = [
     a: "Always. You own your domain, code, content and every account we set up. No lock-in, no hostage situations.",
   },
 ];
+
+// "Who we help" tiles. TODO: confirm target industries (ROADMAP §12).
+export const industries = [
+  { slug: "ecommerce", image: "industry-ecommerce", title: "E-commerce", text: "Fast stores that rank, convert and recover abandoned carts." },
+  { slug: "healthcare", image: "industry-healthcare", title: "Clinics & healthcare", text: "Trustworthy sites with online booking and local SEO." },
+  { slug: "professional", image: "industry-professional", title: "Professional services", text: "Law, finance and consulting brands that win the first call." },
+  { slug: "saas", image: "industry-saas", title: "SaaS & startups", text: "Launch-ready marketing sites built to scale with you." },
+] as const;

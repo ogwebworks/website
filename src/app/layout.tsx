@@ -2,6 +2,9 @@ import type { Metadata, Viewport } from "next";
 import { Inter, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import { site } from "@/lib/site";
+import { getImage } from "@/lib/images";
+
+const ogImage = getImage("og");
 import SmoothScroll from "@/components/SmoothScroll";
 import MotionProvider from "@/components/MotionProvider";
 
@@ -39,8 +42,14 @@ export const metadata: Metadata = {
     siteName: site.name,
     title: `${site.name}: ${site.tagline}`,
     description: site.description,
+    ...(ogImage && { images: [{ url: ogImage.src, width: ogImage.w, height: ogImage.h, alt: ogImage.alt }] }),
   },
-  twitter: { card: "summary_large_image", title: site.name, description: site.description },
+  twitter: {
+    card: "summary_large_image",
+    title: site.name,
+    description: site.description,
+    ...(ogImage && { images: [ogImage.src] }),
+  },
   alternates: { canonical: "/" },
   robots: { index: true, follow: true },
 };

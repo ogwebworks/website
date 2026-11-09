@@ -1,11 +1,11 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, type ReactNode } from "react";
 import { m, useMotionTemplate, useMotionValue, useSpring } from "motion/react";
 import { pillars, services } from "@/lib/site";
 import Reveal from "./Reveal";
 
-function PillarCard({ p, i }: { p: (typeof pillars)[number]; i: number }) {
+function PillarCard({ p, i, media }: { p: (typeof pillars)[number]; i: number; media?: ReactNode }) {
   const ref = useRef<HTMLDivElement>(null);
   const mx = useMotionValue(-200);
   const my = useMotionValue(-200);
@@ -41,10 +41,16 @@ function PillarCard({ p, i }: { p: (typeof pillars)[number]; i: number }) {
         onPointerMove={onMove}
         onPointerLeave={onLeave}
         style={{ rotateX: rx, rotateY: ry }}
-        className="group relative h-full overflow-hidden rounded-3xl border border-line bg-ink-2 p-7 sm:p-9"
+        className="group relative h-full overflow-hidden rounded-3xl border border-line bg-ink-2"
       >
+        {media && (
+          <div className="relative aspect-[16/10] overflow-hidden border-b border-line">
+            <div className="h-full w-full transition-transform duration-700 ease-out-expo group-hover:scale-105">{media}</div>
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink-2 via-transparent to-transparent" aria-hidden="true" />
+          </div>
+        )}
         <m.div className="pointer-events-none absolute inset-0" style={{ background: spotlight }} aria-hidden="true" />
-        <div className="relative">
+        <div className="relative p-7 sm:p-9">
           <div className="flex items-baseline justify-between">
             <span className="font-display text-sm font-semibold uppercase tracking-[0.2em]" style={{ color: p.accent }}>
               0{i + 1} / {p.title}
@@ -70,7 +76,7 @@ function PillarCard({ p, i }: { p: (typeof pillars)[number]; i: number }) {
   );
 }
 
-export default function Pillars() {
+export default function Pillars({ media = {} }: { media?: Partial<Record<string, ReactNode>> }) {
   return (
     <section id="services" className="container-x py-28 sm:py-36">
       <div className="mb-14 flex flex-col justify-between gap-6 md:flex-row md:items-end">
@@ -88,7 +94,7 @@ export default function Pillars() {
       </div>
       <div className="grid gap-5 lg:grid-cols-3">
         {pillars.map((p, i) => (
-          <PillarCard key={p.id} p={p} i={i} />
+          <PillarCard key={p.id} p={p} i={i} media={media[p.id]} />
         ))}
       </div>
     </section>

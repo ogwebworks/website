@@ -11,6 +11,9 @@ import Pricing from "@/components/Pricing";
 import Faq from "@/components/Faq";
 import ProposalForm from "@/components/ProposalForm";
 import Footer from "@/components/Footer";
+import Studio from "@/components/Studio";
+import Industries from "@/components/Industries";
+import SiteImage from "@/components/SiteImage";
 import { faqs, services, site } from "@/lib/site";
 
 const jsonLd = {
@@ -48,10 +51,18 @@ export default function Home() {
       <main id="main">
         <Hero />
         <Marquee />
-        <Pillars />
+        <Pillars
+          media={{
+            build: <SiteImage name="pillar-build" sizes="(min-width: 1024px) 33vw, 100vw" />,
+            grow: <SiteImage name="pillar-grow" sizes="(min-width: 1024px) 33vw, 100vw" />,
+            fix: <SiteImage name="pillar-fix" sizes="(min-width: 1024px) 33vw, 100vw" />,
+          }}
+        />
         <Stats />
+        <Studio />
         <Statement />
-        <Process />
+        <Industries />
+        <Process media={<SiteImage name="process" sizes="28rem" className="aspect-[4/5]" />} />
         <AiCallout />
         <Comparison />
         <Pricing />

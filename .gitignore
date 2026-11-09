@@ -42,3 +42,7 @@ next-env.d.ts
 
 # cloudflare wrangler local state
 .wrangler/
+
+# original images (optimised copies live in public/images)
+/images-src/*
+!/images-src/README.md

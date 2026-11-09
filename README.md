@@ -42,10 +42,16 @@ src/lib/site.ts     all copy, services and FAQ data (edit content here)
 public/llms.txt     AI-crawler summary (GEO)
 ```
 
+## Images
+Image slots live in `src/lib/images.ts`; until a file exists, a labelled placeholder is shown.
+1. Generate images with the prompts in [docs/IMAGE_PROMPTS.md](./docs/IMAGE_PROMPTS.md)
+2. Save originals in `images-src/` as `<slot>.png` (e.g. `pillar-build.png`)
+3. `npm run images` crops/compresses them into `public/images/`, then build/commit
+
 ## Before launch (TODO)
 - [ ] Replace placeholder wordmark with the Phase 1 logo
 - [ ] Confirm email address, prices and response-time promises in `src/lib/site.ts` / `Pricing.tsx`
 - [ ] Wire `worker/proposal.ts` to email (Resend) and CRM via Worker secrets
 - [ ] Privacy policy, terms and cookie consent (GDPR/CCPA)
 - [ ] Analytics (GA4 + Search Console + Clarity)
-- [ ] Open Graph image
+- [ ] Add all 11 images (docs/IMAGE_PROMPTS.md), including the Open Graph image `og`

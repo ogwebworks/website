@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, type ReactNode } from "react";
 import { m, useScroll, useSpring } from "motion/react";
 import Reveal from "./Reveal";
 
@@ -12,7 +12,7 @@ const steps = [
   { n: "05", title: "Grow", text: "SEO, AEO, GEO and ads on top of a monthly care plan. We report results, not activity." },
 ];
 
-export default function Process() {
+export default function Process({ media }: { media?: ReactNode }) {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start 0.7", "end 0.6"] });
   const scaleY = useSpring(scrollYProgress, { stiffness: 120, damping: 30 });
@@ -27,6 +27,11 @@ export default function Process() {
             A clear process with fixed milestones. You always know what&apos;s happening, what&apos;s next and what it costs.
           </p>
         </Reveal>
+        {media && (
+          <Reveal delay={0.1} className="mt-10 hidden max-w-md overflow-hidden rounded-3xl border border-line lg:block">
+            {media}
+          </Reveal>
+        )}
       </div>
 
       <div ref={ref} className="relative pl-10 sm:pl-14">
