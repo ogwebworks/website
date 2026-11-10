@@ -24,10 +24,10 @@ export default function FashionHome() {
       <section className="mx-auto grid max-w-7xl items-center gap-10 px-4 pb-16 pt-12 sm:px-6 lg:grid-cols-2 lg:pt-14">
         <div>
           <p className="dm-fade-up text-xs uppercase tracking-[0.24em] text-mv-mute">Autumn / Winter collection</p>
-          <h1 className="mt-5 font-mv text-[clamp(3rem,7vw,6rem)] leading-[0.95] tracking-tight">
+          <h1 className="mt-5 font-mv text-[clamp(2.6rem,5.6vw,4.8rem)] leading-[1.02] tracking-[-0.035em]">
             <Words text="Quiet luxury," delay={100} />
             <br />
-            <Words text="made to last." delay={350} wordClass="italic text-mv-clay" />
+            <Words text="made to last." delay={350} wordClass="text-mv-clay" />
           </h1>
           <p className="dm-fade-up mt-6 max-w-md text-lg text-mv-mute" style={{ "--d": "700ms" } as React.CSSProperties}>Natural fibres, considered cuts and honest prices. Pieces you&apos;ll still love in ten years.</p>
           <div className="dm-fade-up mt-9 flex flex-wrap gap-3" style={{ "--d": "850ms" } as React.CSSProperties}>
@@ -56,8 +56,8 @@ export default function FashionHome() {
       <div className="mb-14 border-y border-mv-ink/10 py-5">
         <Marquee duration={45}>
           {["European linen", "Extra-fine merino", "Grade-A cashmere", "Vegetable-tanned leather", "Free 30-day returns", "Made in small runs"].map((t) => (
-            <span key={t} className="flex items-center gap-10 pr-10 font-mv text-3xl italic sm:text-4xl">
-              {t} <span className="not-italic text-mv-clay" aria-hidden="true">✦</span>
+            <span key={t} className="flex items-center gap-10 pr-10 font-mv text-3xl sm:text-4xl">
+              {t} <span className="text-mv-clay" aria-hidden="true">✦</span>
             </span>
           ))}
         </Marquee>
@@ -117,7 +117,7 @@ export default function FashionHome() {
           </Parallax>
           <div className="flex flex-col justify-center p-8 sm:p-14">
             <p className="text-xs uppercase tracking-[0.24em] text-mv-ivory/60">Our materials</p>
-            <h2 className="mt-4 font-mv text-4xl leading-tight sm:text-5xl">Linen from France. Wool from Italy. <em className="italic">Nothing synthetic.</em></h2>
+            <h2 className="mt-4 font-mv text-4xl leading-tight sm:text-5xl">Linen from France. Wool from Italy. <span className="text-[#d9b8a6]">Nothing synthetic.</span></h2>
             <p className="mt-5 max-w-md text-mv-ivory/75">We work with six family-run mills and workshops, and publish the true cost of every piece. Fewer, better things.</p>
             <Link href={`${BASE}/shop`} className="mt-8 w-fit border-b border-mv-ivory pb-0.5 text-sm uppercase tracking-[0.14em]">Discover the collection</Link>
           </div>

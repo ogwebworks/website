@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
-import { Bodoni_Moda } from "next/font/google";
+import { jakarta } from "@/components/demos/fonts";
 import DemoBar from "@/components/demos/DemoBar";
 import Shell from "@/components/demos/fashion/Shell";
 import FashionFooter from "@/components/demos/fashion/Footer";
 
-const bodoni = Bodoni_Moda({ variable: "--font-bodoni", subsets: ["latin"], display: "swap", preload: true, style: ["normal", "italic"] });
 
 export const metadata: Metadata = {
   title: { default: "Demo: Fashion E-commerce Store", template: "%s · Fashion store demo" },
@@ -14,7 +13,7 @@ export const metadata: Metadata = {
 
 export default function FashionDemoLayout({ children }: LayoutProps<"/demos/fashion">) {
   return (
-    <div className={`${bodoni.variable} min-h-dvh bg-mv-ivory text-mv-ink [color-scheme:light]`}>
+    <div className={`${jakarta.variable} min-h-dvh bg-mv-ivory text-mv-ink [color-scheme:light]`}>
       <DemoBar label="E-commerce demo" />
       <Shell />
       <main id="main">{children}</main>

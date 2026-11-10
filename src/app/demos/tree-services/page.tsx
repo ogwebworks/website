@@ -31,7 +31,7 @@ export default function TreeServicesDemo() {
       <div className="hidden bg-tree-forest text-sm text-tree-cream/85 md:block">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-2">
           <p>Licensed &amp; insured · Certified arborists · Serving the Greater Metro Area since {brand.since}</p>
-          <p className="font-semibold text-tree-orange">24/7 emergency storm service</p>
+          <p className="font-semibold text-[#ffc59a]">24/7 emergency storm service</p>
         </div>
       </div>
       <TreeNav />
@@ -50,9 +50,9 @@ export default function TreeServicesDemo() {
             <p className="dm-fade-up inline-flex items-center gap-2 rounded-full bg-tree-sand px-3 py-1.5 text-sm font-semibold text-tree-moss">
               <Stars /> 4.9 rating · 600+ local jobs <span className="sr-only">(demo figures)</span>
             </p>
-            <h1 className="mt-6 font-tree text-[clamp(2.6rem,6vw,4.6rem)] font-semibold leading-[1.02] tracking-tight text-tree-forest">
+            <h1 className="mt-6 font-tree text-[clamp(2.4rem,5.2vw,4.2rem)] font-extrabold leading-[1.04] tracking-[-0.035em] text-tree-forest">
               <Words text="Safe, expert tree care for your home and" />{" "}
-              <Words text="property." delay={600} wordClass="italic text-tree-moss" />
+              <Words text="property." delay={600} wordClass="text-tree-moss" />
             </h1>
             <p className="dm-fade-up mt-6 max-w-xl text-lg text-tree-mute" style={{ "--d": "700ms" } as React.CSSProperties}>
               Removals, pruning, stump grinding and 24/7 storm response from certified arborists who treat your yard like
@@ -99,8 +99,8 @@ export default function TreeServicesDemo() {
         <div className="-rotate-1 bg-tree-forest py-4 text-tree-cream">
           <Marquee duration={36}>
             {["Tree removal", "Pruning", "Stump grinding", "24/7 storm response", "Tree health", "Land clearing", ...areas.slice(0, 4)].map((t) => (
-              <span key={t} className="flex items-center gap-6 pr-6 font-tree text-2xl italic sm:text-3xl">
-                {t} <span className="not-italic text-tree-orange" aria-hidden="true">✺</span>
+              <span key={t} className="flex items-center gap-6 pr-6 font-tree text-2xl sm:text-3xl">
+                {t} <span className="text-tree-orange" aria-hidden="true">✺</span>
               </span>
             ))}
           </Marquee>
@@ -135,7 +135,7 @@ export default function TreeServicesDemo() {
         </section>
 
         {/* ---------- Before / after + stats ---------- */}
-        <section id="work" className="mx-auto grid max-w-7xl items-center gap-12 px-4 py-20 sm:px-6 sm:py-24 lg:grid-cols-[1.2fr_1fr]">
+        <section id="work" className="mx-auto grid max-w-7xl items-center gap-12 px-4 py-20 sm:px-6 sm:py-24 xl:grid-cols-[1.2fr_1fr]">
           <BeforeAfter
             before={<SiteImage name="demo-tree-before" sizes="(min-width: 1024px) 55vw, 100vw" />}
             after={<SiteImage name="demo-tree-after" sizes="(min-width: 1024px) 55vw, 100vw" />}

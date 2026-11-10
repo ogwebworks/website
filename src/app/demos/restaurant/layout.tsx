@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
-import { Instrument_Serif } from "next/font/google";
+import { jakarta } from "@/components/demos/fonts";
 import DemoBar from "@/components/demos/DemoBar";
 
-const instrument = Instrument_Serif({ variable: "--font-instrument", subsets: ["latin"], weight: "400", style: ["normal", "italic"], display: "swap" });
 
 export const metadata: Metadata = {
   title: { absolute: "Ember & Salt: Restaurant website demo | OG WebWorks" },
@@ -12,7 +11,7 @@ export const metadata: Metadata = {
 
 export default function RestaurantDemoLayout({ children }: LayoutProps<"/demos/restaurant">) {
   return (
-    <div className={`${instrument.variable} min-h-dvh bg-es-char text-es-cream [color-scheme:dark]`}>
+    <div className={`${jakarta.variable} min-h-dvh bg-es-char text-es-cream [color-scheme:dark]`} style={{ "--p1": "#bff4ff", "--p2": "#12d6f8" } as React.CSSProperties}>
       <DemoBar label="Restaurant demo" />
       {children}
     </div>

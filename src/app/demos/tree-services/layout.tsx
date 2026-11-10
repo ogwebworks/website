@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
-import { Fraunces } from "next/font/google";
+import { jakarta } from "@/components/demos/fonts";
 
-const fraunces = Fraunces({ variable: "--font-fraunces", subsets: ["latin"], display: "swap", preload: true });
 
 export const metadata: Metadata = {
   title: "Demo: Tree Services Website",
@@ -12,5 +11,5 @@ export const metadata: Metadata = {
 };
 
 export default function TreeDemoLayout({ children }: LayoutProps<"/demos/tree-services">) {
-  return <div className={`${fraunces.variable} min-h-dvh bg-tree-cream text-tree-ink [color-scheme:light]`}>{children}</div>;
+  return <div className={`${jakarta.variable} min-h-dvh bg-tree-cream text-tree-ink [color-scheme:light]`}>{children}</div>;
 }

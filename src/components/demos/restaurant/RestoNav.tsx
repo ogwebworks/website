@@ -12,8 +12,8 @@ const links = [
 
 export function RestoLogo({ className = "" }: { className?: string }) {
   return (
-    <span className={`font-es text-2xl leading-none tracking-tight ${className}`}>
-      Ember <em className="text-es-ember">&amp;</em> Salt
+    <span className={`font-es text-xl leading-none ${className}`}>
+      Ember <span className="text-es-ember">&amp;</span> Salt
     </span>
   );
 }
@@ -44,7 +44,7 @@ export default function RestoNav() {
           </ul>
         </nav>
         <div className="flex items-center gap-2">
-          <a href="#book" className="dm-shine hidden rounded-full bg-es-ember px-5 py-2.5 sm:inline-flex text-sm font-semibold text-es-char shadow-[0_0_30px_-6px_#ff6a2b] transition hover:brightness-110">
+          <a href="#book" className="dm-shine hidden rounded-full bg-es-ember px-5 py-2.5 sm:inline-flex text-sm font-semibold text-es-char shadow-[0_0_30px_-6px_#12d6f8] transition hover:brightness-110">
             Book a table
           </a>
           <button type="button" onClick={() => setOpen((v) => !v)} className="grid h-10 w-10 place-items-center rounded-full border border-white/15 md:hidden" aria-expanded={open} aria-controls="es-menu" aria-label={open ? "Close menu" : "Open menu"}>
@@ -57,7 +57,7 @@ export default function RestoNav() {
           <ul>
             {links.map((l, i) => (
               <li key={l.href} className="dm-fade-up border-b border-white/10" style={{ "--i": i } as React.CSSProperties}>
-                <a href={l.href} onClick={() => setOpen(false)} className="block py-4 font-es text-3xl">{l.label}</a>
+                <a href={l.href} onClick={() => setOpen(false)} className="block py-4 font-es text-2xl">{l.label}</a>
               </li>
             ))}
           </ul>

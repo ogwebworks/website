@@ -14,8 +14,8 @@ export default function PlateArt({ tint, seed = 0, className = "", steam = false
   return (
     <div className={`relative aspect-square ${className}`} aria-hidden="true">
       {/* plate */}
-      <div className="absolute inset-[4%] rounded-full bg-[radial-gradient(circle_at_40%_35%,#2c2320,#151010_70%)] shadow-[0_30px_60px_-20px_rgba(0,0,0,0.8),inset_0_2px_0_rgba(255,255,255,0.06)]" />
-      <div className="absolute inset-[13%] rounded-full bg-[radial-gradient(circle_at_45%_40%,#241c19,#120d0b_75%)] shadow-[inset_0_6px_18px_rgba(0,0,0,0.6)]" />
+      <div className="absolute inset-[4%] rounded-full bg-[radial-gradient(circle_at_40%_35%,#16264f,#071134_70%)] shadow-[0_30px_60px_-20px_rgba(0,0,0,0.8),inset_0_2px_0_rgba(255,255,255,0.06)]" />
+      <div className="absolute inset-[13%] rounded-full bg-[radial-gradient(circle_at_45%_40%,#0f1d45,#050c26_75%)] shadow-[inset_0_6px_18px_rgba(0,0,0,0.6)]" />
       {/* food */}
       <div className="absolute inset-[13%] overflow-hidden rounded-full">
         {blobs.map((bl, i) => (

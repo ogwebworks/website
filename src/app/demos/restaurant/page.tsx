@@ -20,9 +20,9 @@ export default function RestaurantDemo() {
         {/* ---------- Hero ---------- */}
         <section id="top" className="relative isolate -mt-[73px] flex min-h-[100svh] items-center overflow-hidden pt-[73px]">
           <div className="absolute left-1/2 top-[60%] -z-10 h-[70vmax] w-[70vmax] -translate-x-1/2" aria-hidden="true">
-            <div className="dm-pulse-glow h-full w-full rounded-full bg-[radial-gradient(closest-side,rgba(255,106,43,0.38),rgba(246,183,60,0.12)_45%,transparent_70%)]" />
+            <div className="dm-pulse-glow h-full w-full rounded-full bg-[radial-gradient(closest-side,rgba(18,214,248,0.38),rgba(29,109,255,0.12)_45%,transparent_70%)]" />
           </div>
-          <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_top,rgba(110,31,43,0.35),transparent_55%)]" aria-hidden="true" />
+          <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_top,rgba(29,109,255,0.35),transparent_55%)]" aria-hidden="true" />
           <Particles count={28} className="-z-10" />
 
           <div className="mx-auto grid w-full max-w-7xl items-center gap-10 px-4 py-16 sm:px-6 lg:grid-cols-[1.1fr_1fr]">
@@ -30,18 +30,18 @@ export default function RestaurantDemo() {
               <p className="dm-fade-up inline-flex items-center gap-3 text-xs uppercase tracking-[0.28em] text-es-saffron">
                 <span className="h-px w-10 bg-es-saffron" aria-hidden="true" /> Wood-fired kitchen · Est. {resto.since}
               </p>
-              <h1 className="mt-6 font-es text-[clamp(3.4rem,9vw,8.5rem)] leading-[0.9] tracking-tight">
+              <h1 className="mt-6 font-es text-[clamp(2.7rem,6.4vw,5.6rem)] leading-[1.02] tracking-[-0.035em]">
                 <Words text="Fire, flavour" delay={150} />
                 <br />
-                <Words text="& a table" delay={350} wordClasses={["italic text-es-ember"]} />
+                <Words text="& a table" delay={350} wordClasses={["text-es-ember"]} />
                 <br />
-                <Words text="for you." delay={520} wordClass="italic text-es-saffron" />
+                <Words text="for you." delay={520} wordClass="text-es-saffron" />
               </h1>
               <p className="dm-fade-up mt-8 max-w-md text-lg text-es-cream/75" style={{ "--d": "800ms" } as React.CSSProperties}>
                 Seasonal plates cooked over open flame, natural wine and a room that glows. In the heart of Fulton Market.
               </p>
               <div className="dm-fade-up mt-10 flex flex-wrap gap-3" style={{ "--d": "950ms" } as React.CSSProperties}>
-                <a href="#book" className="dm-shine rounded-full bg-es-ember px-8 py-4 font-semibold text-es-char shadow-[0_10px_40px_-10px_#ff6a2b] transition hover:brightness-110">Reserve a table</a>
+                <a href="#book" className="dm-shine rounded-full bg-es-ember px-8 py-4 font-semibold text-es-char shadow-[0_10px_40px_-10px_#12d6f8] transition hover:brightness-110">Reserve a table</a>
                 <a href="#menu" className="rounded-full px-8 py-4 font-semibold ring-1 ring-white/25 transition hover:bg-white/5 hover:ring-white/60">See the menu</a>
               </div>
               <div className="dm-fade-up mt-10" style={{ "--d": "1100ms" } as React.CSSProperties}>
@@ -57,7 +57,7 @@ export default function RestaurantDemo() {
               <div className="absolute -left-2 top-4 h-28 w-28 sm:h-32 sm:w-32" aria-hidden="true">
                 <svg viewBox="0 0 100 100" className="dm-spin h-full w-full" style={{ "--dur": "18s" } as React.CSSProperties}>
                   <defs><path id="es-circle" d="M50 50 m-38 0 a38 38 0 1 1 76 0 a38 38 0 1 1 -76 0" /></defs>
-                  <text fontSize="9.5" fill="#f6b73c"><textPath href="#es-circle" textLength="236" lengthAdjust="spacing">SEASONAL · LOCAL · OPEN FIRE ·</textPath></text>
+                  <text fontSize="9.5" fill="#a1c1fa"><textPath href="#es-circle" textLength="236" lengthAdjust="spacing">SEASONAL · LOCAL · OPEN FIRE ·</textPath></text>
                 </svg>
                 <span className="absolute inset-0 grid place-items-center text-3xl">🔥</span>
               </div>
@@ -77,8 +77,8 @@ export default function RestaurantDemo() {
         <div className="border-y border-white/10 bg-es-ember py-5 text-es-char">
           <Marquee duration={32}>
             {["Open-fire kitchen", "Dry-aged in house", "Natural wine", "Seasonal produce", "Sourdough every morning", "Chef's table"].map((t) => (
-              <span key={t} className="flex items-center gap-8 pr-8 font-es text-3xl italic sm:text-4xl">
-                {t} <span aria-hidden="true" className="not-italic">✦</span>
+              <span key={t} className="flex items-center gap-8 pr-8 font-es text-2xl sm:text-3xl">
+                {t} <span aria-hidden="true" >✦</span>
               </span>
             ))}
           </Marquee>
@@ -89,20 +89,20 @@ export default function RestaurantDemo() {
           <InView className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
             <div>
               <p className="text-xs uppercase tracking-[0.28em] text-es-saffron">Signatures</p>
-              <h2 className="mt-4 font-es text-5xl leading-none sm:text-7xl">Plates people <em className="text-es-ember">cross town</em> for.</h2>
+              <h2 className="mt-4 font-es text-4xl leading-[1.05] sm:text-6xl">Plates people <span className="text-es-ember">cross town</span> for.</h2>
             </div>
             <p className="max-w-sm text-es-mute">Cooked over Michigan oak and cherry wood at 450°C. Simple ingredients, a lot of fire.</p>
           </InView>
-          <ul className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          <ul className="mt-14 grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
             {signatures.map((d, i) => (
               <li key={d.id}>
                 <InView i={i}>
-                  <Tilt className="group rounded-[2rem] border border-white/10 bg-gradient-to-b from-es-card to-es-char p-6 transition-shadow duration-500 hover:shadow-[0_30px_80px_-30px_rgba(255,106,43,0.5)]">
+                  <Tilt className="group rounded-[2rem] border border-white/10 bg-gradient-to-b from-es-card to-es-char p-6 transition-shadow duration-500 hover:shadow-[0_30px_80px_-30px_rgba(18,214,248,0.5)]">
                     <div className="transition-transform duration-700 ease-out-expo group-hover:rotate-12 group-hover:scale-105">
                       <PlateArt tint={d.tint} seed={i + 3} />
                     </div>
                     <div className="mt-5 flex items-baseline justify-between gap-3">
-                      <h3 className="font-es text-2xl leading-tight">{d.name}</h3>
+                      <h3 className="min-w-0 font-es text-xl leading-tight">{d.name}</h3>
                       <span className="font-es text-2xl text-es-saffron">${d.price}</span>
                     </div>
                     <p className="mt-2 text-sm text-es-mute">{d.desc}</p>
@@ -118,7 +118,7 @@ export default function RestaurantDemo() {
           <div className="mx-auto max-w-7xl px-4 sm:px-6">
             <InView>
               <p className="text-xs uppercase tracking-[0.28em] text-es-saffron">The menu</p>
-              <h2 className="mt-4 font-es text-5xl leading-none sm:text-7xl">Tonight, from the fire.</h2>
+              <h2 className="mt-4 font-es text-4xl leading-[1.05] sm:text-6xl">Tonight, from the fire.</h2>
             </InView>
             <div className="mt-12">
               <MenuTabs />
@@ -132,16 +132,16 @@ export default function RestaurantDemo() {
             {chef ? (
               <SiteImage name="demo-resto-chef" sizes="(min-width: 1024px) 45vw, 100vw" className="h-full" />
             ) : (
-              <div className="relative grid h-full place-items-center bg-[radial-gradient(circle_at_50%_70%,#ff6a2b_0%,#6e1f2b_35%,#110c0a_70%)]">
+              <div className="relative grid h-full place-items-center bg-[radial-gradient(circle_at_50%_70%,#12d6f8_0%,#1d6dff_35%,#030820_72%)]">
                 <Particles count={18} />
-                <p className="font-es text-[9rem] italic leading-none text-es-cream/90 drop-shadow-[0_0_40px_rgba(255,106,43,0.8)]">450°</p>
+                <p className="font-es text-[7rem] leading-none text-es-cream/90 drop-shadow-[0_0_40px_rgba(18,214,248,0.8)]">450°</p>
               </div>
             )}
           </Parallax>
           <div>
             <InView>
               <p className="text-xs uppercase tracking-[0.28em] text-es-saffron">Our story</p>
-              <h2 className="mt-4 font-es text-5xl leading-none sm:text-6xl">One fire. No shortcuts.</h2>
+              <h2 className="mt-4 font-es text-4xl leading-[1.05] sm:text-5xl">One fire. No shortcuts.</h2>
               <p className="mt-6 text-lg leading-relaxed text-es-cream/75">
                 Chef Rosa Delgado opened Ember &amp; Salt with a single wood-fired hearth and a promise: cook what&apos;s in season, from farmers she knows, over real flame. Ten years on, the fire has never gone out.
               </p>
@@ -168,7 +168,7 @@ export default function RestaurantDemo() {
         {/* ---------- Experiences ---------- */}
         <section id="experiences" className="mx-auto max-w-7xl px-4 pb-24 sm:px-6 sm:pb-32">
           <InView>
-            <h2 className="font-es text-5xl leading-none sm:text-7xl">More than dinner.</h2>
+            <h2 className="font-es text-4xl leading-[1.05] sm:text-6xl">More than dinner.</h2>
           </InView>
           <ul className="mt-12 grid gap-5 md:grid-cols-3">
             {[
@@ -199,7 +199,7 @@ export default function RestaurantDemo() {
             {reviews.map((r) => (
               <figure key={r.who} className="mr-5 w-[340px] shrink-0 rounded-3xl border border-white/10 bg-es-card p-7 sm:w-[420px]">
                 <p className="text-es-saffron" aria-label="5 out of 5 stars">★★★★★</p>
-                <blockquote className="mt-3 font-es text-2xl leading-snug">&ldquo;{r.q}&rdquo;</blockquote>
+                <blockquote className="mt-3 text-lg font-medium leading-relaxed">&ldquo;{r.q}&rdquo;</blockquote>
                 <figcaption className="mt-4 text-sm text-es-mute">{r.who} · sample review</figcaption>
               </figure>
             ))}
@@ -208,12 +208,12 @@ export default function RestaurantDemo() {
 
         {/* ---------- Book + Visit ---------- */}
         <section id="book" className="relative overflow-hidden py-24 sm:py-32">
-          <div className="dm-pulse-glow absolute -left-40 top-20 -z-10 h-[40rem] w-[40rem] rounded-full bg-[radial-gradient(closest-side,rgba(255,106,43,0.25),transparent)]" aria-hidden="true" />
+          <div className="dm-pulse-glow absolute -left-40 top-20 -z-10 h-[40rem] w-[40rem] rounded-full bg-[radial-gradient(closest-side,rgba(18,214,248,0.25),transparent)]" aria-hidden="true" />
           <div className="mx-auto grid max-w-7xl grid-cols-[minmax(0,1fr)] gap-14 px-4 sm:px-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)]">
             <div id="visit" className="min-w-0">
               <InView>
                 <p className="text-xs uppercase tracking-[0.28em] text-es-saffron">Visit us</p>
-                <h2 className="mt-4 font-es text-5xl leading-none sm:text-7xl">Pull up a chair.</h2>
+                <h2 className="mt-4 font-es text-4xl leading-[1.05] sm:text-6xl">Pull up a chair.</h2>
                 <p className="mt-6 text-lg text-es-cream/75">Walk-ins welcome at the bar. Tables fill fast on weekends, so book ahead.</p>
               </InView>
               <div className="mt-10 grid grid-cols-[minmax(0,1fr)] gap-8 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">

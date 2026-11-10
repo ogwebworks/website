@@ -44,8 +44,8 @@ export default function Reservation() {
     return (
       <div className="dm-fade-up relative overflow-hidden rounded-3xl bg-es-cream p-8 text-es-char shadow-2xl sm:p-10" role="status">
         <div className="absolute -right-10 -top-10 h-40 w-40 rounded-full bg-es-ember/30 blur-2xl" aria-hidden="true" />
-        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#8a3f1f]">Reservation confirmed · {code}</p>
-        <p className="mt-3 font-es text-5xl leading-none">See you soon, {name.split(" ")[0] || "friend"}.</p>
+        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#1747b8]">Reservation confirmed · {code}</p>
+        <p className="mt-3 font-es text-4xl leading-tight">See you soon, {name.split(" ")[0] || "friend"}.</p>
         <dl className="mt-8 grid grid-cols-3 gap-4 border-y border-dashed border-es-char/25 py-5 text-sm">
           <div><dt className="text-es-char/60">Guests</dt><dd className="mt-1 font-es text-2xl">{party}</dd></div>
           <div><dt className="text-es-char/60">Date</dt><dd className="mt-1 font-es text-2xl">{day?.d.toLocaleDateString("en-US", { month: "short", day: "numeric" })}</dd></div>

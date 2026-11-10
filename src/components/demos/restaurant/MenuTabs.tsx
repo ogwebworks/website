@@ -64,9 +64,9 @@ export default function MenuTabs() {
               tabIndex={0}
             >
               <div className="flex items-baseline gap-4">
-                <h3 className="font-es text-2xl transition-colors duration-300 group-hover:text-es-saffron sm:text-3xl">{d.name}</h3>
+                <h3 className="font-es text-xl transition-colors duration-300 group-hover:text-es-ember sm:text-2xl">{d.name}</h3>
                 <span className="flex-1 border-b border-dashed border-white/15" aria-hidden="true" />
-                <span className="font-es text-2xl text-es-saffron">${d.price}</span>
+                <span className="font-es text-xl text-es-saffron sm:text-2xl">${d.price}</span>
               </div>
               <p className="mt-1 flex flex-wrap items-center gap-2 text-es-mute">
                 {d.desc}
@@ -88,7 +88,7 @@ export default function MenuTabs() {
               <div className="dm-spin" style={{ "--dur": "60s" } as React.CSSProperties}>
                 <PlateArt tint={preview.tint} seed={preview.id.length * 7} steam />
               </div>
-              <p className="mt-6 text-center font-es text-3xl italic">{preview.name}</p>
+              <p className="mt-6 text-center font-es text-2xl">{preview.name}</p>
               <p className="mt-1 text-center text-sm text-es-mute">Hover a dish to preview</p>
             </div>
           )}
