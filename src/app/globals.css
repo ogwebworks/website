@@ -21,20 +21,20 @@
   --color-coral: #ff5c39; /* errors only */
 
   /* Demo: tree services */
-  --color-tree-forest: #145a3c;
-  --color-tree-moss: #256b47;
-  --color-tree-cream: #f4f7f2;
-  --color-tree-sand: #e3ece2;
-  --color-tree-ink: #0f2a1f;
-  --color-tree-mute: #4a5f53;
-  --color-tree-orange: #ff8a3d;
+  --color-tree-forest: #0a1f5c;
+  --color-tree-moss: #1a52c4;
+  --color-tree-cream: #f5f8ff;
+  --color-tree-sand: #e5edfb;
+  --color-tree-ink: #071134;
+  --color-tree-mute: #4b5a7d;
+  --color-tree-orange: #12d6f8;
 
   /* Demo: fashion store */
-  --color-mv-ivory: #f7f4f1;
-  --color-mv-sand: #ece6e1;
-  --color-mv-ink: #1a1614;
-  --color-mv-mute: #5f5650;
-  --color-mv-clay: #8a5a44;
+  --color-mv-ivory: #f8faff;
+  --color-mv-sand: #eaf0fb;
+  --color-mv-ink: #030820;
+  --color-mv-mute: #55627f;
+  --color-mv-clay: #1958d6;
 
   /* Demo: restaurant */
   --color-es-char: #030820;

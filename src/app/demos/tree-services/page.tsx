@@ -31,7 +31,7 @@ export default function TreeServicesDemo() {
       <div className="hidden bg-tree-forest text-sm text-tree-cream/85 md:block">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-2">
           <p>Licensed &amp; insured · Certified arborists · Serving the Greater Metro Area since {brand.since}</p>
-          <p className="font-semibold text-[#ffc59a]">24/7 emergency storm service</p>
+          <p className="font-semibold text-[#8fe9fb]">24/7 emergency storm service</p>
         </div>
       </div>
       <TreeNav />
@@ -39,9 +39,9 @@ export default function TreeServicesDemo() {
       <main id="main" className="pb-20 lg:pb-0">
         {/* ---------- Hero ---------- */}
         <div className="relative isolate overflow-hidden">
-        <div className="absolute inset-0 -z-10 bg-[radial-gradient(60%_50%_at_85%_20%,rgba(63,110,53,0.22),transparent_70%),radial-gradient(40%_40%_at_10%_90%,rgba(242,145,58,0.18),transparent_70%)]" aria-hidden="true" />
+        <div className="absolute inset-0 -z-10 bg-[radial-gradient(60%_50%_at_85%_20%,rgba(29,109,255,0.16),transparent_70%),radial-gradient(40%_40%_at_10%_90%,rgba(18,214,248,0.16),transparent_70%)]" aria-hidden="true" />
         {[["8%", "18%", "7s", "0s"], ["46%", "8%", "9s", "-2s"], ["92%", "62%", "8s", "-4s"], ["4%", "78%", "10s", "-1s"]].map(([x, y, dur, d], i) => (
-          <svg key={i} viewBox="0 0 24 24" className="dm-float pointer-events-none absolute -z-10 h-8 w-8 text-tree-moss/40" style={{ left: x, top: y, "--dur": dur, "--d": d, "--rot": "25deg" } as React.CSSProperties} fill="currentColor" aria-hidden="true">
+          <svg key={i} viewBox="0 0 24 24" className="dm-float pointer-events-none absolute -z-10 hidden h-8 w-8 text-tree-moss/40 lg:block" style={{ left: x, top: y, "--dur": dur, "--d": d, "--rot": "25deg" } as React.CSSProperties} fill="currentColor" aria-hidden="true">
             <path d="M5 19c0-8 5-14 15-14 0 10-6 15-14 15Z" />
           </svg>
         ))}

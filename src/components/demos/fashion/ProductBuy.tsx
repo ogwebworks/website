@@ -137,7 +137,7 @@ export default function ProductBuy({ p, src }: { p: Product; src?: string | null
             aria-label={saved ? "Remove from wishlist" : "Add to wishlist"}
             className="grid w-14 place-items-center border border-mv-ink/20 transition hover:border-mv-ink"
           >
-            <svg viewBox="0 0 24 24" className="h-5 w-5" fill={saved ? "#9c4a2f" : "none"} stroke={saved ? "#9c4a2f" : "currentColor"} strokeWidth="1.5" aria-hidden="true">
+            <svg viewBox="0 0 24 24" className="h-5 w-5" fill={saved ? "#1958d6" : "none"} stroke={saved ? "#1958d6" : "currentColor"} strokeWidth="1.5" aria-hidden="true">
               <path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10Z" />
             </svg>
           </button>

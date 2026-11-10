@@ -9,7 +9,7 @@ import { InView, Marquee, Parallax, Words } from "@/components/demos/motion";
 
 export const metadata = { title: { absolute: "Maison Vale: Fashion store demo | OG WebWorks" } };
 
-const catArt = { dresses: ["dress", "#a5583a"], tops: ["top", "#a9bccb"], knitwear: ["knit", "#b98a5a"], outerwear: ["coat", "#5f6348"], trousers: ["trousers", "#2a2d33"], accessories: ["bag", "#5b4033"] } as const;
+const catArt = { dresses: ["dress", "#1d4fd8"], tops: ["top", "#a1c1fa"], knitwear: ["knit", "#e3e9f3"], outerwear: ["coat", "#16264f"], trousers: ["trousers", "#2b3650"], accessories: ["bag", "#0d1530"] } as const;
 
 export default function FashionHome() {
   const imgs = productImages();
@@ -41,10 +41,10 @@ export default function FashionHome() {
             <img src={hero.src} alt={hero.alt} width={hero.w} height={hero.h} fetchPriority="high" className="h-full w-full object-cover" />
           ) : (
             <div className="dm-kenburns grid h-full grid-cols-2" aria-hidden="true">
-              <ProductArt art="coat" hex="#b98a5a" />
+              <ProductArt art="coat" hex="#16264f" />
               <div className="grid grid-rows-2">
-                <ProductArt art="knit" hex="#efe9de" />
-                <ProductArt art="trousers" hex="#2a2d33" />
+                <ProductArt art="knit" hex="#e3e9f3" />
+                <ProductArt art="trousers" hex="#6f9be8" />
               </div>
             </div>
           )}
@@ -109,15 +109,15 @@ export default function FashionHome() {
               <img src={editorial.src} alt={editorial.alt} width={editorial.w} height={editorial.h} loading="lazy" className="h-full w-full object-cover" />
             ) : (
               <div className="grid h-full grid-cols-3" aria-hidden="true">
-                <ProductArt art="bag" hex="#5b4033" />
-                <ProductArt art="dress" hex="#d9cbb4" />
-                <ProductArt art="top" hex="#8f9c84" />
+                <ProductArt art="bag" hex="#0d1530" />
+                <ProductArt art="dress" hex="#a1c1fa" />
+                <ProductArt art="top" hex="#1d4fd8" />
               </div>
             )}
           </Parallax>
           <div className="flex flex-col justify-center p-8 sm:p-14">
             <p className="text-xs uppercase tracking-[0.24em] text-mv-ivory/60">Our materials</p>
-            <h2 className="mt-4 font-mv text-4xl leading-tight sm:text-5xl">Linen from France. Wool from Italy. <span className="text-[#d9b8a6]">Nothing synthetic.</span></h2>
+            <h2 className="mt-4 font-mv text-4xl leading-tight sm:text-5xl">Linen from France. Wool from Italy. <span className="text-[#8fe9fb]">Nothing synthetic.</span></h2>
             <p className="mt-5 max-w-md text-mv-ivory/75">We work with six family-run mills and workshops, and publish the true cost of every piece. Fewer, better things.</p>
             <Link href={`${BASE}/shop`} className="mt-8 w-fit border-b border-mv-ivory pb-0.5 text-sm uppercase tracking-[0.14em]">Discover the collection</Link>
           </div>

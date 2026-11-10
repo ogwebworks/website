@@ -42,9 +42,9 @@ export default function ProductArt({ art, hex, className = "" }: { art: Art; hex
   return (
     <div
       className={`relative grid h-full w-full place-items-center overflow-hidden ${className}`}
-      style={{ background: `radial-gradient(120% 90% at 50% 30%, color-mix(in oklab, ${hex} 22%, #f6f3ee), color-mix(in oklab, ${hex} 38%, #e4ddd2))` }}
+      style={{ background: `radial-gradient(120% 90% at 50% 30%, color-mix(in oklab, ${hex} 18%, #f8faff), color-mix(in oklab, ${hex} 32%, #dfe7f5))` }}
     >
-      <svg viewBox="0 0 400 500" className="h-[82%] w-auto drop-shadow-[0_18px_22px_rgba(20,20,20,0.18)]" style={{ color: hex }} aria-hidden="true">
+      <svg viewBox="0 0 400 500" className="h-[82%] w-auto drop-shadow-[0_18px_22px_rgba(3,8,32,0.18)]" style={{ color: hex }} aria-hidden="true">
         <path d={s.body} fill={hex} />
         <g fill="none" stroke="rgba(0,0,0,0.14)" strokeWidth="2.5" strokeLinecap="round">
           {s.lines.map((d) => (

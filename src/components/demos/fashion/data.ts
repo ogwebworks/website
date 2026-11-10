@@ -31,16 +31,17 @@ export const categories: { id: Category; label: string; blurb: string }[] = [
 ];
 
 const S = ["XS", "S", "M", "L", "XL"];
+// Cool, brand-aligned garment palette (navy / cobalt / ice / slate).
 const C = {
-  oat: { name: "Oat", hex: "#d9cbb4" },
-  ink: { name: "Ink", hex: "#2a2d33" },
-  clay: { name: "Clay", hex: "#a5583a" },
-  sage: { name: "Sage", hex: "#8f9c84" },
-  ivory: { name: "Ivory", hex: "#efe9de" },
-  cocoa: { name: "Cocoa", hex: "#5b4033" },
-  sky: { name: "Sky", hex: "#a9bccb" },
-  olive: { name: "Olive", hex: "#5f6348" },
-  camel: { name: "Camel", hex: "#b98a5a" },
+  oat: { name: "Cloud", hex: "#e3e9f3" },
+  ink: { name: "Midnight", hex: "#0d1530" },
+  clay: { name: "Cobalt", hex: "#1d4fd8" },
+  sage: { name: "Slate", hex: "#8a96aa" },
+  ivory: { name: "Ivory", hex: "#f1f3f7" },
+  cocoa: { name: "Navy", hex: "#16264f" },
+  sky: { name: "Ice", hex: "#a1c1fa" },
+  olive: { name: "Steel", hex: "#4b5872" },
+  camel: { name: "Sky", hex: "#6f9be8" },
 };
 
 export const products: Product[] = [

@@ -6,7 +6,7 @@ import { getProduct, store } from "./data";
 export type Line = { slug: string; color: string; size: string; qty: number };
 type State = { lines: Line[]; open: boolean };
 
-const KEY = "mv-demo-cart";
+const KEY = "mv-demo-cart-v2";
 const EMPTY: State = { lines: [], open: false };
 let state: State | null = null;
 const listeners = new Set<() => void>();

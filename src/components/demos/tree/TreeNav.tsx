@@ -15,9 +15,9 @@ export function TreeLogo({ light = false }: { light?: boolean }) {
   return (
     <span className="inline-flex items-center gap-2.5">
       <svg viewBox="0 0 32 32" className="h-9 w-9" aria-hidden="true">
-        <circle cx="16" cy="16" r="16" fill={light ? "#f7f3ea" : "#1f3d2b"} />
-        <path d="M16 6c-4.5 0-7.5 3.4-7.5 7.2 0 2.3 1.1 4.1 2.8 5.2h9.4c1.7-1.1 2.8-2.9 2.8-5.2C23.5 9.4 20.5 6 16 6Z" fill="#3f6e35" />
-        <path d="M14.6 18.2h2.8V26h-2.8z" fill={light ? "#1f3d2b" : "#f2913a"} />
+        <circle cx="16" cy="16" r="16" fill={light ? "#f5f8ff" : "#0a1f5c"} />
+        <path d="M16 6c-4.5 0-7.5 3.4-7.5 7.2 0 2.3 1.1 4.1 2.8 5.2h9.4c1.7-1.1 2.8-2.9 2.8-5.2C23.5 9.4 20.5 6 16 6Z" fill="#1d6dff" />
+        <path d="M14.6 18.2h2.8V26h-2.8z" fill={light ? "#0a1f5c" : "#12d6f8"} />
       </svg>
       <span className={`font-tree text-xl font-semibold leading-none tracking-tight ${light ? "text-tree-cream" : "text-tree-forest"}`}>
         {brand.name}

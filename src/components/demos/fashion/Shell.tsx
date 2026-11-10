@@ -24,7 +24,7 @@ export default function Shell() {
 
   return (
     <>
-      <div className="bg-mv-ink py-2 text-center text-xs tracking-wide text-mv-ivory">
+      <div className="bg-mv-clay py-2 text-center text-xs tracking-[0.12em] text-white">
         Free shipping over {money(store.freeShipping)} · Free 30-day returns
       </div>
       <header className="sticky top-0 z-40 border-b border-mv-ink/10 bg-mv-ivory/90 backdrop-blur-md">
