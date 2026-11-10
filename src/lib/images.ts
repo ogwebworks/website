@@ -15,10 +15,10 @@ export const imageSlots = {
   "studio-main": { w: 1600, h: 900, alt: "The OG WebWorks studio: a calm, modern workspace with monitors showing website designs at dusk" },
   "studio-detail": { w: 1000, h: 1000, alt: "Hands sketching website wireframes in a notebook next to a laptop" },
   process: { w: 1500, h: 1000, alt: "Isometric illustration of a website moving through discovery, design, build, launch and growth" },
-  "industry-ecommerce": { w: 1200, h: 1500, alt: "Modern online store product page on a phone beside neatly packed parcels" },
-  "industry-healthcare": { w: 1200, h: 1500, alt: "Bright, modern clinic reception with an appointment booking site on a tablet" },
-  "industry-professional": { w: 1200, h: 1500, alt: "Elegant office desk with a professional services website open on a laptop" },
-  "industry-saas": { w: 1200, h: 1500, alt: "Software dashboard interface floating in a dark, glowing 3D scene" },
+  "industry-ecommerce": { w: 1600, h: 900, alt: "Modern online store product page on a phone beside neatly packed parcels" },
+  "industry-healthcare": { w: 1600, h: 900, alt: "Bright, modern clinic reception with an appointment booking site on a tablet" },
+  "industry-professional": { w: 1600, h: 900, alt: "Elegant office desk with a professional services website open on a laptop" },
+  "industry-saas": { w: 1600, h: 900, alt: "Software dashboard interface floating in a dark, glowing 3D scene" },
   og: { w: 1200, h: 630, alt: "OG WebWorks: Original. Digital. Solutions!" },
 } as const;
 

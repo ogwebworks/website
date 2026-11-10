@@ -16,20 +16,25 @@ export default function Industries() {
           <p className="max-w-sm text-paper/65">Different industries, same goal: a site that earns trust in seconds and turns visitors into customers.</p>
         </Reveal>
       </div>
-      <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      <ul className="grid gap-5 md:grid-cols-2">
         {industries.map((ind, i) => (
           <Reveal as="li" key={ind.slug} delay={i * 0.08}>
-            <a href="#contact" className="group relative block aspect-[4/5] overflow-hidden rounded-3xl border border-line">
-              <div className="absolute inset-0 transition-transform duration-700 ease-out-expo group-hover:scale-105">
-                <SiteImage name={ind.image as ImageSlot} labelAtTop sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw" />
+            <a href="#contact" className="group block h-full overflow-hidden rounded-3xl border border-line bg-ink-2 transition-colors duration-500 hover:border-paper/20">
+              <div className="relative aspect-video overflow-hidden">
+                <div className="absolute inset-0 transition-transform duration-700 ease-out-expo group-hover:scale-105">
+                  <SiteImage name={ind.image as ImageSlot} sizes="(min-width: 768px) 50vw, 100vw" />
+                </div>
               </div>
-              <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/40 to-transparent" aria-hidden="true" />
-              <div className="absolute inset-x-0 bottom-0 p-6">
-                <h3 className="font-display text-2xl font-bold tracking-tight">{ind.title}</h3>
-                <p className="mt-2 text-sm text-paper/70">{ind.text}</p>
-                <span className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-lime">
-                  Talk to us
-                  <span className="transition-transform duration-500 ease-out-expo group-hover:translate-x-1" aria-hidden="true">→</span>
+              <div className="flex items-end justify-between gap-6 p-6 sm:p-8">
+                <div>
+                  <h3 className="font-display text-2xl font-bold tracking-tight">{ind.title}</h3>
+                  <p className="mt-2 max-w-sm text-paper/65">{ind.text}</p>
+                </div>
+                <span
+                  className="grid h-11 w-11 shrink-0 place-items-center rounded-full border border-line text-lime transition duration-500 ease-out-expo group-hover:border-lime group-hover:bg-lime group-hover:text-ink"
+                  aria-hidden="true"
+                >
+                  →
                 </span>
               </div>
             </a>
