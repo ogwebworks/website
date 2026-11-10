@@ -6,6 +6,7 @@
   --font-tree: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
   --font-mv: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
   --font-es: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+  --font-re: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
 }
 
 @theme {
@@ -43,6 +44,15 @@
   --color-es-mute: #94a3c7;
   --color-es-ember: #12d6f8;
   --color-es-saffron: #a1c1fa;
+
+  /* Demo: real estate (OG brand palette, "dusk & glass" expression) */
+  --color-re-navy: #071134;
+  --color-re-royal: #0a1f5c;
+  --color-re-ice: #f4f7fd;
+  --color-re-sand: #e6edf9;
+  --color-re-mute: #4b5a7d;
+  --color-re-blue: #1a52c4;
+  --color-re-cyan: #12d6f8;
 
   --font-display: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
@@ -443,7 +453,7 @@ body {
 }
 
 @layer base {
-  .font-tree, .font-mv, .font-es { font-weight: 700; letter-spacing: -0.025em; }
+  .font-tree, .font-mv, .font-es, .font-re { font-weight: 700; letter-spacing: -0.025em; }
 }
 
 /* ---------- Demo motion toolkit (shared by all demo sites) ---------- */
