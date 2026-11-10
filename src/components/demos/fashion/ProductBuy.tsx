@@ -35,7 +35,7 @@ export default function ProductBuy({ p, src }: { p: Product; src?: string | null
   );
 
   return (
-    <div className="mt-6 grid gap-10 lg:grid-cols-[1.15fr_1fr] lg:gap-16">
+    <div className="mt-6 grid grid-cols-[minmax(0,1fr)] gap-10 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] lg:gap-16">
       {/* Gallery */}
       <div className="grid gap-3 sm:grid-cols-[80px_1fr]">
         <div className="order-2 flex gap-3 sm:order-1 sm:flex-col">
@@ -59,7 +59,7 @@ export default function ProductBuy({ p, src }: { p: Product; src?: string | null
       </div>
 
       {/* Buy box */}
-      <div className="lg:sticky lg:top-28 lg:self-start">
+      <div className="min-w-0 lg:sticky lg:top-28 lg:self-start">
         <h1 className="font-mv text-4xl leading-tight sm:text-5xl">{p.name}</h1>
         <p className="mt-3 text-xl">
           {p.compareAt && <span className="mr-2 text-mv-mute line-through">{money(p.compareAt)}</span>}

@@ -209,14 +209,14 @@ export default function RestaurantDemo() {
         {/* ---------- Book + Visit ---------- */}
         <section id="book" className="relative overflow-hidden py-24 sm:py-32">
           <div className="dm-pulse-glow absolute -left-40 top-20 -z-10 h-[40rem] w-[40rem] rounded-full bg-[radial-gradient(closest-side,rgba(255,106,43,0.25),transparent)]" aria-hidden="true" />
-          <div className="mx-auto grid max-w-7xl gap-14 px-4 sm:px-6 lg:grid-cols-[1fr_1.1fr]">
-            <div id="visit">
+          <div className="mx-auto grid max-w-7xl grid-cols-[minmax(0,1fr)] gap-14 px-4 sm:px-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)]">
+            <div id="visit" className="min-w-0">
               <InView>
                 <p className="text-xs uppercase tracking-[0.28em] text-es-saffron">Visit us</p>
                 <h2 className="mt-4 font-es text-5xl leading-none sm:text-7xl">Pull up a chair.</h2>
                 <p className="mt-6 text-lg text-es-cream/75">Walk-ins welcome at the bar. Tables fill fast on weekends, so book ahead.</p>
               </InView>
-              <div className="mt-10 grid gap-8 sm:grid-cols-2">
+              <div className="mt-10 grid grid-cols-[minmax(0,1fr)] gap-8 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
                 <div>
                   <p className="text-xs uppercase tracking-[0.18em] text-es-mute">Hours</p>
                   <table className="mt-3 w-full text-sm">
@@ -254,7 +254,7 @@ export default function RestaurantDemo() {
                 </div>
               </div>
             </div>
-            <InView>
+            <InView className="min-w-0">
               <Reservation />
             </InView>
           </div>
