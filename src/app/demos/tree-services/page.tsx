@@ -266,7 +266,7 @@ export default function TreeServicesDemo() {
             <p className="font-semibold text-tree-cream">This is a demo</p>
             <p className="mt-2">
               {brand.name} is a fictional business. This site was designed and built by{" "}
-              <Link href="/" className="font-semibold text-[#12d6f8] underline underline-offset-4">OG WebWorks</Link> to show what your
+              <Link href="/" target="_top" className="font-semibold text-[#12d6f8] underline underline-offset-4">OG WebWorks</Link> to show what your
               website could look like.
             </p>
           </div>
