@@ -20,6 +20,14 @@ export const imageSlots = {
   "industry-professional": { w: 1600, h: 900, alt: "Elegant office desk with a professional services website open on a laptop" },
   "industry-saas": { w: 1600, h: 900, alt: "Software dashboard interface floating in a dark, glowing 3D scene" },
   og: { w: 1200, h: 630, alt: "OG WebWorks: Original. Digital. Solutions!" },
+  // --- Demo: tree services (fictional business) ---
+  "demo-tree-hero": { w: 1600, h: 1200, alt: "Arborist in safety gear pruning a large oak tree in a sunny backyard" },
+  "demo-tree-before": { w: 1600, h: 1000, alt: "Before: an overgrown, storm-damaged tree leaning over a house roof" },
+  "demo-tree-after": { w: 1600, h: 1000, alt: "After: the same yard, tree safely removed and the lawn cleaned up" },
+  "demo-tree-gallery-1": { w: 1200, h: 900, alt: "Crew lowering a cut limb with ropes" },
+  "demo-tree-gallery-2": { w: 1200, h: 900, alt: "Stump grinder working on a freshly cut stump" },
+  "demo-tree-gallery-3": { w: 1200, h: 900, alt: "Neatly pruned trees lining a tidy front yard" },
+  "demo-tree-thumb": { w: 1600, h: 1000, alt: "Preview of the Canopy & Crown tree services demo website" },
 } as const;
 
 export type ImageSlot = keyof typeof imageSlots;

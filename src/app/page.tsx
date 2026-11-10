@@ -12,6 +12,7 @@ import ProposalForm from "@/components/ProposalForm";
 import Footer from "@/components/Footer";
 import Studio from "@/components/Studio";
 import Industries from "@/components/Industries";
+import Demos from "@/components/Demos";
 import SiteImage from "@/components/SiteImage";
 import { faqs, services, site } from "@/lib/site";
 
@@ -63,6 +64,7 @@ export default function Home() {
         <Studio />
         <Statement />
         <Industries />
+        <Demos />
         <Process media={<SiteImage name="process" sizes="(min-width: 1024px) 32rem, 100vw" className="aspect-[3/2]" />} />
         <AiCallout />
         <Comparison />

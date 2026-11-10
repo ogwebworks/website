@@ -6,6 +6,7 @@ import Logo from "./Logo";
 import { pillars, services } from "@/lib/site";
 
 const links = [
+  { href: "#demos", label: "Demos" },
   { href: "#why", label: "Why OG" },
   { href: "#process", label: "Process" },
   { href: "#faq", label: "FAQ" },

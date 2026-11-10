@@ -1,6 +1,11 @@
 @import "tailwindcss";
 
 /* ---------- Design tokens ---------- */
+/* inline: the Fraunces variable is set on the demo wrapper, not :root */
+@theme inline {
+  --font-tree: var(--font-fraunces), Georgia, serif;
+}
+
 @theme {
   --color-ink: #030820;
   --color-ink-2: #071134;
@@ -12,6 +17,15 @@
   --color-azure: #1d6dff;
   --color-ice: #a1c1fa;
   --color-coral: #ff5c39; /* errors only */
+
+  /* Demo: tree services */
+  --color-tree-forest: #1f3d2b;
+  --color-tree-moss: #3f6e35;
+  --color-tree-cream: #f7f3ea;
+  --color-tree-sand: #ece4d4;
+  --color-tree-ink: #16241b;
+  --color-tree-mute: #4f5f54;
+  --color-tree-orange: #f2913a;
 
   --font-display: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;

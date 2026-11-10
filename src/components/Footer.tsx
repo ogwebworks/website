@@ -25,6 +25,7 @@ export default function Footer() {
         <nav aria-label="Company">
           <p className="mb-4 text-sm font-semibold uppercase tracking-[0.18em] text-mute">Company</p>
           <ul className="space-y-2.5 text-paper/80">
+            <li><a href="#demos" className="hover:text-brand">Live demos</a></li>
             <li><a href="#why" className="hover:text-brand">Why OG</a></li>
             <li><a href="#process" className="hover:text-brand">Process</a></li>
             <li><a href="#faq" className="hover:text-brand">FAQ</a></li>

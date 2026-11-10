@@ -87,3 +87,39 @@
 - "ogwebworks.com" small, in grey #9AA0B4
 
 Export as PNG, save as `images-src/og.png`, then run `npm run images`.
+
+---
+
+# Demo site: Canopy & Crown (tree services)
+
+The demo uses **its own style**, not the agency's navy and cyan: natural daylight, warm and trustworthy, like a premium local business.
+
+**Demo base style:**
+> Professional editorial photography for a premium local tree-care company. Bright natural daylight or warm golden hour, lush green suburban setting, crisp detail, realistic colours, shallow depth of field. Crew wears forest-green work shirts, orange safety helmets, ear protection, gloves and safety glasses. Clean, safe, professional, trustworthy. No text, no logos on clothing or vehicles, no watermarks.
+
+**Negative:** text, logos, brand names, watermarks, unsafe practices (no helmet, chainsaw above shoulder height without rigging), distorted hands, extra limbs, faces looking at camera, cartoon, oversaturated.
+
+## D1. `demo-tree-hero`: hero image
+**Size:** 1600×1200 · **Ratio:** 4:3
+> A certified arborist in a forest-green shirt, orange safety helmet and climbing harness, secured with ropes high in a large mature oak, carefully pruning a branch with a small pole saw. A sunny, well-kept suburban backyard below with a tidy lawn and a modern family home slightly out of focus. Golden afternoon light filtering through the leaves, lens flare, low angle looking up. Confident, safe, skilled. [Demo base style]
+
+## D2 + D3. `demo-tree-before` and `demo-tree-after`: the before/after slider
+**Size:** 1600×1000 · **Ratio:** 16:10. **Both must have the exact same framing**, or the slider won't line up.
+1. Generate **before** first:
+   > Wide, eye-level photo of a suburban house's backyard after a storm: a large, half-uprooted tree leaning dangerously toward the roof, broken branches on the lawn and patio, overcast grey sky. Same fixed camera position as a real-estate photo. [Demo base style]
+2. Then make **after** by editing the before image (ChatGPT image edit, Photoshop Generative Fill, or Midjourney "Vary Region"), **not** as a fresh prompt:
+   > Same photo, same camera angle and house. The fallen tree is completely removed, the stump ground away, the lawn clean and green, the patio swept, bright sunny blue sky. Everything else identical.
+
+## D4. `demo-tree-gallery-1`: crew at work
+**Size:** 1200×900 · **Ratio:** 4:3
+> Two tree-care crew members in helmets and gloves lowering a large cut limb with a rope-and-pulley rigging system in a green backyard, controlled and careful, motion blur on the rope. Bright daylight. [Demo base style]
+
+## D5. `demo-tree-gallery-2`: stump grinding
+**Size:** 1200×900 · **Ratio:** 4:3
+> Close-up of a compact orange stump grinder working on a freshly cut tree stump in a lawn, wood chips flying, operator's gloved hands and safety glasses visible but face not shown. Shallow depth of field, crisp chips, warm afternoon light. [Demo base style]
+
+## D6. `demo-tree-gallery-3`: finished result
+**Size:** 1200×900 · **Ratio:** 4:3
+> A beautifully maintained front yard of a modern suburban home: neatly pruned shade trees with balanced crowns, a fresh-cut lawn, clean flower beds, warm golden-hour light. Calm, proud, finished. [Demo base style]
+
+`demo-tree-thumb` (the homepage preview) is a **screenshot of the demo itself**. It gets regenerated after the demo images are added, so there's no prompt for it.
