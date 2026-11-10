@@ -8,7 +8,6 @@ import { pillars, services } from "@/lib/site";
 const links = [
   { href: "#why", label: "Why OG" },
   { href: "#process", label: "Process" },
-  { href: "#pricing", label: "Pricing" },
   { href: "#faq", label: "FAQ" },
 ];
 
@@ -74,7 +73,7 @@ export default function Header() {
           <div className="flex items-center gap-2">
             <a
               href="#contact"
-              className="group relative hidden overflow-hidden rounded-full bg-lime px-5 py-2.5 text-sm font-semibold text-ink transition hover:shadow-[0_0_30px_-4px_var(--color-lime)] sm:inline-flex"
+              className="group relative hidden overflow-hidden rounded-full bg-brand px-5 py-2.5 text-sm font-semibold text-ink transition hover:shadow-[0_0_30px_-4px_var(--color-brand)] sm:inline-flex"
             >
               <span className="relative z-10">Get a Free Proposal</span>
               <span className="absolute inset-0 -translate-x-full bg-white/40 transition-transform duration-700 ease-out-expo group-hover:translate-x-full" aria-hidden="true" />
@@ -150,7 +149,7 @@ export default function Header() {
                 </m.li>
               ))}
             </ul>
-            <a href="#contact" onClick={() => setMobile(false)} className="mt-8 block rounded-full bg-lime px-6 py-4 text-center font-semibold text-ink">
+            <a href="#contact" onClick={() => setMobile(false)} className="mt-8 block rounded-full bg-brand px-6 py-4 text-center font-semibold text-ink">
               Get a Free Proposal
             </a>
           </m.div>

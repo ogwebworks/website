@@ -1,5 +1,7 @@
 # OG WebWorks: image prompts
 
+> **Palette (v2, from the logo):** navy #030820, cyan #12D6F8, azure #0A95FC, blue #1D6DFF, ice #A1C1FA. In the prompts below, read "lime" as cyan and "violet" as electric blue. The existing images were recoloured from lime/violet with `scripts/recolor-images.py`.
+
 11 image slots. Each one shows a labelled placeholder on the site until its file is added.
 
 ## Workflow
@@ -26,7 +28,7 @@
 ---
 
 ## Base style (paste at the start or end of every prompt)
-> Premium tech-agency visual, cinematic and moody. Deep ink-navy environment (#06070D to #161A2B). Accent lighting in electric lime (#C6F432) and violet (#7B61FF), with tiny touches of coral (#FF5C39). Soft volumetric light, subtle film grain, shallow depth of field, crisp detail, clean composition with generous negative space. Modern, confident, original.
+> Premium tech-agency visual, cinematic and moody. Deep midnight-navy environment (#030820 to #0C1A4A). Accent lighting in bright cyan (#12D6F8) and electric blue (#1D6DFF), with soft ice-blue highlights (#A1C1FA). Soft volumetric light, subtle film grain, shallow depth of field, crisp detail, clean composition with generous negative space. Modern, confident, original.
 
 ## Negative prompt (paste into "negative" / "--no", or end with "Avoid: …")
 > text, words, letters, numbers, typography, captions, logos, brand names, watermarks, signatures, UI labels, garbled writing, blurry, low resolution, oversaturated, cartoonish, clip-art, stock-photo clichés (handshakes, thumbs up, people pointing at screens), distorted hands, extra fingers, faces looking at camera

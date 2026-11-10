@@ -9,7 +9,7 @@ export default function Marquee() {
       {items.map((t) => (
         <li key={t} className="flex items-center gap-10 whitespace-nowrap font-display text-2xl font-semibold tracking-tight sm:text-4xl">
           {t}
-          <svg viewBox="0 0 24 24" className="h-5 w-5 text-lime sm:h-7 sm:w-7" fill="currentColor" aria-hidden="true">
+          <svg viewBox="0 0 24 24" className="h-5 w-5 text-brand sm:h-7 sm:w-7" fill="currentColor" aria-hidden="true">
             <path d="M12 0l2.6 9.4L24 12l-9.4 2.6L12 24l-2.6-9.4L0 12l9.4-2.6z" />
           </svg>
         </li>

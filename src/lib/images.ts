@@ -10,7 +10,7 @@ import path from "node:path";
  */
 export const imageSlots = {
   "pillar-build": { w: 1600, h: 900, alt: "Designer's workspace with a custom website layout taking shape across a laptop and wireframe sketches" },
-  "pillar-grow": { w: 1600, h: 900, alt: "Abstract 3D growth chart rising through a dark scene, glowing lime and violet" },
+  "pillar-grow": { w: 1600, h: 900, alt: "Abstract 3D growth chart rising through a dark scene, glowing brand and azure" },
   "pillar-fix": { w: 1600, h: 900, alt: "Close-up of code on a monitor with an error being resolved and a green status light" },
   "studio-main": { w: 1600, h: 900, alt: "The OG WebWorks studio: a calm, modern workspace with monitors showing website designs at dusk" },
   "studio-detail": { w: 1000, h: 1000, alt: "Hands sketching website wireframes in a notebook next to a laptop" },

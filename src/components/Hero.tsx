@@ -6,9 +6,9 @@ import MagneticButton from "./MagneticButton";
 import HeroVisual from "./HeroVisual";
 
 const words = [
-  { text: "Original.", className: "text-paper", glow: "rgb(244 245 248 / 0.75)" },
-  { text: "Digital.", className: "text-gradient", glow: "rgb(198 244 50 / 0.85)" },
-  { text: "Solutions!", className: "text-transparent [-webkit-text-stroke:1.5px_var(--color-paper)] sm:[-webkit-text-stroke:2px_var(--color-paper)]", glow: "rgb(123 97 255 / 0.95)" },
+  { text: "Original.", className: "text-paper", glow: "rgb(242 246 255 / 0.75)" },
+  { text: "Digital.", className: "text-gradient", glow: "rgb(18 214 248 / 0.85)" },
+  { text: "Solutions!", className: "text-transparent [-webkit-text-stroke:1.5px_var(--color-paper)] sm:[-webkit-text-stroke:2px_var(--color-paper)]", glow: "rgb(29 109 255 / 0.95)" },
 ];
 
 export default function Hero() {
@@ -50,8 +50,8 @@ export default function Hero() {
           style={{ "--delay": "0ms" } as React.CSSProperties}
         >
           <span className="relative flex h-2 w-2">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-lime opacity-75" />
-            <span className="relative inline-flex h-2 w-2 rounded-full bg-lime" />
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand opacity-75" />
+            <span className="relative inline-flex h-2 w-2 rounded-full bg-brand" />
           </span>
           Digital agency · Worldwide
         </p>
@@ -80,7 +80,7 @@ export default function Hero() {
         <div className="hero-rise mt-10 flex w-full flex-col items-center gap-4 sm:w-auto sm:flex-row xl:items-center" style={{ "--delay": "1650ms" } as React.CSSProperties}>
           <MagneticButton href="#contact">Get a Free Proposal</MagneticButton>
 
-          <form onSubmit={startCheck} className="flex w-full max-w-md items-center rounded-full border border-line bg-white/[0.04] p-1.5 focus-within:border-lime/60">
+          <form onSubmit={startCheck} className="flex w-full max-w-md items-center rounded-full border border-line bg-white/[0.04] p-1.5 focus-within:border-brand/60">
             <label htmlFor="hero-url" className="sr-only">
               Your website URL
             </label>
@@ -114,7 +114,7 @@ export default function Hero() {
       >
         Scroll
         <span className="relative h-10 w-px overflow-hidden bg-line">
-          <span className="scroll-cue absolute left-0 top-0 h-4 w-px bg-lime" />
+          <span className="scroll-cue absolute left-0 top-0 h-4 w-px bg-brand" />
         </span>
       </div>
     </section>

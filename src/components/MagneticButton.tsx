@@ -30,7 +30,7 @@ export default function MagneticButton({
 
   const styles =
     variant === "primary"
-      ? "bg-lime text-ink hover:shadow-[0_0_50px_-6px_var(--color-lime)]"
+      ? "bg-brand text-ink hover:shadow-[0_0_50px_-6px_var(--color-brand)]"
       : "border border-line bg-white/[0.04] text-paper hover:bg-white/10";
 
   return (

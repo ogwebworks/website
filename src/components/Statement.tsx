@@ -9,7 +9,7 @@ const text =
 function Word({ children, progress, range }: { children: string; progress: MotionValue<number>; range: [number, number] }) {
   const highlight = /original|instantly|ranks|AI|converts/i.test(children);
   // Animate colour (not opacity) between contrast-safe tones (>= 3:1 on ink, WCAG large text).
-  const color = useTransform(progress, range, highlight ? ["#5f7a2a", "#c6f432"] : ["#62677a", "#f4f5f8"]);
+  const color = useTransform(progress, range, highlight ? ["#1e7a91", "#12d6f8"] : ["#61709a", "#f2f6ff"]);
   return (
     <m.span style={{ color }} className="mr-[0.25em] inline-block">
       {children}

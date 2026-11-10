@@ -81,7 +81,7 @@ export default function Pillars({ media = {} }: { media?: Partial<Record<string,
     <section id="services" className="container-x py-28 sm:py-36">
       <div className="mb-14 flex flex-col justify-between gap-6 md:flex-row md:items-end">
         <Reveal>
-          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-lime">Services</p>
+          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-brand">Services</p>
           <h2 className="mt-4 max-w-2xl font-display text-4xl font-bold tracking-tight sm:text-6xl">
             Everything your brand needs online, under one roof.
           </h2>

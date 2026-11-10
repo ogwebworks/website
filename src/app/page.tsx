@@ -7,7 +7,6 @@ import Statement from "@/components/Statement";
 import Process from "@/components/Process";
 import AiCallout from "@/components/AiCallout";
 import Comparison from "@/components/Comparison";
-import Pricing from "@/components/Pricing";
 import Faq from "@/components/Faq";
 import ProposalForm from "@/components/ProposalForm";
 import Footer from "@/components/Footer";
@@ -25,6 +24,8 @@ const jsonLd = {
       name: site.name,
       url: site.url,
       slogan: site.tagline,
+      logo: `${site.url}/logo.png`,
+      image: `${site.url}/images/og.jpg`,
       description: site.description,
       email: site.email,
       areaServed: "Worldwide",
@@ -65,7 +66,6 @@ export default function Home() {
         <Process media={<SiteImage name="process" sizes="(min-width: 1024px) 32rem, 100vw" className="aspect-[3/2]" />} />
         <AiCallout />
         <Comparison />
-        <Pricing />
         <Faq />
         <ProposalForm />
       </main>

@@ -34,21 +34,21 @@ export const pillars = [
     word: "Original.",
     title: "Build",
     blurb: "Hand-crafted websites and brands. Zero templates, all intent.",
-    accent: "var(--color-lime)",
+    accent: "var(--color-brand)",
   },
   {
     id: "grow",
     word: "Digital.",
     title: "Grow",
     blurb: "Search, AI visibility and ads that turn traffic into revenue.",
-    accent: "var(--color-violet)",
+    accent: "var(--color-azure)",
   },
   {
     id: "fix",
     word: "Solutions!",
     title: "Fix",
     blurb: "Errors, outages and hacks resolved, then kept from coming back.",
-    accent: "var(--color-coral)",
+    accent: "var(--color-ice)",
   },
 ] as const;
 

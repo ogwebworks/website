@@ -10,7 +10,7 @@ export default function Faq() {
   return (
     <section id="faq" className="container-x grid gap-12 py-24 sm:py-32 lg:grid-cols-[0.8fr_1.2fr]">
       <Reveal>
-        <p className="text-sm font-semibold uppercase tracking-[0.2em] text-lime">FAQ</p>
+        <p className="text-sm font-semibold uppercase tracking-[0.2em] text-brand">FAQ</p>
         <h2 className="mt-4 font-display text-4xl font-bold tracking-tight sm:text-6xl">Straight answers.</h2>
       </Reveal>
       <ul className="divide-y divide-line border-y border-line">
@@ -28,7 +28,7 @@ export default function Faq() {
                   onClick={() => setOpen(isOpen ? null : i)}
                 >
                   {f.q}
-                  <span className={`grid h-9 w-9 shrink-0 place-items-center rounded-full border border-line transition duration-500 ${isOpen ? "rotate-45 border-lime bg-lime text-ink" : ""}`} aria-hidden="true">
+                  <span className={`grid h-9 w-9 shrink-0 place-items-center rounded-full border border-line transition duration-500 ${isOpen ? "rotate-45 border-brand bg-brand text-ink" : ""}`} aria-hidden="true">
                     +
                   </span>
                 </button>

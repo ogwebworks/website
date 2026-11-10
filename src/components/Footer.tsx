@@ -8,7 +8,7 @@ export default function Footer() {
         <div>
           <Logo />
           <p className="mt-5 max-w-xs text-paper/60">{site.description}</p>
-          <a href={`mailto:${site.email}`} className="mt-6 inline-block font-display text-xl font-semibold underline decoration-lime decoration-2 underline-offset-8 hover:text-lime">
+          <a href={`mailto:${site.email}`} className="mt-6 inline-block font-display text-xl font-semibold underline decoration-brand decoration-2 underline-offset-8 hover:text-brand">
             {site.email}
           </a>
         </div>
@@ -17,7 +17,7 @@ export default function Footer() {
           <ul className="space-y-2.5 text-paper/80">
             {services.map((s) => (
               <li key={s.slug}>
-                <a href="#services" className="hover:text-lime">{s.title}</a>
+                <a href="#services" className="hover:text-brand">{s.title}</a>
               </li>
             ))}
           </ul>
@@ -25,11 +25,10 @@ export default function Footer() {
         <nav aria-label="Company">
           <p className="mb-4 text-sm font-semibold uppercase tracking-[0.18em] text-mute">Company</p>
           <ul className="space-y-2.5 text-paper/80">
-            <li><a href="#why" className="hover:text-lime">Why OG</a></li>
-            <li><a href="#process" className="hover:text-lime">Process</a></li>
-            <li><a href="#pricing" className="hover:text-lime">Pricing</a></li>
-            <li><a href="#faq" className="hover:text-lime">FAQ</a></li>
-            <li><a href="#contact" className="hover:text-lime">Get a proposal</a></li>
+            <li><a href="#why" className="hover:text-brand">Why OG</a></li>
+            <li><a href="#process" className="hover:text-brand">Process</a></li>
+            <li><a href="#faq" className="hover:text-brand">FAQ</a></li>
+            <li><a href="#contact" className="hover:text-brand">Get a proposal</a></li>
           </ul>
         </nav>
       </div>

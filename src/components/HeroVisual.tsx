@@ -46,8 +46,8 @@ export default function HeroVisual() {
             <div className="hv-screen">
               <div className="hv-browser">
                 <span className="hv-dot bg-coral" />
-                <span className="hv-dot bg-lime" />
-                <span className="hv-dot bg-violet" />
+                <span className="hv-dot bg-brand" />
+                <span className="hv-dot bg-azure" />
                 <span className="hv-url">ogwebworks.com</span>
               </div>
               <div className="hv-site">
@@ -71,8 +71,8 @@ export default function HeroVisual() {
                       <path d="M0 58 L20 44 L36 50 L56 26 L74 34 L100 8 L100 70 L0 70 Z" fill={`url(#${imgId})`} />
                       <defs>
                         <linearGradient id={imgId} x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="0" stopColor="#7b61ff" stopOpacity="0.9" />
-                          <stop offset="1" stopColor="#7b61ff" stopOpacity="0.1" />
+                          <stop offset="0" stopColor="#1d6dff" stopOpacity="0.9" />
+                          <stop offset="1" stopColor="#1d6dff" stopOpacity="0.1" />
                         </linearGradient>
                       </defs>
                     </svg>
@@ -98,7 +98,7 @@ export default function HeroVisual() {
         {/* ---------- AI answer card (GEO) ---------- */}
         <div className="hv-card hv-ai" style={{ "--z": "9cqw", "--f": "7s", "--in": "1.5s" } as React.CSSProperties}>
           <p className="hv-label">
-            <span className="text-lime">✦</span> AI answer
+            <span className="text-brand">✦</span> AI answer
           </p>
           <span className="hv-line" />
           <span className="hv-line hv-line-short" />
@@ -116,16 +116,16 @@ export default function HeroVisual() {
           <svg viewBox="0 0 120 50" className="hv-chart">
             <defs>
               <linearGradient id={areaId} x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0" stopColor="#c6f432" stopOpacity="0.45" />
-                <stop offset="1" stopColor="#c6f432" stopOpacity="0" />
+                <stop offset="0" stopColor="#12d6f8" stopOpacity="0.45" />
+                <stop offset="1" stopColor="#12d6f8" stopOpacity="0" />
               </linearGradient>
             </defs>
             {[12.5, 25, 37.5].map((y) => (
               <line key={y} x1="0" x2="120" y1={y} y2={y} stroke="rgb(255 255 255 / 0.07)" />
             ))}
             <path className="hv-area" d="M0 44 L15 40 L30 41 L45 33 L60 35 L75 24 L90 21 L105 12 L120 5 L120 50 L0 50 Z" fill={`url(#${areaId})`} />
-            <path className="hv-trend" d="M0 44 L15 40 L30 41 L45 33 L60 35 L75 24 L90 21 L105 12 L120 5" fill="none" stroke="#c6f432" strokeWidth="2" strokeLinejoin="round" strokeLinecap="round" pathLength={100} />
-            <circle className="hv-peak" cx="120" cy="5" r="3" fill="#c6f432" />
+            <path className="hv-trend" d="M0 44 L15 40 L30 41 L45 33 L60 35 L75 24 L90 21 L105 12 L120 5" fill="none" stroke="#12d6f8" strokeWidth="2" strokeLinejoin="round" strokeLinecap="round" pathLength={100} />
+            <circle className="hv-peak" cx="120" cy="5" r="3" fill="#12d6f8" />
           </svg>
           <div className="hv-bars">
             {[38, 52, 46, 68, 80, 96].map((h, i) => (
@@ -138,8 +138,8 @@ export default function HeroVisual() {
         <div className="hv-card hv-score" style={{ "--z": "14cqw", "--f": "6.5s", "--in": "2.1s" } as React.CSSProperties}>
           <svg viewBox="0 0 44 44" className="hv-ring">
             <circle cx="22" cy="22" r="18" fill="none" stroke="rgb(255 255 255 / 0.1)" strokeWidth="4" />
-            <circle className="hv-ring-fg" cx="22" cy="22" r="18" fill="none" stroke="#c6f432" strokeWidth="4" strokeLinecap="round" pathLength={100} transform="rotate(-90 22 22)" />
-            <text x="22" y="26.5" textAnchor="middle" fontSize="12" fontWeight="700" fill="#f4f5f8" fontFamily="var(--font-space-grotesk), sans-serif">
+            <circle className="hv-ring-fg" cx="22" cy="22" r="18" fill="none" stroke="#12d6f8" strokeWidth="4" strokeLinecap="round" pathLength={100} transform="rotate(-90 22 22)" />
+            <text x="22" y="26.5" textAnchor="middle" fontSize="12" fontWeight="700" fill="#f2f6ff" fontFamily="var(--font-space-grotesk), sans-serif">
               98
             </text>
           </svg>

@@ -21,7 +21,7 @@ export default function Process({ media }: { media?: ReactNode }) {
     <section id="process" className="container-x grid gap-16 py-28 sm:py-36 lg:grid-cols-[0.9fr_1.1fr]">
       <div className="lg:sticky lg:top-32 lg:self-start">
         <Reveal>
-          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-violet">Process</p>
+          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-azure">Process</p>
           <h2 className="mt-4 font-display text-4xl font-bold tracking-tight sm:text-6xl">From idea to impact in five moves.</h2>
           <p className="mt-6 max-w-md text-paper/65">
             A clear process with fixed milestones. You always know what&apos;s happening, what&apos;s next and what it costs.
@@ -38,14 +38,14 @@ export default function Process({ media }: { media?: ReactNode }) {
         <div className="absolute left-3 top-2 h-[calc(100%-1rem)] w-px bg-line sm:left-5" aria-hidden="true" />
         <m.div
           style={{ scaleY }}
-          className="absolute left-3 top-2 h-[calc(100%-1rem)] w-px origin-top bg-gradient-to-b from-lime via-violet to-coral sm:left-5"
+          className="absolute left-3 top-2 h-[calc(100%-1rem)] w-px origin-top bg-gradient-to-b from-brand via-azure to-ice sm:left-5"
           aria-hidden="true"
         />
         <ol className="space-y-14">
           {steps.map((s, i) => (
             <Reveal as="li" key={s.n} delay={i * 0.05} className="relative">
               <span className="absolute -left-10 top-1 grid h-6 w-6 place-items-center rounded-full border border-line bg-ink sm:-left-14 sm:h-10 sm:w-10" aria-hidden="true">
-                <span className="h-1.5 w-1.5 rounded-full bg-lime sm:h-2 sm:w-2" />
+                <span className="h-1.5 w-1.5 rounded-full bg-brand sm:h-2 sm:w-2" />
               </span>
               <span className="font-display text-sm font-semibold text-mute">{s.n}</span>
               <h3 className="mt-1 font-display text-3xl font-bold tracking-tight sm:text-4xl">{s.title}</h3>

@@ -33,7 +33,7 @@ export default function Pricing() {
   return (
     <section id="pricing" className="container-x py-24 sm:py-32">
       <Reveal className="mx-auto mb-14 max-w-2xl text-center">
-        <p className="text-sm font-semibold uppercase tracking-[0.2em] text-violet">Care plans</p>
+        <p className="text-sm font-semibold uppercase tracking-[0.2em] text-azure">Care plans</p>
         <h2 className="mt-4 font-display text-4xl font-bold tracking-tight sm:text-6xl">Honest pricing. No surprises.</h2>
         <p className="mt-5 text-paper/65">
           Websites, branding, SEO and ads are quoted per project after a free strategy call. Maintenance is simple:
@@ -44,11 +44,11 @@ export default function Pricing() {
           <Reveal key={p.name} delay={i * 0.08}>
             <div
               className={`relative flex h-full flex-col rounded-3xl border p-8 transition duration-500 hover:-translate-y-1 ${
-                p.featured ? "border-lime/50 bg-gradient-to-b from-lime/[0.09] to-ink-2 shadow-[0_0_80px_-30px_var(--color-lime)]" : "border-line bg-ink-2"
+                p.featured ? "border-brand/50 bg-gradient-to-b from-brand/[0.09] to-ink-2 shadow-[0_0_80px_-30px_var(--color-brand)]" : "border-line bg-ink-2"
               }`}
             >
               {p.featured && (
-                <span className="absolute -top-3 left-8 rounded-full bg-lime px-3 py-1 text-xs font-bold uppercase tracking-wider text-ink">Most popular</span>
+                <span className="absolute -top-3 left-8 rounded-full bg-brand px-3 py-1 text-xs font-bold uppercase tracking-wider text-ink">Most popular</span>
               )}
               <h3 className="font-display text-2xl font-semibold">{p.name}</h3>
               <p className="mt-1 text-sm text-mute">{p.blurb}</p>
@@ -59,7 +59,7 @@ export default function Pricing() {
               <ul className="mt-8 flex-1 space-y-3 text-sm">
                 {p.features.map((f) => (
                   <li key={f} className="flex gap-3">
-                    <span className="text-lime" aria-hidden="true">✦</span>
+                    <span className="text-brand" aria-hidden="true">✦</span>
                     {f}
                   </li>
                 ))}
@@ -68,7 +68,7 @@ export default function Pricing() {
               <a
                 href="#contact"
                 className={`mt-6 block rounded-full px-6 py-3.5 text-center font-semibold transition ${
-                  p.featured ? "bg-lime text-ink hover:brightness-110" : "border border-line hover:bg-white/5"
+                  p.featured ? "bg-brand text-ink hover:brightness-110" : "border border-line hover:bg-white/5"
                 }`}
               >
                 Choose {p.name}

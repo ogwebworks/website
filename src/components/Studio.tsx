@@ -19,14 +19,14 @@ export default function Studio() {
           <SiteImage name="studio-detail" sizes="(min-width: 1024px) 20vw, 44vw" className="aspect-square" />
         </div>
         <div className="absolute -left-3 top-8 rounded-2xl border border-line bg-ink-2/95 px-4 py-3 shadow-xl sm:-left-6">
-          <p className="font-display text-2xl font-bold text-lime">100%</p>
+          <p className="font-display text-2xl font-bold text-brand">100%</p>
           <p className="text-xs text-mute">custom. Zero templates</p>
         </div>
       </Reveal>
 
       <div>
         <Reveal>
-          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-coral">The studio</p>
+          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-ice">The studio</p>
           <h2 className="mt-4 font-display text-4xl font-bold tracking-tight sm:text-6xl">
             A small, senior team. Big-agency standards.
           </h2>
@@ -38,7 +38,7 @@ export default function Studio() {
         <ul className="mt-10 space-y-6">
           {points.map((p, i) => (
             <Reveal as="li" key={p.t} delay={0.08 * i} className="flex gap-4">
-              <span className="mt-1 grid h-8 w-8 shrink-0 place-items-center rounded-full bg-lime/15 text-sm text-lime" aria-hidden="true">
+              <span className="mt-1 grid h-8 w-8 shrink-0 place-items-center rounded-full bg-brand/15 text-sm text-brand" aria-hidden="true">
                 ✓
               </span>
               <span>

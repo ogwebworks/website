@@ -9,7 +9,7 @@ export default function Industries() {
     <section id="industries" className="container-x py-24 sm:py-32">
       <div className="mb-12 flex flex-col justify-between gap-6 md:flex-row md:items-end">
         <Reveal>
-          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-lime">Who we help</p>
+          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-brand">Who we help</p>
           <h2 className="mt-4 max-w-2xl font-display text-4xl font-bold tracking-tight sm:text-6xl">Built for businesses that sell online.</h2>
         </Reveal>
         <Reveal delay={0.1}>
@@ -31,7 +31,7 @@ export default function Industries() {
                   <p className="mt-2 max-w-sm text-paper/65">{ind.text}</p>
                 </div>
                 <span
-                  className="grid h-11 w-11 shrink-0 place-items-center rounded-full border border-line text-lime transition duration-500 ease-out-expo group-hover:border-lime group-hover:bg-lime group-hover:text-ink"
+                  className="grid h-11 w-11 shrink-0 place-items-center rounded-full border border-line text-brand transition duration-500 ease-out-expo group-hover:border-brand group-hover:bg-brand group-hover:text-ink"
                   aria-hidden="true"
                 >
                   →
