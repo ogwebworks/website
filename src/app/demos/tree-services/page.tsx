@@ -5,6 +5,7 @@ import BeforeAfter from "@/components/demos/tree/BeforeAfter";
 import EstimateForm from "@/components/demos/tree/EstimateForm";
 import SiteImage from "@/components/SiteImage";
 import { areas, brand, faqs, reviews, services } from "@/components/demos/tree/data";
+import { CountUp, InView, Marquee, Words } from "@/components/demos/motion";
 
 const icons: Record<string, React.ReactNode> = {
   axe: <path d="M14 3 21 10l-3 3-2-2-8 8-3-3 8-8-2-2 3-3Z" />,
@@ -37,20 +38,28 @@ export default function TreeServicesDemo() {
 
       <main id="main" className="pb-20 lg:pb-0">
         {/* ---------- Hero ---------- */}
+        <div className="relative isolate overflow-hidden">
+        <div className="absolute inset-0 -z-10 bg-[radial-gradient(60%_50%_at_85%_20%,rgba(63,110,53,0.22),transparent_70%),radial-gradient(40%_40%_at_10%_90%,rgba(242,145,58,0.18),transparent_70%)]" aria-hidden="true" />
+        {[["8%", "18%", "7s", "0s"], ["46%", "8%", "9s", "-2s"], ["92%", "62%", "8s", "-4s"], ["4%", "78%", "10s", "-1s"]].map(([x, y, dur, d], i) => (
+          <svg key={i} viewBox="0 0 24 24" className="dm-float pointer-events-none absolute -z-10 h-8 w-8 text-tree-moss/40" style={{ left: x, top: y, "--dur": dur, "--d": d, "--rot": "25deg" } as React.CSSProperties} fill="currentColor" aria-hidden="true">
+            <path d="M5 19c0-8 5-14 15-14 0 10-6 15-14 15Z" />
+          </svg>
+        ))}
         <section id="top" className="mx-auto grid max-w-7xl items-center gap-12 px-4 py-14 sm:px-6 lg:grid-cols-[1.05fr_1fr] lg:py-20">
           <div>
-            <p className="inline-flex items-center gap-2 rounded-full bg-tree-sand px-3 py-1.5 text-sm font-semibold text-tree-moss">
+            <p className="dm-fade-up inline-flex items-center gap-2 rounded-full bg-tree-sand px-3 py-1.5 text-sm font-semibold text-tree-moss">
               <Stars /> 4.9 rating · 600+ local jobs <span className="sr-only">(demo figures)</span>
             </p>
             <h1 className="mt-6 font-tree text-[clamp(2.6rem,6vw,4.6rem)] font-semibold leading-[1.02] tracking-tight text-tree-forest">
-              Safe, expert tree care for your home and property.
+              <Words text="Safe, expert tree care for your home and" />{" "}
+              <Words text="property." delay={600} wordClass="italic text-tree-moss" />
             </h1>
-            <p className="mt-6 max-w-xl text-lg text-tree-mute">
+            <p className="dm-fade-up mt-6 max-w-xl text-lg text-tree-mute" style={{ "--d": "700ms" } as React.CSSProperties}>
               Removals, pruning, stump grinding and 24/7 storm response from certified arborists who treat your yard like
               their own. Free, fixed-price estimates within the week.
             </p>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <a href="#estimate" className="rounded-full bg-tree-orange px-7 py-4 text-center text-lg font-semibold text-tree-ink shadow-sm transition hover:brightness-105">
+            <div className="dm-fade-up mt-8 flex flex-col gap-3 sm:flex-row" style={{ "--d": "850ms" } as React.CSSProperties}>
+              <a href="#estimate" className="dm-shine rounded-full bg-tree-orange px-7 py-4 text-center text-lg font-semibold text-tree-ink shadow-sm transition hover:brightness-105">
                 Get a free estimate
               </a>
               <a href={`tel:${brand.phoneHref}`} className="inline-flex items-center justify-center gap-2 rounded-full border-2 border-tree-forest px-7 py-4 text-lg font-semibold text-tree-forest transition hover:bg-tree-forest hover:text-tree-cream">
@@ -72,9 +81,9 @@ export default function TreeServicesDemo() {
           </div>
           <div className="relative">
             <div className="overflow-hidden rounded-[2rem] shadow-2xl ring-1 ring-tree-ink/10">
-              <SiteImage name="demo-tree-hero" priority sizes="(min-width: 1024px) 45vw, 100vw" className="aspect-[4/3]" />
+              <div className="dm-kenburns"><SiteImage name="demo-tree-hero" priority sizes="(min-width: 1024px) 45vw, 100vw" className="aspect-[4/3]" /></div>
             </div>
-            <div className="absolute -bottom-6 left-4 flex items-center gap-3 rounded-2xl bg-white p-4 shadow-xl ring-1 ring-tree-ink/5 sm:-left-6">
+            <div className="dm-float absolute -bottom-6 left-4 flex items-center gap-3 rounded-2xl bg-white p-4 shadow-xl ring-1 ring-tree-ink/5 sm:-left-6" style={{ "--rot": "0deg" } as React.CSSProperties}>
               <span className="grid h-11 w-11 place-items-center rounded-full bg-tree-orange/20 text-xl" aria-hidden="true">⛈</span>
               <span>
                 <span className="block font-semibold text-tree-forest">Storm damage?</span>
@@ -84,6 +93,19 @@ export default function TreeServicesDemo() {
           </div>
         </section>
 
+        </div>
+
+        {/* ---------- Kinetic band ---------- */}
+        <div className="-rotate-1 bg-tree-forest py-4 text-tree-cream">
+          <Marquee duration={36}>
+            {["Tree removal", "Pruning", "Stump grinding", "24/7 storm response", "Tree health", "Land clearing", ...areas.slice(0, 4)].map((t) => (
+              <span key={t} className="flex items-center gap-6 pr-6 font-tree text-2xl italic sm:text-3xl">
+                {t} <span className="not-italic text-tree-orange" aria-hidden="true">✺</span>
+              </span>
+            ))}
+          </Marquee>
+        </div>
+
         {/* ---------- Services ---------- */}
         <section id="services" className="bg-white py-20 sm:py-24">
           <div className="mx-auto max-w-7xl px-4 sm:px-6">
@@ -92,8 +114,9 @@ export default function TreeServicesDemo() {
               <h2 className="mt-3 font-tree text-4xl font-semibold tracking-tight text-tree-forest sm:text-5xl">Everything your trees need, done right.</h2>
             </div>
             <ul className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-              {services.map((s) => (
-                <li key={s.title} className="group rounded-3xl border border-tree-ink/10 bg-tree-cream p-7 transition duration-300 hover:-translate-y-1 hover:shadow-xl">
+              {services.map((s, i) => (
+                <InView as="li" key={s.title} i={i} className="h-full">
+                <div className="group h-full rounded-3xl border border-tree-ink/10 bg-tree-cream p-7 transition duration-300 hover:-translate-y-1 hover:shadow-xl">
                   <span className="grid h-12 w-12 place-items-center rounded-2xl bg-tree-forest text-tree-cream transition group-hover:bg-tree-moss">
                     <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                       {icons[s.icon]}
@@ -104,7 +127,8 @@ export default function TreeServicesDemo() {
                   <a href="#estimate" className="mt-5 inline-flex items-center gap-1 font-semibold text-tree-moss">
                     Get a quote <span aria-hidden="true" className="transition group-hover:translate-x-1">→</span>
                   </a>
-                </li>
+                </div>
+                </InView>
               ))}
             </ul>
           </div>
@@ -132,7 +156,9 @@ export default function TreeServicesDemo() {
                 <div key={l} className="rounded-2xl bg-tree-sand p-4">
                   <dt className="sr-only">{l}</dt>
                   <dd>
-                    <span className="block font-tree text-3xl font-semibold text-tree-forest">{n}</span>
+                    <span className="block font-tree text-3xl font-semibold text-tree-forest">
+                      {n === "15+" ? <CountUp to={15} suffix="+" /> : n === "600+" ? <CountUp to={600} suffix="+" /> : n}
+                    </span>
                     <span className="text-sm text-tree-mute">{l}</span>
                   </dd>
                 </div>
@@ -188,14 +214,16 @@ export default function TreeServicesDemo() {
               <p className="text-sm text-tree-mute">Sample reviews for a fictional business (demo content).</p>
             </div>
             <ul className="mt-10 grid gap-5 md:grid-cols-3">
-              {reviews.map((r) => (
-                <li key={r.name} className="flex flex-col rounded-3xl bg-white p-7 shadow-sm">
+              {reviews.map((r, i) => (
+                <InView as="li" key={r.name} i={i}>
+                <div className="flex h-full flex-col rounded-3xl bg-white p-7 shadow-sm transition duration-500 hover:-translate-y-1 hover:shadow-xl">
                   <Stars />
                   <blockquote className="mt-4 flex-1 text-lg leading-relaxed text-tree-ink/85">&ldquo;{r.text}&rdquo;</blockquote>
                   <p className="mt-6 font-semibold text-tree-forest">
                     {r.name} <span className="font-normal text-tree-mute">· {r.area}</span>
                   </p>
-                </li>
+                </div>
+                </InView>
               ))}
             </ul>
           </div>

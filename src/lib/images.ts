@@ -32,6 +32,9 @@ export const imageSlots = {
   "demo-fashion-hero": { w: 1400, h: 1750, alt: "Model in a relaxed linen suit walking through warm afternoon light" },
   "demo-fashion-editorial": { w: 1800, h: 1000, alt: "Close-up of natural linen and wool fabrics folded on a stone table" },
   "demo-fashion-thumb": { w: 1600, h: 1000, alt: "Preview of the Maison Vale fashion store demo website" },
+  // --- Demo: restaurant (fictional) ---
+  "demo-resto-chef": { w: 1200, h: 1500, alt: "Chef plating a dish beside a glowing wood-fired hearth" },
+  "demo-resto-thumb": { w: 1600, h: 1000, alt: "Preview of the Ember & Salt restaurant demo website" },
 } as const;
 
 export type ImageSlot = keyof typeof imageSlots;

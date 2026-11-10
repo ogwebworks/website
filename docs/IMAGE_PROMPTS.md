@@ -163,3 +163,15 @@ Shoot each item **flat-lay or on an invisible "ghost mannequin"**, centred, fill
 | `demo-fashion-mini-crossbody` | Mini Crossbody Bag | clay |
 
 Save each as `images-src/<file name>.png`, run `npm run images`, and every product card, product page and gallery updates automatically. The bag and checkout thumbnails keep the illustrations, so colour variants always match.
+
+
+---
+
+# Demo site: Ember & Salt (restaurant)
+
+The restaurant already looks complete without photos: dishes are generative "plate art" in each dish's colours, and the story section uses an animated fire graphic. One photo upgrades it most:
+
+## R1. `demo-resto-chef`: Our story (1200×1500, 4:5)
+> Moody editorial photo of a chef in a dark apron plating a dish beside a roaring wood-fired hearth, orange firelight on the face from the side, sparks in the air, dark brick kitchen, shallow depth of field, warm cinematic colour grade (deep charcoal, ember orange, saffron highlights). Face partly turned away. No text, no logos.
+
+`demo-resto-thumb` is generated automatically (a screenshot of the demo).

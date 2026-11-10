@@ -5,6 +5,7 @@ import { BASE, categories, products } from "@/components/demos/fashion/data";
 import { productImages } from "@/components/demos/fashion/images";
 import { getImage } from "@/lib/images";
 import Newsletter from "@/components/demos/fashion/Newsletter";
+import { InView, Marquee, Parallax, Words } from "@/components/demos/motion";
 
 export const metadata = { title: { absolute: "Maison Vale: Fashion store demo | OG WebWorks" } };
 
@@ -22,13 +23,15 @@ export default function FashionHome() {
       {/* Hero */}
       <section className="mx-auto grid max-w-7xl items-center gap-10 px-4 pb-16 pt-12 sm:px-6 lg:grid-cols-2 lg:pt-14">
         <div>
-          <p className="text-xs uppercase tracking-[0.24em] text-mv-mute">Autumn / Winter collection</p>
+          <p className="dm-fade-up text-xs uppercase tracking-[0.24em] text-mv-mute">Autumn / Winter collection</p>
           <h1 className="mt-5 font-mv text-[clamp(3rem,7vw,6rem)] leading-[0.95] tracking-tight">
-            Quiet luxury, <em className="font-normal italic text-mv-clay">made to last.</em>
+            <Words text="Quiet luxury," delay={100} />
+            <br />
+            <Words text="made to last." delay={350} wordClass="italic text-mv-clay" />
           </h1>
-          <p className="mt-6 max-w-md text-lg text-mv-mute">Natural fibres, considered cuts and honest prices. Pieces you&apos;ll still love in ten years.</p>
-          <div className="mt-9 flex flex-wrap gap-3">
-            <Link href={`${BASE}/shop`} className="bg-mv-ink px-8 py-4 text-sm font-medium uppercase tracking-[0.16em] text-mv-ivory transition hover:bg-mv-clay">Shop the collection</Link>
+          <p className="dm-fade-up mt-6 max-w-md text-lg text-mv-mute" style={{ "--d": "700ms" } as React.CSSProperties}>Natural fibres, considered cuts and honest prices. Pieces you&apos;ll still love in ten years.</p>
+          <div className="dm-fade-up mt-9 flex flex-wrap gap-3" style={{ "--d": "850ms" } as React.CSSProperties}>
+            <Link href={`${BASE}/shop`} className="dm-shine bg-mv-ink px-8 py-4 text-sm font-medium uppercase tracking-[0.16em] text-mv-ivory transition hover:bg-mv-clay">Shop the collection</Link>
             <Link href={`${BASE}/shop?c=knitwear`} className="border border-mv-ink px-8 py-4 text-sm font-medium uppercase tracking-[0.16em] transition hover:bg-mv-ink hover:text-mv-ivory">Explore knitwear</Link>
           </div>
         </div>
@@ -37,7 +40,7 @@ export default function FashionHome() {
             // eslint-disable-next-line @next/next/no-img-element -- static export
             <img src={hero.src} alt={hero.alt} width={hero.w} height={hero.h} fetchPriority="high" className="h-full w-full object-cover" />
           ) : (
-            <div className="grid h-full grid-cols-2" aria-hidden="true">
+            <div className="dm-kenburns grid h-full grid-cols-2" aria-hidden="true">
               <ProductArt art="coat" hex="#b98a5a" />
               <div className="grid grid-rows-2">
                 <ProductArt art="knit" hex="#efe9de" />
@@ -45,18 +48,29 @@ export default function FashionHome() {
               </div>
             </div>
           )}
-          <span className="absolute bottom-4 left-4 bg-mv-ivory/95 px-4 py-2 text-xs uppercase tracking-[0.18em]">New: Double-faced wool coat</span>
+          <span className="dm-float absolute bottom-4 left-4 bg-mv-ivory/95 px-4 py-2 text-xs uppercase tracking-[0.18em]" style={{ "--rot": "0deg" } as React.CSSProperties}>New: Double-faced wool coat</span>
         </div>
       </section>
+
+      {/* Kinetic fabric ticker */}
+      <div className="mb-14 border-y border-mv-ink/10 py-5">
+        <Marquee duration={45}>
+          {["European linen", "Extra-fine merino", "Grade-A cashmere", "Vegetable-tanned leather", "Free 30-day returns", "Made in small runs"].map((t) => (
+            <span key={t} className="flex items-center gap-10 pr-10 font-mv text-3xl italic sm:text-4xl">
+              {t} <span className="not-italic text-mv-clay" aria-hidden="true">✦</span>
+            </span>
+          ))}
+        </Marquee>
+      </div>
 
       {/* Categories */}
       <section className="mx-auto max-w-7xl px-4 sm:px-6">
         <h2 className="sr-only">Shop by category</h2>
         <ul className="grid grid-cols-3 gap-3 sm:gap-4 lg:grid-cols-6">
-          {categories.map((c) => {
+          {categories.map((c, i) => {
             const [art, hex] = catArt[c.id];
             return (
-              <li key={c.id}>
+              <InView as="li" key={c.id} i={i}>
                 <Link href={`${BASE}/shop?c=${c.id}`} className="group block">
                   <div className="aspect-square overflow-hidden bg-mv-sand">
                     <div className="h-full w-full transition-transform duration-700 ease-out-expo group-hover:scale-105">
@@ -65,7 +79,7 @@ export default function FashionHome() {
                   </div>
                   <p className="mt-2 text-center text-xs uppercase tracking-[0.14em] sm:text-sm">{c.label}</p>
                 </Link>
-              </li>
+              </InView>
             );
           })}
         </ul>
@@ -78,8 +92,10 @@ export default function FashionHome() {
           <Link href={`${BASE}/shop`} className="border-b border-mv-ink pb-0.5 text-sm uppercase tracking-[0.14em]">View all</Link>
         </div>
         <div className="mt-10 grid grid-cols-2 gap-x-4 gap-y-10 lg:grid-cols-4">
-          {newIn.map((p) => (
-            <ProductCard key={p.slug} p={p} src={imgs[p.slug]} />
+          {newIn.map((p, i) => (
+            <InView key={p.slug} i={i}>
+              <ProductCard p={p} src={imgs[p.slug]} />
+            </InView>
           ))}
         </div>
       </section>
@@ -87,7 +103,7 @@ export default function FashionHome() {
       {/* Editorial */}
       <section className="mx-auto mt-24 max-w-7xl px-4 sm:px-6">
         <div className="relative grid overflow-hidden bg-mv-ink text-mv-ivory lg:grid-cols-2">
-          <div className="aspect-[16/10] lg:aspect-auto">
+          <Parallax amount={40} className="aspect-[16/10] lg:aspect-auto">
             {editorial ? (
               // eslint-disable-next-line @next/next/no-img-element -- static export
               <img src={editorial.src} alt={editorial.alt} width={editorial.w} height={editorial.h} loading="lazy" className="h-full w-full object-cover" />
@@ -98,7 +114,7 @@ export default function FashionHome() {
                 <ProductArt art="top" hex="#8f9c84" />
               </div>
             )}
-          </div>
+          </Parallax>
           <div className="flex flex-col justify-center p-8 sm:p-14">
             <p className="text-xs uppercase tracking-[0.24em] text-mv-ivory/60">Our materials</p>
             <h2 className="mt-4 font-mv text-4xl leading-tight sm:text-5xl">Linen from France. Wool from Italy. <em className="italic">Nothing synthetic.</em></h2>
@@ -112,8 +128,10 @@ export default function FashionHome() {
       <section className="mx-auto max-w-7xl px-4 pt-24 sm:px-6">
         <h2 className="font-mv text-4xl sm:text-5xl">Bestsellers</h2>
         <div className="mt-10 grid grid-cols-2 gap-x-4 gap-y-10 lg:grid-cols-3">
-          {best.map((p) => (
-            <ProductCard key={p.slug} p={p} src={imgs[p.slug]} />
+          {best.map((p, i) => (
+            <InView key={p.slug} i={i}>
+              <ProductCard p={p} src={imgs[p.slug]} />
+            </InView>
           ))}
         </div>
       </section>

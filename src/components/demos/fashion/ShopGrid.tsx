@@ -137,9 +137,11 @@ export default function ShopGrid({ images }: { images: Record<string, string | n
               <button type="button" onClick={reset} className="mt-4 underline underline-offset-4">Clear filters</button>
             </div>
           ) : (
-            <div className="grid grid-cols-2 gap-x-4 gap-y-10 xl:grid-cols-3">
+            <div key={`${cat}-${colors.join()}-${size}-${max}-${onSale}-${sort}-${q}`} className="grid grid-cols-2 gap-x-4 gap-y-10 xl:grid-cols-3">
               {list.map((p, i) => (
-                <ProductCard key={p.slug} p={p} src={images[p.slug]} eager={i < 3} />
+                <div key={p.slug} className="dm-fade-up" style={{ "--i": i } as React.CSSProperties}>
+                  <ProductCard p={p} src={images[p.slug]} eager={i < 3} />
+                </div>
               ))}
             </div>
           )}

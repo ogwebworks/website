@@ -4,7 +4,7 @@ import DemoBar from "@/components/demos/DemoBar";
 import Shell from "@/components/demos/fashion/Shell";
 import FashionFooter from "@/components/demos/fashion/Footer";
 
-const bodoni = Bodoni_Moda({ variable: "--font-bodoni", subsets: ["latin"], display: "swap", preload: false, style: ["normal", "italic"] });
+const bodoni = Bodoni_Moda({ variable: "--font-bodoni", subsets: ["latin"], display: "swap", preload: true, style: ["normal", "italic"] });
 
 export const metadata: Metadata = {
   title: { default: "Demo: Fashion E-commerce Store", template: "%s · Fashion store demo" },

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Fraunces } from "next/font/google";
 
-const fraunces = Fraunces({ variable: "--font-fraunces", subsets: ["latin"], display: "swap", preload: false });
+const fraunces = Fraunces({ variable: "--font-fraunces", subsets: ["latin"], display: "swap", preload: true });
 
 export const metadata: Metadata = {
   title: "Demo: Tree Services Website",

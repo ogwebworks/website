@@ -5,6 +5,15 @@ import type { ImageSlot } from "@/lib/images";
 
 const demos: { src: string; host: string; title: string; kind: string; heading: string; thumb: ImageSlot; features: string[] }[] = [
   {
+    src: "/demos/restaurant",
+    host: "emberandsalt.demo",
+    title: "Ember & Salt: restaurant demo website",
+    kind: "Hospitality",
+    heading: "Wood-fired restaurant",
+    thumb: "demo-resto-thumb",
+    features: ["Animated menu with dietary filters", "Live table booking with time slots", "Open-now status, hours & map", "Embers, steam & kinetic type"],
+  },
+  {
     src: "/demos/tree-services",
     host: "canopyandcrown.demo",
     title: "Canopy & Crown: tree services demo website",
@@ -40,7 +49,7 @@ export default function Demos() {
 
       <div className="grid gap-5 lg:grid-cols-2">
         {demos.map((d, i) => (
-          <Reveal key={d.src} delay={i * 0.1} className="min-w-0">
+          <Reveal key={d.src} delay={i * 0.1} className={`min-w-0 ${i === 0 ? "lg:col-span-2" : ""}`}>
             <div className="flex h-full min-w-0 flex-col gap-6 rounded-3xl border border-line bg-ink-2 p-3 sm:p-4">
               <DemoPreview
                 src={d.src}
@@ -66,7 +75,7 @@ export default function Demos() {
       </div>
 
       <Reveal className="mt-8 flex flex-col items-start justify-between gap-4 rounded-2xl border border-dashed border-line px-6 py-5 sm:flex-row sm:items-center">
-        <p className="text-paper/70">Fully interactive: scroll, click, add to bag, check out. Switch desktop/mobile or expand. More on the way: clinics, law firms, restaurants.</p>
+        <p className="text-paper/70">Fully interactive: scroll, click, book a table, add to bag, check out. Switch desktop/mobile or expand. More on the way: clinics, law firms, real estate.</p>
         <a href="#contact" className="shrink-0 font-semibold text-brand underline decoration-brand/40 underline-offset-4">Need one for your industry? →</a>
       </Reveal>
     </section>
