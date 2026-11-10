@@ -44,7 +44,7 @@ function PillarCard({ p, i, media }: { p: (typeof pillars)[number]; i: number; m
         className="group relative h-full overflow-hidden rounded-3xl border border-line bg-ink-2"
       >
         {media && (
-          <div className="relative aspect-[16/10] overflow-hidden border-b border-line">
+          <div className="relative aspect-video overflow-hidden border-b border-line">
             <div className="h-full w-full transition-transform duration-700 ease-out-expo group-hover:scale-105">{media}</div>
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink-2 via-transparent to-transparent" aria-hidden="true" />
           </div>

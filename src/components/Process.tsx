@@ -28,7 +28,7 @@ export default function Process({ media }: { media?: ReactNode }) {
           </p>
         </Reveal>
         {media && (
-          <Reveal delay={0.1} className="mt-10 hidden max-w-md overflow-hidden rounded-3xl border border-line lg:block">
+          <Reveal delay={0.1} className="mt-10 max-w-lg overflow-hidden rounded-3xl border border-line">
             {media}
           </Reveal>
         )}

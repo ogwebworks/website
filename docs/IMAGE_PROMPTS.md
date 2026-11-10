@@ -36,28 +36,28 @@
 ---
 
 ## 1. `pillar-build`: Services card "Original." (Build)
-**Size:** 1600×1000 · **Ratio:** 16:10 (`--ar 16:10`)
+**Size:** 1600×900 · **Ratio:** 16:9 (`--ar 16:9`)
 > A three-quarter, slightly top-down photograph of a minimalist designer's desk at night. In the centre, an open silver laptop shows an abstract website layout made only of clean blocks, rounded image placeholders and a glowing lime button shape (no readable text). Beside it: a dotted sketchbook with hand-drawn wireframe boxes and arrows, a black fine-liner pen, a stylus, and three paper colour swatch cards in lime, violet and coral. The laptop screen is the main light source, casting lime and violet light across the matte dark desk. 35mm lens, f/2, shallow depth of field, the laptop in sharp focus. Keep the top 30% of the frame darker and calmer. [Base style]
 
 ## 2. `pillar-grow`: Services card "Digital." (Grow)
-**Size:** 1600×1000 · **Ratio:** 16:10
+**Size:** 1600×900 · **Ratio:** 16:9
 > Abstract 3D render of growth. Six rising bars made of frosted glass and brushed dark metal stand on a glossy black reflective floor, increasing in height from left to right. The two tallest bars glow electric lime from inside; the rest are translucent violet. A smooth luminous lime trend line arcs over the bars and ends in a bright glowing node, with a soft light flare. Small floating spheres drift like data points. Volumetric fog, rim lighting, Cinema 4D / Octane look, ultra clean. Low camera angle looking slightly up for a heroic feel. [Base style]
 
 ## 3. `pillar-fix`: Services card "Solutions!" (Fix)
-**Size:** 1600×1000 · **Ratio:** 16:10
+**Size:** 1600×900 · **Ratio:** 16:9
 > Moody close-up photograph of a developer's setup in a dark room. In the foreground, a low-profile dark mechanical keyboard with soft violet underglow. Behind it, a monitor shows heavily blurred, out-of-focus lines of colourful code: abstract horizontal strokes, completely unreadable. One highlighted line in the middle transitions from coral red on the left to bright lime green on the right, suggesting an error being fixed. A small round status light on the desk glows lime green. Bokeh highlights, cinematic contrast, calm feeling of control. 50mm, f/1.8. [Base style]
 
 ## 4. `studio-main`: Studio section, large image
-**Size:** 1600×1200 · **Ratio:** 4:3 (`--ar 4:3`)
+**Size:** 1600×900 · **Ratio:** 16:9 (`--ar 16:9`)
 > Wide interior photograph of a small, modern digital design studio at dusk. Polished concrete wall, warm oak desks, two large monitors showing colourful abstract website designs (blurred, no readable text), an open laptop, a pinboard with printed colour palettes in lime, violet and coral, a few green plants, a designer chair. A floor-to-ceiling window shows soft out-of-focus city lights at blue hour. Thin LED strips cast lime and violet accent light along a shelf. No people, or one person seen from behind and out of focus. Editorial architecture-magazine style, 24mm lens, balanced and inviting. [Base style]
 
 ## 5. `studio-detail`: Studio section, small overlapping image
 **Size:** 1000×1000 · **Ratio:** 1:1 (`--ar 1:1`)
 > Overhead close-up photograph of two hands sketching website wireframes with a black fine-liner in a dotted notebook. Visible on the desk: the edge of a laptop glowing violet, three colour swatch cards (lime, violet, coral), a ceramic coffee cup, a ruler. Natural, realistic hands with correctly formed fingers, neutral sleeves, no jewellery, face not visible. Soft window light mixed with violet screen glow on a dark walnut desk. Shallow depth of field, tactile and human. [Base style]
 
-## 6. `process`: Process section, tall image beside the five steps
-**Size:** 1200×1500 · **Ratio:** 4:5 (`--ar 4:5`)
-> Isometric 3D illustration of a website's journey, shown as five small floating platforms stacked diagonally from bottom-left to top-right and connected by a glowing lime path. Platform 1: a magnifying glass over a map (Discover). Platform 2: a design canvas with colour swatches and geometric shapes (Design). Platform 3: stacked code blocks with small gears (Build). Platform 4: a small rocket lifting off a launch pad with soft smoke (Launch). Platform 5: a rising bar chart with an upward arrow (Grow). Soft matte clay material, rounded edges, gentle shadows, on a dark ink-navy background with violet ambient light, lime path glow and small coral accents. Calm, premium, lots of breathing room, no text. [Base style]
+## 6. `process`: Process section, image under the heading
+**Size:** 1500×1000 · **Ratio:** 3:2 (`--ar 3:2`)
+> Isometric 3D illustration of a website's journey, shown as five small floating platforms arranged diagonally from bottom-left to top-right and connected by a glowing lime path. Platform 1: a magnifying glass over a map (Discover). Platform 2: a design canvas with colour swatches and geometric shapes (Design). Platform 3: stacked code blocks with small gears (Build). Platform 4: a small rocket lifting off a launch pad with soft smoke (Launch). Platform 5: a rising bar chart with an upward arrow (Grow). Soft matte clay material, rounded edges, gentle shadows, on a dark ink-navy background with violet ambient light, lime path glow and small coral accents. Calm, premium, lots of breathing room, no text. [Base style]
 
 ## 7. `industry-ecommerce`: "Who we help" tile
 **Size:** 1200×1500 · **Ratio:** 4:5. **Keep the subject in the top two-thirds; the bottom third is covered by the title.**

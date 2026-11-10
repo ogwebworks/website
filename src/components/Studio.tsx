@@ -13,7 +13,7 @@ export default function Studio() {
     <section id="studio" className="container-x grid items-center gap-14 py-24 sm:py-32 lg:grid-cols-2">
       <Reveal className="relative pb-16 pr-10 sm:pr-16">
         <div className="overflow-hidden rounded-3xl border border-line shadow-2xl">
-          <SiteImage name="studio-main" sizes="(min-width: 1024px) 45vw, 100vw" className="aspect-[4/3]" />
+          <SiteImage name="studio-main" sizes="(min-width: 1024px) 45vw, 100vw" className="aspect-video" />
         </div>
         <div className="absolute bottom-0 right-0 w-[44%] overflow-hidden rounded-2xl border-4 border-ink shadow-2xl">
           <SiteImage name="studio-detail" sizes="(min-width: 1024px) 20vw, 44vw" className="aspect-square" />

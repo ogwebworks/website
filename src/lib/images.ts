@@ -9,12 +9,12 @@ import path from "node:path";
  * Prompts for generating each image: docs/IMAGE_PROMPTS.md
  */
 export const imageSlots = {
-  "pillar-build": { w: 1600, h: 1000, alt: "Designer's workspace with a custom website layout taking shape across a laptop and wireframe sketches" },
-  "pillar-grow": { w: 1600, h: 1000, alt: "Abstract 3D growth chart rising through a dark scene, glowing lime and violet" },
-  "pillar-fix": { w: 1600, h: 1000, alt: "Close-up of code on a monitor with an error being resolved and a green status light" },
-  "studio-main": { w: 1600, h: 1200, alt: "The OG WebWorks studio: a calm, modern workspace with monitors showing website designs at dusk" },
+  "pillar-build": { w: 1600, h: 900, alt: "Designer's workspace with a custom website layout taking shape across a laptop and wireframe sketches" },
+  "pillar-grow": { w: 1600, h: 900, alt: "Abstract 3D growth chart rising through a dark scene, glowing lime and violet" },
+  "pillar-fix": { w: 1600, h: 900, alt: "Close-up of code on a monitor with an error being resolved and a green status light" },
+  "studio-main": { w: 1600, h: 900, alt: "The OG WebWorks studio: a calm, modern workspace with monitors showing website designs at dusk" },
   "studio-detail": { w: 1000, h: 1000, alt: "Hands sketching website wireframes in a notebook next to a laptop" },
-  process: { w: 1200, h: 1500, alt: "Isometric illustration of a website moving through discovery, design, build, launch and growth" },
+  process: { w: 1500, h: 1000, alt: "Isometric illustration of a website moving through discovery, design, build, launch and growth" },
   "industry-ecommerce": { w: 1200, h: 1500, alt: "Modern online store product page on a phone beside neatly packed parcels" },
   "industry-healthcare": { w: 1200, h: 1500, alt: "Bright, modern clinic reception with an appointment booking site on a tablet" },
   "industry-professional": { w: 1200, h: 1500, alt: "Elegant office desk with a professional services website open on a laptop" },

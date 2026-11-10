@@ -62,7 +62,7 @@ export default function Home() {
         <Studio />
         <Statement />
         <Industries />
-        <Process media={<SiteImage name="process" sizes="28rem" className="aspect-[4/5]" />} />
+        <Process media={<SiteImage name="process" sizes="(min-width: 1024px) 32rem, 100vw" className="aspect-[3/2]" />} />
         <AiCallout />
         <Comparison />
         <Pricing />
