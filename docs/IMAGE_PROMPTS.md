@@ -123,3 +123,43 @@ The demo uses **its own style**, not the agency's navy and cyan: natural dayligh
 > A beautifully maintained front yard of a modern suburban home: neatly pruned shade trees with balanced crowns, a fresh-cut lawn, clean flower beds, warm golden-hour light. Calm, proud, finished. [Demo base style]
 
 `demo-tree-thumb` (the homepage preview) is a **screenshot of the demo itself**. It gets regenerated after the demo images are added, so there's no prompt for it.
+
+
+---
+
+# Demo site: Maison Vale (fashion store)
+
+Until photos are added, products show built-in garment illustrations in their real colours, so the store already looks finished. Photos make it look like a real boutique.
+
+**Store base style (use for every image):**
+> Minimal luxury fashion e-commerce photography. Warm off-white seamless studio backdrop (#F2EEE7), soft diffused daylight from the left, gentle natural shadow, true-to-life fabric texture, muted earthy palette. Calm, editorial, quiet-luxury aesthetic. No text, no logos, no watermarks.
+
+**Negative:** text, logos, brand labels, watermarks, mannequins, busy backgrounds, harsh flash, distorted hands, extra fingers, oversaturated colours.
+
+## F1. `demo-fashion-hero`: home hero (1400×1750, 4:5)
+> Full-length editorial photo of a model walking mid-stride in a relaxed camel double-faced wool coat over an ivory knit and charcoal wide-leg trousers, warm late-afternoon light, minimal stone architecture behind, soft shadows, film-like grain. Face turned away or cropped at the chin. [Store base style]
+
+## F2. `demo-fashion-editorial`: "Our materials" banner (1800×1000, 16:9)
+> Overhead still life of natural fabrics folded on a pale stone table: oat linen, camel wool, ivory cashmere, a coil of undyed yarn, wooden buttons and tailor's chalk. Soft window light, tactile texture. [Store base style]
+
+## F3. Product photos (1200×1500, 4:5, one per product)
+Shoot each item **flat-lay or on an invisible "ghost mannequin"**, centred, filling about 80% of the frame, in the colour listed (the first swatch on the site):
+
+> Ghost-mannequin product photo of a [PRODUCT] in [COLOUR], front view, centred, on a warm off-white seamless background, soft even studio light, subtle shadow below, crisp fabric detail. [Store base style]
+
+| File name | Product | Colour |
+|---|---|---|
+| `demo-fashion-linen-wrap-dress` | Linen Wrap Dress | clay |
+| `demo-fashion-silk-slip-dress` | Washed Silk Slip Dress | ivory |
+| `demo-fashion-poplin-shirt` | Oversized Poplin Shirt | ivory |
+| `demo-fashion-rib-knit-tank` | Rib Knit Tank | oat |
+| `demo-fashion-merino-crew` | Fine Merino Crew | camel |
+| `demo-fashion-cashmere-cardigan` | Cashmere Cardigan | oat |
+| `demo-fashion-wool-overcoat` | Double-Faced Wool Coat | camel |
+| `demo-fashion-trench-coat` | Classic Cotton Trench | oat |
+| `demo-fashion-wide-leg-trouser` | Pleated Wide-Leg Trouser | ink |
+| `demo-fashion-linen-trouser` | Relaxed Linen Trouser | ivory |
+| `demo-fashion-leather-tote` | Everyday Leather Tote | cocoa |
+| `demo-fashion-mini-crossbody` | Mini Crossbody Bag | clay |
+
+Save each as `images-src/<file name>.png`, run `npm run images`, and every product card, product page and gallery updates automatically. The bag and checkout thumbnails keep the illustrations, so colour variants always match.

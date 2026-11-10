@@ -4,6 +4,7 @@
 /* inline: the Fraunces variable is set on the demo wrapper, not :root */
 @theme inline {
   --font-tree: var(--font-fraunces), Georgia, serif;
+  --font-mv: var(--font-bodoni), "Didot", Georgia, serif;
 }
 
 @theme {
@@ -26,6 +27,13 @@
   --color-tree-ink: #16241b;
   --color-tree-mute: #4f5f54;
   --color-tree-orange: #f2913a;
+
+  /* Demo: fashion store */
+  --color-mv-ivory: #f6f3ee;
+  --color-mv-sand: #ebe5dc;
+  --color-mv-ink: #141414;
+  --color-mv-mute: #625b53;
+  --color-mv-clay: #9c4a2f;
 
   --font-display: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;

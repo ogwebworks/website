@@ -28,18 +28,27 @@ export const imageSlots = {
   "demo-tree-gallery-2": { w: 1200, h: 900, alt: "Stump grinder working on a freshly cut stump" },
   "demo-tree-gallery-3": { w: 1200, h: 900, alt: "Neatly pruned trees lining a tidy front yard" },
   "demo-tree-thumb": { w: 1600, h: 1000, alt: "Preview of the Canopy & Crown tree services demo website" },
+  // --- Demo: fashion store (fictional brand). Product photos use findPublicImage("demo-fashion-<slug>"). ---
+  "demo-fashion-hero": { w: 1400, h: 1750, alt: "Model in a relaxed linen suit walking through warm afternoon light" },
+  "demo-fashion-editorial": { w: 1800, h: 1000, alt: "Close-up of natural linen and wool fabrics folded on a stone table" },
+  "demo-fashion-thumb": { w: 1600, h: 1000, alt: "Preview of the Maison Vale fashion store demo website" },
 } as const;
 
 export type ImageSlot = keyof typeof imageSlots;
 
 const EXTS = ["webp", "avif", "jpg", "jpeg", "png"];
 
-/** Resolve a slot to a real file in /public/images at build time, or null if not added yet. */
-export function getImage(name: ImageSlot) {
-  const spec = imageSlots[name];
+/** Path of `/public/images/<name>.<ext>` if it exists at build time, else null. */
+export function findPublicImage(name: string) {
   for (const ext of EXTS) {
     const rel = `/images/${name}.${ext}`;
-    if (fs.existsSync(path.join(process.cwd(), "public", rel))) return { src: rel, ...spec };
+    if (fs.existsSync(path.join(process.cwd(), "public", rel))) return rel;
   }
   return null;
+}
+
+/** Resolve a slot to a real file in /public/images at build time, or null if not added yet. */
+export function getImage(name: ImageSlot) {
+  const src = findPublicImage(name);
+  return src ? { src, ...imageSlots[name] } : null;
 }
