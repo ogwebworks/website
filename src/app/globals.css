@@ -9,6 +9,7 @@
   --font-re: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
   --font-cl: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
   --font-lw: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+  --font-gm: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
 }
 
 @theme {
@@ -72,6 +73,14 @@
   --color-lw-mute: #4b5a7d;
   --color-lw-blue: #1a52c4;
   --color-lw-cyan: #12d6f8;
+
+  /* Demo: gym (OG brand palette, "high energy" expression) */
+  --color-gm-black: #030713;
+  --color-gm-navy: #071134;
+  --color-gm-panel: #0c1a4a;
+  --color-gm-mute: #9fb0d1;
+  --color-gm-cyan: #12d6f8;
+  --color-gm-blue: #1d6dff;
 
   --font-display: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
@@ -477,6 +486,8 @@ body {
 
 @keyframes cl-ecg { from { stroke-dashoffset: 600; } to { stroke-dashoffset: 0; } }
 .cl-ecg { stroke-dasharray: 600; animation: cl-ecg 3.2s linear infinite; }
+.font-gm { font-weight: 800; letter-spacing: -0.03em; text-transform: uppercase; }
+@keyframes gm-bar { from { transform: scaleY(0.15); } to { transform: none; } }
 @keyframes mv-slide { from { transform: translateX(-100%); } to { transform: none; } }
 
 /* ---------- Demo motion toolkit (shared by all demo sites) ---------- */
