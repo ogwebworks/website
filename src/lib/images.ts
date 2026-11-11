@@ -35,6 +35,7 @@ export const imageSlots = {
   // --- Demo: restaurant (fictional) ---
   "demo-resto-chef": { w: 1200, h: 1500, alt: "Chef plating a dish beside a glowing wood-fired hearth" },
   "demo-resto-thumb": { w: 1600, h: 1000, alt: "Preview of the Ember & Salt restaurant demo website" },
+  "demo-clinic-thumb": { w: 1600, h: 1000, alt: "Preview of the Harbourside Health clinic demo website" },
   "demo-re-thumb": { w: 1600, h: 1000, alt: "Preview of the Meridian Homes real estate demo website" },
 } as const;
 

@@ -36,6 +36,8 @@ export function Marquee({ children, duration = 40, reverse = false, className = 
   );
 }
 
+const fmtNum = (v: number, decimals: number) => v.toLocaleString("en-US", { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
+
 /** Number that counts up when scrolled into view. */
 export function CountUp({ to, prefix = "", suffix = "", decimals = 0, className = "" }: { to: number; prefix?: string; suffix?: string; decimals?: number; className?: string }) {
   const ref = useRef<HTMLSpanElement>(null);
@@ -43,13 +45,13 @@ export function CountUp({ to, prefix = "", suffix = "", decimals = 0, className 
   useEffect(() => {
     if (!inView || !ref.current) return;
     const el = ref.current;
-    const c = animate(0, to, { duration: 1.8, ease: [0.16, 1, 0.3, 1], onUpdate: (v) => (el.textContent = prefix + v.toFixed(decimals) + suffix) });
+    const c = animate(0, to, { duration: 1.8, ease: [0.16, 1, 0.3, 1], onUpdate: (v) => (el.textContent = prefix + fmtNum(v, decimals) + suffix) });
     return () => c.stop();
   }, [inView, to, prefix, suffix, decimals]);
   return (
     <span ref={ref} className={`tabular-nums ${className}`}>
       {prefix}
-      {to.toFixed(decimals)}
+      {fmtNum(to, decimals)}
       {suffix}
     </span>
   );

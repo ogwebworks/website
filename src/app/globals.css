@@ -7,6 +7,7 @@
   --font-mv: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
   --font-es: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
   --font-re: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+  --font-cl: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
 }
 
 @theme {
@@ -53,6 +54,14 @@
   --color-re-mute: #4b5a7d;
   --color-re-blue: #1a52c4;
   --color-re-cyan: #12d6f8;
+
+  /* Demo: clinic (OG brand palette, "calm care" expression) */
+  --color-cl-navy: #071134;
+  --color-cl-bg: #f7faff;
+  --color-cl-ice: #e9f1fd;
+  --color-cl-mute: #4b5a7d;
+  --color-cl-blue: #1a52c4;
+  --color-cl-cyan: #12d6f8;
 
   --font-display: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
@@ -453,9 +462,11 @@ body {
 }
 
 @layer base {
-  .font-tree, .font-mv, .font-es, .font-re { font-weight: 700; letter-spacing: -0.025em; }
+  .font-tree, .font-mv, .font-es, .font-re, .font-cl { font-weight: 700; letter-spacing: -0.025em; }
 }
 
+@keyframes cl-ecg { from { stroke-dashoffset: 600; } to { stroke-dashoffset: 0; } }
+.cl-ecg { stroke-dasharray: 600; animation: cl-ecg 3.2s linear infinite; }
 @keyframes mv-slide { from { transform: translateX(-100%); } to { transform: none; } }
 
 /* ---------- Demo motion toolkit (shared by all demo sites) ---------- */
