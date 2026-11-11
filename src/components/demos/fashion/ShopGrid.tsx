@@ -11,6 +11,11 @@ const sizes = ["XS", "S", "M", "L", "XL", "One size"];
 
 export default function ShopGrid({ images }: { images: Record<string, string | null> }) {
   const params = useSearchParams();
+  return <Grid key={params.toString()} images={images} />;
+}
+
+function Grid({ images }: { images: Record<string, string | null> }) {
+  const params = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
   const cat = (params.get("c") as Category | null) ?? null;
@@ -18,8 +23,8 @@ export default function ShopGrid({ images }: { images: Record<string, string | n
   const [colors, setColors] = useState<string[]>([]);
   const [size, setSize] = useState<string | null>(null);
   const [max, setMax] = useState(400);
-  const [onSale, setOnSale] = useState(false);
-  const [sort, setSort] = useState<Sort>("featured");
+  const [onSale, setOnSale] = useState(params.get("sale") === "1");
+  const [sort, setSort] = useState<Sort>(params.get("sort") === "new" ? "new" : "featured");
   const [q, setQ] = useState("");
   const [filtersOpen, setFiltersOpen] = useState(false);
 
@@ -50,7 +55,7 @@ export default function ShopGrid({ images }: { images: Record<string, string | n
     setQ("");
     setCat(null);
   };
-  const title = cat ? categories.find((c) => c.id === cat)?.label : "Shop all";
+  const title = cat ? categories.find((c) => c.id === cat)?.label : params.get("sale") ? "Sale" : params.get("sort") === "new" ? "New in" : "Shop all";
   const chip = (active: boolean) => `border px-3 py-1.5 text-sm transition ${active ? "border-mv-ink bg-mv-ink text-mv-ivory" : "border-mv-ink/20 hover:border-mv-ink"}`;
 
   const filters = (

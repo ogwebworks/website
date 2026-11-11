@@ -456,6 +456,8 @@ body {
   .font-tree, .font-mv, .font-es, .font-re { font-weight: 700; letter-spacing: -0.025em; }
 }
 
+@keyframes mv-slide { from { transform: translateX(-100%); } to { transform: none; } }
+
 /* ---------- Demo motion toolkit (shared by all demo sites) ---------- */
 .dm-mask { display: inline-block; overflow: hidden; vertical-align: bottom; padding-bottom: 0.1em; margin-bottom: -0.1em; }
 .dm-word { display: inline-block; animation: dm-word 1.1s var(--ease-out-expo) both; animation-delay: calc(var(--d, 0ms) + var(--i, 0) * 75ms); }
