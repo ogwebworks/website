@@ -5,7 +5,8 @@
 @theme inline {
   --font-tree: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
   --font-mv: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
-  --font-es: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+  --font-rs: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
+  --font-rs-mono: var(--font-dmmono), ui-monospace, monospace;
   --font-re: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
   --font-cl: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
   --font-lw: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
@@ -40,13 +41,14 @@
   --color-mv-mute: #55627f;
   --color-mv-clay: #1958d6;
 
-  /* Demo: restaurant */
-  --color-es-char: #030820;
-  --color-es-card: #071134;
-  --color-es-cream: #f2f6ff;
-  --color-es-mute: #94a3c7;
-  --color-es-ember: #12d6f8;
-  --color-es-saffron: #a1c1fa;
+  /* Demo: restaurant ("risograph menu": own palette) */
+  --color-rs-paper: #f2ebdd;
+  --color-rs-paper2: #e8dfcc;
+  --color-rs-ink: #1c1a16;
+  --color-rs-mute: #5c574c;
+  --color-rs-olive: #4a5a2a;
+  --color-rs-tomato: #d9432b;
+  --color-rs-deep: #b5361f;
 
   /* Demo: real estate (OG brand palette, "dusk & glass" expression) */
   --color-re-navy: #071134;
@@ -481,13 +483,20 @@ body {
 }
 
 @layer base {
-  .font-tree, .font-mv, .font-es, .font-re, .font-cl, .font-lw { font-weight: 700; letter-spacing: -0.025em; }
+  .font-tree, .font-mv, .font-re, .font-cl, .font-lw { font-weight: 700; letter-spacing: -0.025em; }
 }
 
 @keyframes cl-ecg { from { stroke-dashoffset: 600; } to { stroke-dashoffset: 0; } }
 .cl-ecg { stroke-dasharray: 600; animation: cl-ecg 3.2s linear infinite; }
 .font-gm { font-weight: 800; letter-spacing: -0.03em; text-transform: uppercase; }
 @keyframes gm-bar { from { transform: scaleY(0.15); } to { transform: none; } }
+/* Restaurant: risograph print look */
+.rs-halftone { background-image: radial-gradient(currentColor 32%, transparent 34%); background-size: 7px 7px; }
+.rs-grain::after { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .35; mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.1 0 0 0 0 0.09 0 0 0 0 0.07 0 0 0 .55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"); }
+@keyframes rs-stamp { 0% { transform: scale(2.4) rotate(-24deg); opacity: 0; } 60% { transform: scale(.9) rotate(-12deg); opacity: 1; } 100% { transform: scale(1) rotate(-12deg); opacity: 1; } }
+.rs-stamp { animation: rs-stamp .6s cubic-bezier(.2,1.4,.4,1) both; }
+@keyframes rs-wobble { 0%,100% { transform: translate(0,0) rotate(0); } 50% { transform: translate(3px,-4px) rotate(2deg); } }
 @keyframes mv-slide { from { transform: translateX(-100%); } to { transform: none; } }
 
 /* ---------- Demo motion toolkit (shared by all demo sites) ---------- */

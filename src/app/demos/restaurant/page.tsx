@@ -1,281 +1,137 @@
 import Link from "next/link";
-import RestoNav, { RestoLogo } from "@/components/demos/restaurant/RestoNav";
-import MenuTabs from "@/components/demos/restaurant/MenuTabs";
-import Reservation, { OpenStatus } from "@/components/demos/restaurant/Reservation";
-import PlateArt from "@/components/demos/restaurant/PlateArt";
-import { CountUp, InView, Marquee, Parallax, Particles, Tilt, Words } from "@/components/demos/motion";
-import { hours, resto, reviews, signatures } from "@/components/demos/restaurant/data";
-import SiteImage from "@/components/SiteImage";
-import { getImage } from "@/lib/images";
+import Shell from "@/components/demos/restaurant/Shell";
+import Story from "@/components/demos/restaurant/Story";
+import PrintedMenu from "@/components/demos/restaurant/PrintedMenu";
+import Ticket from "@/components/demos/restaurant/Ticket";
+import Quotes from "@/components/demos/restaurant/Quotes";
+import Riso from "@/components/demos/restaurant/Riso";
+import { hours, resto } from "@/components/demos/restaurant/data";
+import { InView, Marquee } from "@/components/demos/motion";
 
-const fmt = (h: number) => (h === 24 ? "midnight" : `${h > 12 ? h - 12 : h}${h >= 12 ? "pm" : "am"}`);
+const fmt = (h: number) => (h === 24 ? "late" : `${h > 12 ? h - 12 : h}${h >= 12 ? "pm" : "am"}`);
 
 export default function RestaurantDemo() {
-  const chef = getImage("demo-resto-chef");
-
   return (
     <>
-      <RestoNav />
-      <main id="main" className="pb-20 md:pb-0">
-        {/* ---------- Hero ---------- */}
-        <section id="top" className="relative isolate -mt-[73px] flex min-h-[100svh] items-center overflow-hidden pt-[73px]">
-          <div className="absolute left-1/2 top-[60%] -z-10 h-[70vmax] w-[70vmax] -translate-x-1/2" aria-hidden="true">
-            <div className="dm-pulse-glow h-full w-full rounded-full bg-[radial-gradient(closest-side,rgba(18,214,248,0.38),rgba(29,109,255,0.12)_45%,transparent_70%)]" />
+      <Shell />
+      <main id="main">
+        {/* ---------- Hero: giant wordmark ---------- */}
+        <section id="top" className="rs-grain relative isolate overflow-hidden bg-rs-paper px-4 pb-10 pt-32 sm:px-6 sm:pt-36">
+          <div className="pointer-events-none absolute -right-16 top-24 -z-10 h-72 w-72 rotate-12 sm:h-[26rem] sm:w-[26rem]" aria-hidden="true">
+            <Riso seed={21} className="h-full w-full rounded-full" />
           </div>
-          <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_top,rgba(29,109,255,0.35),transparent_55%)]" aria-hidden="true" />
-          <Particles count={28} className="-z-10" />
+          <div className="pointer-events-none absolute -left-20 bottom-24 -z-10 hidden h-56 w-56 sm:block -rotate-6 sm:h-72 sm:w-72" aria-hidden="true">
+            <Riso seed={33} className="h-full w-full rounded-[40%_60%_55%_45%]" />
+          </div>
 
-          <div className="mx-auto grid w-full max-w-7xl items-center gap-10 px-4 py-16 sm:px-6 lg:grid-cols-[1.1fr_1fr]">
-            <div>
-              <p className="dm-fade-up inline-flex items-center gap-3 text-xs uppercase tracking-[0.28em] text-es-saffron">
-                <span className="h-px w-10 bg-es-saffron" aria-hidden="true" /> Wood-fired kitchen · Est. {resto.since}
-              </p>
-              <h1 className="mt-6 font-es text-[clamp(2.7rem,6.4vw,5.6rem)] leading-[1.02] tracking-[-0.035em]">
-                <Words text="Fire, flavour" delay={150} />
-                <br />
-                <Words text="& a table" delay={350} wordClasses={["text-es-ember"]} />
-                <br />
-                <Words text="for you." delay={520} wordClass="text-es-saffron" />
-              </h1>
-              <p className="dm-fade-up mt-8 max-w-md text-lg text-es-cream/75" style={{ "--d": "800ms" } as React.CSSProperties}>
-                Seasonal plates cooked over open flame, natural wine and a room that glows. In the heart of Fulton Market.
-              </p>
-              <div className="dm-fade-up mt-10 flex flex-wrap gap-3" style={{ "--d": "950ms" } as React.CSSProperties}>
-                <a href="#book" className="dm-shine rounded-full bg-es-ember px-8 py-4 font-semibold text-es-char shadow-[0_10px_40px_-10px_#12d6f8] transition hover:brightness-110">Reserve a table</a>
-                <a href="#menu" className="rounded-full px-8 py-4 font-semibold ring-1 ring-white/25 transition hover:bg-white/5 hover:ring-white/60">See the menu</a>
-              </div>
-              <div className="dm-fade-up mt-10" style={{ "--d": "1100ms" } as React.CSSProperties}>
-                <OpenStatus />
-              </div>
+          <p className="dm-fade-up font-rs-mono text-xs uppercase tracking-[0.24em] text-rs-mute sm:text-sm">Wood-fired kitchen · Fulton Market, Chicago · Since {resto.since}</p>
+          <h1 className="mt-6 font-rs font-extrabold uppercase leading-[0.8] tracking-[-0.06em] text-rs-ink">
+            <span className="block text-[clamp(4.5rem,21vw,22rem)]">
+              <span className="dm-mask"><span className="dm-word" style={{ "--i": 0 } as React.CSSProperties}>Ember</span></span>
+            </span>
+            <span className="flex items-end gap-[3vw] text-[clamp(4.5rem,21vw,22rem)]">
+              <span className="dm-mask"><span className="dm-word text-rs-tomato" style={{ "--i": 1 } as React.CSSProperties}>&amp;</span></span>
+              <span className="dm-mask"><span className="dm-word" style={{ "--i": 2 } as React.CSSProperties}>Salt</span></span>
+            </span>
+          </h1>
+
+          {/* rotating sticker */}
+          <div className="absolute right-6 top-[46%] hidden h-36 w-36 md:block lg:right-20 lg:h-44 lg:w-44" aria-hidden="true">
+            <svg viewBox="0 0 100 100" className="dm-spin h-full w-full" style={{ "--dur": "16s" } as React.CSSProperties}>
+              <circle cx="50" cy="50" r="49" fill="#b5361f" />
+              <defs><path id="rs-ring" d="M50 50 m-36 0 a36 36 0 1 1 72 0 a36 36 0 1 1 -72 0" /></defs>
+              <text fill="#f2ebdd" fontSize="9.5" fontFamily="var(--font-dmmono), monospace"><textPath href="#rs-ring" textLength="224" lengthAdjust="spacing">OPEN FIRE · NATURAL WINE · OPEN FIRE ·</textPath></text>
+            </svg>
+            <span className="absolute inset-0 grid place-items-center font-rs text-3xl font-extrabold text-rs-paper">450°</span>
+          </div>
+
+          <div className="mt-10 grid grid-cols-[minmax(0,1fr)] gap-6 border-t-2 border-rs-ink pt-6 md:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)_minmax(0,1fr)]">
+            <p className="dm-fade-up max-w-md text-lg leading-relaxed text-rs-ink" style={{ "--d": "500ms" } as React.CSSProperties}>
+              Seasonal plates cooked over a single oak fire, a wine list that changes weekly, and a room built for long, loud dinners.
+            </p>
+            <div className="dm-fade-up font-rs-mono text-sm text-rs-mute" style={{ "--d": "600ms" } as React.CSSProperties}>
+              <p className="uppercase tracking-[0.16em] text-rs-ink">Tonight</p>
+              <p className="mt-2">Dinner 5pm till late<br />Walk-ins at the bar</p>
             </div>
-
-            <div className="relative mx-auto w-full max-w-[520px]">
-              <div className="dm-spin" style={{ "--dur": "80s" } as React.CSSProperties}>
-                <PlateArt tint={["#6b2b1f", "#a1442c", "#4f7a3a"]} seed={11} steam />
-              </div>
-              {/* rotating text badge */}
-              <div className="absolute -left-2 top-4 h-28 w-28 sm:h-32 sm:w-32" aria-hidden="true">
-                <svg viewBox="0 0 100 100" className="dm-spin h-full w-full" style={{ "--dur": "18s" } as React.CSSProperties}>
-                  <defs><path id="es-circle" d="M50 50 m-38 0 a38 38 0 1 1 76 0 a38 38 0 1 1 -76 0" /></defs>
-                  <text fontSize="9.5" fill="#a1c1fa"><textPath href="#es-circle" textLength="236" lengthAdjust="spacing">SEASONAL · LOCAL · OPEN FIRE ·</textPath></text>
-                </svg>
-                <span className="absolute inset-0 grid place-items-center text-3xl">🔥</span>
-              </div>
-              <div className="dm-float absolute -right-2 bottom-8 rounded-2xl border border-white/10 bg-es-card/90 px-4 py-3 shadow-xl backdrop-blur" style={{ "--dur": "6s", "--rot": "-2deg" } as React.CSSProperties}>
-                <p className="text-xs uppercase tracking-[0.16em] text-es-mute">Tonight&apos;s signature</p>
-                <p className="font-es text-xl">45-day dry-aged ribeye</p>
-              </div>
+            <div className="dm-fade-up font-rs-mono text-sm text-rs-mute" style={{ "--d": "700ms" } as React.CSSProperties}>
+              <p className="uppercase tracking-[0.16em] text-rs-ink">Call</p>
+              <a href={`tel:${resto.phoneHref}`} className="mt-2 block text-rs-ink underline decoration-rs-tomato decoration-2 underline-offset-4">{resto.phone}</a>
             </div>
           </div>
-          <a href="#menu" className="absolute bottom-8 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 text-[10px] uppercase tracking-[0.3em] text-es-mute md:flex" aria-label="Scroll to menu">
-            Scroll
-            <span className="relative h-10 w-px overflow-hidden bg-white/15"><span className="scroll-cue absolute left-0 top-0 h-4 w-px bg-es-ember" /></span>
-          </a>
         </section>
 
-        {/* ---------- Marquee ---------- */}
-        <div className="border-y border-white/10 bg-es-ember py-5 text-es-char">
-          <Marquee duration={32}>
-            {["Open-fire kitchen", "Dry-aged in house", "Natural wine", "Seasonal produce", "Sourdough every morning", "Chef's table"].map((t) => (
-              <span key={t} className="flex items-center gap-8 pr-8 font-es text-2xl sm:text-3xl">
-                {t} <span aria-hidden="true" >✦</span>
+        {/* ---------- Ink band ---------- */}
+        <div className="border-y-2 border-rs-ink bg-rs-ink py-4 text-rs-paper">
+          <Marquee duration={30}>
+            {["Charred peach & burrata", "45-day ribeye", "Grilled octopus", "Burnt Basque cheesecake", "Smoke & Stone", "Sourdough every morning"].map((t) => (
+              <span key={t} className="flex items-center gap-6 pr-6 font-rs text-2xl font-bold sm:text-3xl">
+                {t} <span className="text-rs-tomato" aria-hidden="true">●</span>
               </span>
             ))}
           </Marquee>
         </div>
 
-        {/* ---------- Signatures ---------- */}
-        <section className="mx-auto max-w-7xl px-4 py-24 sm:px-6 sm:py-32">
-          <InView className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
-            <div>
-              <p className="text-xs uppercase tracking-[0.28em] text-es-saffron">Signatures</p>
-              <h2 className="mt-4 font-es text-4xl leading-[1.05] sm:text-6xl">Plates people <span className="text-es-ember">cross town</span> for.</h2>
-            </div>
-            <p className="max-w-sm text-es-mute">Cooked over Michigan oak and cherry wood at 450°C. Simple ingredients, a lot of fire.</p>
-          </InView>
-          <ul className="mt-14 grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
-            {signatures.map((d, i) => (
-              <li key={d.id}>
-                <InView i={i}>
-                  <Tilt className="group rounded-[2rem] border border-white/10 bg-gradient-to-b from-es-card to-es-char p-6 transition-shadow duration-500 hover:shadow-[0_30px_80px_-30px_rgba(18,214,248,0.5)]">
-                    <div className="transition-transform duration-700 ease-out-expo group-hover:rotate-12 group-hover:scale-105">
-                      <PlateArt tint={d.tint} seed={i + 3} />
-                    </div>
-                    <div className="mt-5 flex items-baseline justify-between gap-3">
-                      <h3 className="min-w-0 font-es text-xl leading-tight">{d.name}</h3>
-                      <span className="font-es text-2xl text-es-saffron">${d.price}</span>
-                    </div>
-                    <p className="mt-2 text-sm text-es-mute">{d.desc}</p>
-                  </Tilt>
-                </InView>
-              </li>
-            ))}
-          </ul>
-        </section>
+        <Story />
 
         {/* ---------- Menu ---------- */}
-        <section id="menu" className="relative border-t border-white/10 bg-gradient-to-b from-es-card/60 to-es-char py-24 sm:py-32">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6">
-            <InView>
-              <p className="text-xs uppercase tracking-[0.28em] text-es-saffron">The menu</p>
-              <h2 className="mt-4 font-es text-4xl leading-[1.05] sm:text-6xl">Tonight, from the fire.</h2>
-            </InView>
-            <div className="mt-12">
-              <MenuTabs />
+        <section id="menu" className="rs-grain relative scroll-mt-10 border-t-2 border-rs-ink bg-rs-paper px-4 py-24 sm:px-6 sm:py-32">
+          <div className="mx-auto max-w-6xl">
+            <div className="mb-14 flex flex-col justify-between gap-4 md:flex-row md:items-end">
+              <h2 className="font-rs text-[clamp(3.5rem,10vw,8rem)] font-extrabold uppercase leading-[0.85] tracking-[-0.05em]">The<br />menu</h2>
+              <p className="max-w-xs font-rs-mono text-sm text-rs-mute">Printed fresh daily. Hover a dish for a look (tap on mobile). Allergies? Tell us when you book.</p>
             </div>
+            <PrintedMenu />
           </div>
         </section>
 
-        {/* ---------- Story ---------- */}
-        <section id="story" className="mx-auto grid max-w-7xl items-center gap-14 px-4 py-24 sm:px-6 sm:py-32 lg:grid-cols-2">
-          <Parallax amount={50} className="aspect-[4/5] rounded-[2rem]">
-            {chef ? (
-              <SiteImage name="demo-resto-chef" sizes="(min-width: 1024px) 45vw, 100vw" className="h-full" />
-            ) : (
-              <div className="relative grid h-full place-items-center bg-[radial-gradient(circle_at_50%_70%,#12d6f8_0%,#1d6dff_35%,#030820_72%)]">
-                <Particles count={18} />
-                <p className="font-es text-[7rem] leading-none text-es-cream/90 drop-shadow-[0_0_40px_rgba(18,214,248,0.8)]">450°</p>
-              </div>
-            )}
-          </Parallax>
-          <div>
-            <InView>
-              <p className="text-xs uppercase tracking-[0.28em] text-es-saffron">Our story</p>
-              <h2 className="mt-4 font-es text-4xl leading-[1.05] sm:text-5xl">One fire. No shortcuts.</h2>
-              <p className="mt-6 text-lg leading-relaxed text-es-cream/75">
-                Chef Rosa Delgado opened Ember &amp; Salt with a single wood-fired hearth and a promise: cook what&apos;s in season, from farmers she knows, over real flame. Ten years on, the fire has never gone out.
-              </p>
-            </InView>
-            <dl className="mt-10 grid grid-cols-3 gap-4">
-              {[
-                { n: 10, s: "+", l: "years of fire" },
-                { n: 180, s: "", l: "natural wines" },
-                { n: 32, s: "", l: "local farms" },
-              ].map((x, i) => (
-                <InView key={x.l} i={i} className="rounded-2xl border border-white/10 bg-es-card p-5">
-                  <dt className="sr-only">{x.l}</dt>
-                  <dd>
-                    <CountUp to={x.n} suffix={x.s} className="block font-es text-5xl text-es-saffron" />
-                    <span className="text-sm text-es-mute">{x.l}</span>
-                  </dd>
-                </InView>
-              ))}
-            </dl>
-            <p className="mt-3 text-xs text-es-mute">Fictional restaurant and chef (demo content).</p>
-          </div>
+        {/* ---------- Quotes ---------- */}
+        <section aria-label="Guest reviews" className="border-t-2 border-rs-ink bg-rs-paper2 px-4 py-24 sm:px-6">
+          <Quotes />
         </section>
 
-        {/* ---------- Experiences ---------- */}
-        <section id="experiences" className="mx-auto max-w-7xl px-4 pb-24 sm:px-6 sm:pb-32">
-          <InView>
-            <h2 className="font-es text-4xl leading-[1.05] sm:text-6xl">More than dinner.</h2>
+        {/* ---------- Reserve ---------- */}
+        <section id="reserve" className="scroll-mt-10 border-t-2 border-rs-ink bg-rs-paper2 px-4 pb-24 sm:px-6">
+          <InView className="mx-auto mb-12 max-w-3xl pt-4 text-center">
+            <h2 className="font-rs text-[clamp(3rem,8vw,6rem)] font-extrabold uppercase leading-[0.85] tracking-[-0.05em]">Save a seat<span className="text-rs-tomato">.</span></h2>
+            <p className="mt-4 font-rs-mono text-sm text-rs-mute">Tables for up to 12. Bigger party? Ask about the Cellar Room.</p>
           </InView>
-          <ul className="mt-12 grid gap-5 md:grid-cols-3">
-            {[
-              { t: "Chef's table", d: "Eight seats at the pass. A 9-course tasting cooked in front of you.", p: "$145 pp", e: "🔥" },
-              { t: "Private dining", d: "The Cellar Room seats up to 24 for birthdays, launches and long lunches.", p: "From $1,800", e: "🍷" },
-              { t: "Sunday fire feast", d: "Family-style whole animals, sides and dessert passed around the table.", p: "$65 pp", e: "🌿" },
-            ].map((x, i) => (
-              <li key={x.t}>
-                <InView i={i}>
-                  <a href="#book" className="dm-shine group relative block h-full overflow-hidden rounded-[2rem] border border-white/10 bg-es-card p-8 transition duration-500 hover:-translate-y-1 hover:border-es-ember/50">
-                    <span className="absolute -right-16 -top-16 h-48 w-48 rounded-full bg-es-ember/0 blur-3xl transition duration-700 group-hover:bg-es-ember/30" aria-hidden="true" />
-                    <span className="text-4xl" aria-hidden="true">{x.e}</span>
-                    <h3 className="mt-6 font-es text-3xl">{x.t}</h3>
-                    <p className="mt-3 text-es-mute">{x.d}</p>
-                    <p className="mt-6 flex items-center justify-between font-semibold text-es-saffron">
-                      {x.p} <span className="transition group-hover:translate-x-1" aria-hidden="true">→</span>
-                    </p>
-                  </a>
-                </InView>
-              </li>
-            ))}
-          </ul>
+          <Ticket />
         </section>
 
-        {/* ---------- Reviews ---------- */}
-        <section aria-label="Guest reviews" className="border-y border-white/10 py-16">
-          <Marquee duration={55}>
-            {reviews.map((r) => (
-              <figure key={r.who} className="mr-5 w-[340px] shrink-0 rounded-3xl border border-white/10 bg-es-card p-7 sm:w-[420px]">
-                <p className="text-es-saffron" aria-label="5 out of 5 stars">★★★★★</p>
-                <blockquote className="mt-3 text-lg font-medium leading-relaxed">&ldquo;{r.q}&rdquo;</blockquote>
-                <figcaption className="mt-4 text-sm text-es-mute">{r.who} · sample review</figcaption>
-              </figure>
-            ))}
-          </Marquee>
-        </section>
-
-        {/* ---------- Book + Visit ---------- */}
-        <section id="book" className="relative overflow-hidden py-24 sm:py-32">
-          <div className="dm-pulse-glow absolute -left-40 top-20 -z-10 h-[40rem] w-[40rem] rounded-full bg-[radial-gradient(closest-side,rgba(18,214,248,0.25),transparent)]" aria-hidden="true" />
-          <div className="mx-auto grid max-w-7xl grid-cols-[minmax(0,1fr)] gap-14 px-4 sm:px-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)]">
-            <div id="visit" className="min-w-0">
-              <InView>
-                <p className="text-xs uppercase tracking-[0.28em] text-es-saffron">Visit us</p>
-                <h2 className="mt-4 font-es text-4xl leading-[1.05] sm:text-6xl">Pull up a chair.</h2>
-                <p className="mt-6 text-lg text-es-cream/75">Walk-ins welcome at the bar. Tables fill fast on weekends, so book ahead.</p>
-              </InView>
-              <div className="mt-10 grid grid-cols-[minmax(0,1fr)] gap-8 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
-                <div>
-                  <p className="text-xs uppercase tracking-[0.18em] text-es-mute">Hours</p>
-                  <table className="mt-3 w-full text-sm">
-                    <tbody>
-                      {hours.map((h) => (
-                        <tr key={h.day} className="border-b border-white/5">
-                          <th scope="row" className="py-1.5 text-left font-normal text-es-cream/80">{h.day}</th>
-                          <td className="py-1.5 text-right">{h.open ? `${fmt(h.open[0])} – ${fmt(h.open[1])}` : "Closed"}</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                  <div className="mt-4"><OpenStatus /></div>
-                </div>
-                <div>
-                  <p className="text-xs uppercase tracking-[0.18em] text-es-mute">Find us</p>
-                  <p className="mt-3">{resto.address}</p>
-                  <a href={`tel:${resto.phoneHref}`} className="mt-2 block font-es text-2xl text-es-saffron">{resto.phone}</a>
-                  {/* stylised map */}
-                  <div className="relative mt-5 aspect-[4/3] overflow-hidden rounded-2xl border border-white/10 bg-es-card" aria-hidden="true">
-                    <svg viewBox="0 0 200 150" className="h-full w-full">
-                      <g stroke="rgba(244,234,217,0.12)" strokeWidth="6">
-                        <path d="M0 40 H200 M0 100 H200 M50 0 V150 M130 0 V150" />
-                      </g>
-                      <g stroke="rgba(244,234,217,0.06)" strokeWidth="2">
-                        <path d="M0 20 H200 M0 70 H200 M0 125 H200 M20 0 V150 M90 0 V150 M170 0 V150" />
-                      </g>
-                      <path d="M0 140 Q60 110 120 135 T200 120" stroke="rgba(120,170,220,0.25)" strokeWidth="10" fill="none" />
-                    </svg>
-                    <span className="absolute left-[64%] top-[66%] -translate-x-1/2 -translate-y-1/2">
-                      <span className="absolute inset-0 -m-3 animate-ping rounded-full bg-es-ember/40" />
-                      <span className="relative block h-4 w-4 rounded-full border-2 border-es-cream bg-es-ember" />
-                    </span>
-                  </div>
-                </div>
-              </div>
+        {/* ---------- Visit ---------- */}
+        <section id="visit" className="border-t-2 border-rs-ink bg-rs-deep px-4 py-20 text-rs-paper sm:px-6">
+          <div className="mx-auto grid max-w-6xl grid-cols-[minmax(0,1fr)] gap-12 md:grid-cols-3">
+            <div>
+              <p className="font-rs-mono text-xs uppercase tracking-[0.2em] text-rs-paper">Find us</p>
+              <p className="mt-4 font-rs text-3xl font-bold leading-tight">{resto.address}</p>
             </div>
-            <InView className="min-w-0">
-              <Reservation />
-            </InView>
+            <div>
+              <p className="font-rs-mono text-xs uppercase tracking-[0.2em] text-rs-paper">Hours</p>
+              <dl className="mt-4 space-y-1 font-rs-mono text-sm">
+                {hours.map((h) => (
+                  <div key={h.day} className="flex justify-between border-b border-rs-paper/20 py-1">
+                    <dt>{h.day.slice(0, 3)}</dt>
+                    <dd>{h.open ? `${fmt(h.open[0])} – ${fmt(h.open[1])}` : "Closed"}</dd>
+                  </div>
+                ))}
+              </dl>
+            </div>
+            <div>
+              <p className="font-rs-mono text-xs uppercase tracking-[0.2em] text-rs-paper">Private dining</p>
+              <p className="mt-4 text-lg leading-relaxed">The Cellar Room seats 24 for birthdays, launches and long lunches.</p>
+              <a href={`tel:${resto.phoneHref}`} className="mt-4 inline-block font-rs-mono text-sm uppercase tracking-[0.16em] underline underline-offset-4">Call to enquire</a>
+            </div>
           </div>
         </section>
       </main>
 
-      <footer className="border-t border-white/10 py-12 text-sm text-es-mute">
-        <div className="mx-auto flex max-w-7xl flex-col justify-between gap-6 px-4 sm:px-6 md:flex-row md:items-center">
-          <RestoLogo className="text-es-cream" />
-          <p>
-            {resto.name} is a fictional restaurant. Website designed &amp; built by{" "}
-            <Link href="/" target="_top" className="font-semibold text-[#12d6f8] underline underline-offset-4">OG WebWorks</Link>.
-          </p>
-        </div>
+      <footer className="overflow-hidden border-t-2 border-rs-ink bg-rs-paper pb-28 pt-10">
+        <p className="whitespace-nowrap px-4 font-rs text-[clamp(4rem,18vw,18rem)] font-extrabold uppercase leading-[0.8] tracking-[-0.06em] text-rs-ink/90 sm:px-6" aria-hidden="true">Ember &amp; Salt</p>
+        <p className="mt-6 px-4 font-rs-mono text-xs uppercase tracking-[0.16em] text-rs-mute sm:px-6">
+          {resto.name} is a fictional restaurant · Designed &amp; built by{" "}
+          <Link href="/" target="_top" className="text-rs-ink underline decoration-rs-tomato underline-offset-4">OG WebWorks</Link>
+        </p>
       </footer>
-
-      {/* Mobile sticky booking bar */}
-      <div className="fixed inset-x-0 bottom-0 z-50 grid grid-cols-2 gap-2 border-t border-white/10 bg-es-char/90 p-3 backdrop-blur md:hidden">
-        <a href={`tel:${resto.phoneHref}`} className="rounded-full py-3 text-center font-semibold ring-1 ring-white/25">Call</a>
-        <a href="#book" className="rounded-full bg-es-ember py-3 text-center font-semibold text-es-char">Book a table</a>
-      </div>
     </>
   );
 }

@@ -169,9 +169,6 @@ Save each as `images-src/<file name>.png`, run `npm run images`, and every produ
 
 # Demo site: Ember & Salt (restaurant)
 
-The restaurant already looks complete without photos: dishes are generative "plate art" in each dish's colours, and the story section uses an animated fire graphic. One photo upgrades it most:
-
-## R1. `demo-resto-chef`: Our story (1200×1500, 4:5)
-> Moody editorial photo of a chef in a dark apron plating a dish beside a roaring wood-fired hearth, orange firelight on the face from the side, sparks in the air, dark brick kitchen, shallow depth of field, warm cinematic colour grade (deep charcoal, ember orange, saffron highlights). Face partly turned away. No text, no logos.
+No photos needed. The redesign is a risograph "printed menu" concept: every dish illustration is generated in code (overprinted olive/tomato/ink shapes with halftone dots), so the look stays flat, printed and consistent. Real photography would fight the style. If a real client wants photos, shoot them flat-lay on cream paper and run them through a two-colour riso/duotone filter (olive #4a5a2a + tomato #d9432b).
 
 `demo-resto-thumb` is generated automatically (a screenshot of the demo).

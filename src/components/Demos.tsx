@@ -38,7 +38,7 @@ const demos: { src: string; host: string; title: string; kind: string; heading: 
     kind: "Hospitality",
     heading: "Wood-fired restaurant",
     thumb: "demo-resto-thumb",
-    features: ["Animated menu with dietary filters", "Live table booking with time slots", "Open-now status, hours & map", "Embers, steam & kinetic type"],
+    features: ["Risograph print look & giant type", "Printed menu with cursor dish previews", "Ticket-style booking that gets stamped", "Pinned horizontal story scroll"],
   },
   {
     src: "/demos/real-estate",
