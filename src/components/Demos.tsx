@@ -5,6 +5,15 @@ import type { ImageSlot } from "@/lib/images";
 
 const demos: { src: string; host: string; title: string; kind: string; heading: string; thumb: ImageSlot; features: string[] }[] = [
   {
+    src: "/demos/law-firm",
+    host: "ashfordlane.law",
+    title: "Ashford Lane Law: law firm demo website",
+    kind: "Legal",
+    heading: "Law firm",
+    thumb: "demo-law-thumb",
+    features: ["'Do I have a case?' intake & consult booking", "Practice areas, results & attorney profiles", "No-win-no-fee calculator", "Attorney-advertising disclaimers built in"],
+  },
+  {
     src: "/demos/clinic",
     host: "harbourside.health",
     title: "Harbourside Health: clinic demo website",
@@ -93,7 +102,7 @@ export default function Demos() {
       </div>
 
       <Reveal className="mt-8 flex flex-col items-start justify-between gap-4 rounded-2xl border border-dashed border-line px-6 py-5 sm:flex-row sm:items-center">
-        <p className="text-paper/70">Fully interactive: scroll, click, book a table or tour, add to bag, check out. Switch desktop/mobile or expand. More on the way: law firms, gyms, salons.</p>
+        <p className="text-paper/70">Fully interactive: scroll, click, book a table or tour, add to bag, check out. Switch desktop/mobile or expand. More on the way: gyms, salons, dentists.</p>
         <a href="#contact" className="shrink-0 font-semibold text-brand underline decoration-brand/40 underline-offset-4">Need one for your industry? →</a>
       </Reveal>
     </section>

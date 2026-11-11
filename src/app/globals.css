@@ -8,6 +8,7 @@
   --font-es: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
   --font-re: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
   --font-cl: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+  --font-lw: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
 }
 
 @theme {
@@ -62,6 +63,15 @@
   --color-cl-mute: #4b5a7d;
   --color-cl-blue: #1a52c4;
   --color-cl-cyan: #12d6f8;
+
+  /* Demo: law firm (OG brand palette, "prestige editorial" expression) */
+  --color-lw-navy: #050c26;
+  --color-lw-deep: #0a1f5c;
+  --color-lw-paper: #f5f7fb;
+  --color-lw-line: #dde4f0;
+  --color-lw-mute: #4b5a7d;
+  --color-lw-blue: #1a52c4;
+  --color-lw-cyan: #12d6f8;
 
   --font-display: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
@@ -462,7 +472,7 @@ body {
 }
 
 @layer base {
-  .font-tree, .font-mv, .font-es, .font-re, .font-cl { font-weight: 700; letter-spacing: -0.025em; }
+  .font-tree, .font-mv, .font-es, .font-re, .font-cl, .font-lw { font-weight: 700; letter-spacing: -0.025em; }
 }
 
 @keyframes cl-ecg { from { stroke-dashoffset: 600; } to { stroke-dashoffset: 0; } }
