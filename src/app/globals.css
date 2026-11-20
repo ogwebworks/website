@@ -189,7 +189,7 @@ body {
   display: inline-block;
   isolation: isolate;
   animation: bulb-on 1.9s linear both;
-  animation-delay: var(--delay, 0ms);
+  animation-delay: calc(var(--delay, 0ms) + var(--intro, 0ms));
 }
 .bulb::before,
 .bulb::after {
@@ -210,27 +210,27 @@ body {
   animation:
     bulb-halo 1.9s linear both,
     bulb-breathe 4.5s ease-in-out infinite;
-  animation-delay: var(--delay, 0ms), calc(var(--delay, 0ms) + 1.9s);
+  animation-delay: calc(var(--delay, 0ms) + var(--intro, 0ms)), calc(var(--delay, 0ms) + var(--intro, 0ms) + 1.9s);
 }
 /* wide flash when the bulb catches */
 .bulb::before {
   filter: blur(0.55em);
   transform: scale(1.06);
   animation: bulb-flash 1.9s ease-out both;
-  animation-delay: var(--delay, 0ms);
+  animation-delay: calc(var(--delay, 0ms) + var(--intro, 0ms));
 }
 /* neon-style falter every few seconds (applied to one word) */
 .bulb-falter {
   animation:
     bulb-on 1.9s linear both,
     bulb-falter 7s linear infinite;
-  animation-delay: var(--delay, 0ms), calc(var(--delay, 0ms) + 3.5s);
+  animation-delay: calc(var(--delay, 0ms) + var(--intro, 0ms)), calc(var(--delay, 0ms) + var(--intro, 0ms) + 3.5s);
 }
 .bulb-falter::after {
   animation:
     bulb-halo 1.9s linear both,
     bulb-falter-halo 7s linear infinite;
-  animation-delay: var(--delay, 0ms), calc(var(--delay, 0ms) + 3.5s);
+  animation-delay: calc(var(--delay, 0ms) + var(--intro, 0ms)), calc(var(--delay, 0ms) + var(--intro, 0ms) + 3.5s);
 }
 
 @keyframes bulb-on {
@@ -293,7 +293,7 @@ body {
 
 .hero-rise {
   animation: hero-rise-in 0.8s var(--ease-out-expo) both;
-  animation-delay: var(--delay, 0ms);
+  animation-delay: calc(var(--delay, 0ms) + var(--intro, 0ms));
 }
 .scroll-cue { animation: scroll-cue 1.6s ease-in-out infinite; }
 
@@ -681,4 +681,43 @@ html.has-cursor body, html.has-cursor a, html.has-cursor button, html.has-cursor
 @media (prefers-reduced-motion: reduce) {
   .city-fallback span { animation: none; }
   .fx-card { transform: none; }
+}
+
+/* ---------- First-visit intro curtain (fx/IntroCurtain.tsx) ---------- */
+@property --og-n { syntax: "<integer>"; inherits: false; initial-value: 0; }
+html:not(.intro-seen) { --intro: 650ms; }
+.og-intro { position: fixed; inset: 0; z-index: 300; pointer-events: none; }
+html.intro-seen .og-intro { display: none; }
+.og-intro-panel { position: absolute; inset: 0; will-change: transform; }
+.og-intro-panel-a { background: var(--color-ink); animation: og-lift 0.75s cubic-bezier(0.76, 0, 0.24, 1) 0.95s both; display: grid; place-items: center; }
+.og-intro-panel-b { background: linear-gradient(120deg, var(--color-azure), var(--color-brand)); animation: og-lift 0.75s cubic-bezier(0.76, 0, 0.24, 1) 1.08s both; }
+.og-intro-inner { display: grid; justify-items: center; gap: 14px; text-align: center; }
+.og-intro-logo { animation: og-pop 0.6s var(--ease-out-expo) both; }
+.og-intro-words { font-size: 14px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--color-mute); }
+.og-intro-words span { display: inline-block; animation: og-word 0.5s var(--ease-out-expo) both; }
+.og-intro-words span:nth-child(2) { animation-delay: 0.15s; color: var(--color-brand); }
+.og-intro-words span:nth-child(3) { animation-delay: 0.3s; }
+.og-intro-count { font-size: 13px; color: var(--color-paper); counter-reset: n var(--og-n); animation: og-count 0.85s cubic-bezier(0.3, 0, 0.2, 1) both; }
+.og-intro-count::after { content: counter(n) "%"; }
+.og-intro-bar { width: 160px; height: 2px; background: rgb(255 255 255 / 0.1); position: relative; overflow: hidden; }
+.og-intro-bar::after { content: ""; position: absolute; inset: 0; background: var(--color-brand); transform-origin: left; animation: og-bar 0.85s cubic-bezier(0.3, 0, 0.2, 1) both; }
+@keyframes og-lift { to { transform: translateY(-101%); } }
+@keyframes og-pop { from { opacity: 0; transform: scale(0.6) rotate(-12deg); } }
+@keyframes og-word { from { opacity: 0; transform: translateY(10px); } }
+@keyframes og-count { from { --og-n: 0; } to { --og-n: 100; } }
+@keyframes og-bar { from { transform: scaleX(0); } }
+.og-intro { animation: og-gone 0s linear 1.9s forwards; }
+@keyframes og-gone { to { visibility: hidden; } }
+
+/* ---------- Store ---------- */
+.store-fallback { animation: store-float 4s ease-in-out infinite; filter: drop-shadow(0 20px 40px rgb(18 214 248 / 0.35)); }
+@keyframes store-float { 0%, 100% { transform: translateY(0) rotate(-4deg); } 50% { transform: translateY(-12px) rotate(4deg); } }
+
+/* ---------- Sound toggle equaliser ---------- */
+.sound-bar { height: 3px; transition: height 0.3s; }
+.sound-on .sound-bar { animation: eq 0.9s ease-in-out infinite alternate; animation-delay: calc(var(--i) * -0.22s); }
+@keyframes eq { from { height: 3px; } to { height: 14px; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .store-fallback, .sound-on .sound-bar { animation: none; }
 }

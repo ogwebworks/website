@@ -3,11 +3,14 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, m } from "motion/react";
 import Logo from "./Logo";
+import PlanDrawer from "./store/PlanDrawer";
+import SoundToggle from "./fx/SoundToggle";
 import { pillars, services } from "@/lib/site";
 
 const links = [
+  { href: "#work", label: "Work" },
+  { href: "#store", label: "Store" },
   { href: "#demos", label: "Demos" },
-  { href: "#why", label: "Why OG" },
   { href: "#process", label: "Process" },
   { href: "#faq", label: "FAQ" },
 ];
@@ -72,6 +75,8 @@ export default function Header() {
           </ul>
 
           <div className="flex items-center gap-2">
+            <SoundToggle />
+            <PlanDrawer />
             <a
               href="#contact"
               className="group relative hidden overflow-hidden rounded-full bg-brand px-5 py-2.5 text-sm font-semibold text-ink transition hover:shadow-[0_0_30px_-4px_var(--color-brand)] sm:inline-flex"

@@ -45,8 +45,14 @@ export default function ProposalForm() {
 
   useEffect(() => {
     const onPrefill = (e: Event) => {
-      const { url, service } = (e as CustomEvent<{ url: string; service: string }>).detail;
-      setD((prev) => ({ ...prev, url: url || prev.url, services: prev.services.includes(service) ? prev.services : [...prev.services, service] }));
+      const { url, service, services: many, note } = (e as CustomEvent<{ url?: string; service?: string; services?: string[]; note?: string }>).detail;
+      const add = [...(many ?? []), ...(service ? [service] : [])];
+      setD((prev) => ({
+        ...prev,
+        url: url || prev.url,
+        services: [...prev.services, ...add.filter((s, i) => !prev.services.includes(s) && add.indexOf(s) === i)],
+        message: note ? (prev.message ? `${note}\n\n${prev.message}` : note) : prev.message,
+      }));
       setStep(url ? 1 : 0);
     };
     window.addEventListener("og:prefill", onPrefill);

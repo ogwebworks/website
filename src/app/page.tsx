@@ -16,6 +16,9 @@ import Demos from "@/components/Demos";
 import SiteImage from "@/components/SiteImage";
 import CustomCursor from "@/components/fx/CustomCursor";
 import ScrollProgress from "@/components/fx/ScrollProgress";
+import IntroCurtain from "@/components/fx/IntroCurtain";
+import WorkGallery from "@/components/work/WorkGallery";
+import Store from "@/components/store/Store";
 import { faqs, services, site } from "@/lib/site";
 
 const jsonLd = {
@@ -51,12 +54,14 @@ export default function Home() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }} />
+      <IntroCurtain />
       <ScrollProgress />
       <CustomCursor />
       <Header />
       <main id="main">
         <Hero />
         <Marquee />
+        <WorkGallery />
         <Pillars
           media={{
             build: <SiteImage name="pillar-build" sizes="(min-width: 1024px) 33vw, 100vw" />,
@@ -64,6 +69,7 @@ export default function Home() {
             fix: <SiteImage name="pillar-fix" sizes="(min-width: 1024px) 33vw, 100vw" />,
           }}
         />
+        <Store />
         <Stats />
         <Studio />
         <Statement />

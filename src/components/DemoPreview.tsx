@@ -257,3 +257,18 @@ function Modal({ children, onClose, label }: { children: ReactNode; onClose: () 
     document.body,
   );
 }
+
+/** Full-screen live demo, opened from elsewhere on the page (e.g. the work gallery). */
+export function DemoLightbox({ src, title, host, onClose }: { src: string; title: string; host: string; onClose: () => void }) {
+  const [device, setDevice] = useState<Device>(() =>
+    typeof window !== "undefined" && window.matchMedia("(max-width: 639px)").matches ? "mobile" : "desktop",
+  );
+  const [reloadKey, setReloadKey] = useState(0);
+  return (
+    <Modal onClose={onClose} label={title}>
+      <BrowserWindow host={host} device={device} setDevice={setDevice} onReload={() => setReloadKey((k) => k + 1)} onClose={onClose}>
+        <Viewport key={reloadKey} src={src} title={title} device={device} />
+      </BrowserWindow>
+    </Modal>
+  );
+}

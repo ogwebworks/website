@@ -1,73 +1,7 @@
 import SiteImage from "./SiteImage";
 import DemoPreview from "./DemoPreview";
 import Reveal from "./Reveal";
-import type { ImageSlot } from "@/lib/images";
-
-const demos: { src: string; host: string; title: string; kind: string; heading: string; thumb: ImageSlot; features: string[] }[] = [
-  {
-    src: "/demos/gym",
-    host: "pulseathletic.fit",
-    title: "Pulse Athletic: gym demo website",
-    kind: "Fitness",
-    heading: "Gym & fitness club",
-    thumb: "demo-gym-thumb",
-    features: ["Class timetable with live spots & booking", "Live 'how busy is it' meter", "Memberships with monthly/annual toggle", "Free 7-day pass with digital code"],
-  },
-  {
-    src: "/demos/law-firm",
-    host: "ashfordlane.law",
-    title: "Ashford Lane Law: law firm demo website",
-    kind: "Legal",
-    heading: "Law firm",
-    thumb: "demo-law-thumb",
-    features: ["'Do I have a case?' intake & consult booking", "Practice areas, results & attorney profiles", "No-win-no-fee calculator", "Attorney-advertising disclaimers built in"],
-  },
-  {
-    src: "/demos/clinic",
-    host: "harbourside.health",
-    title: "Harbourside Health: clinic demo website",
-    kind: "Healthcare",
-    heading: "Family clinic",
-    thumb: "demo-clinic-thumb",
-    features: ["4-step online booking with live slots", "Clinician directory & specialty filter", "Video visits & insurance checker", "Add-to-calendar, hours & emergency notice"],
-  },
-  {
-    src: "/demos/restaurant",
-    host: "emberandsalt.demo",
-    title: "Ember & Salt: restaurant demo website",
-    kind: "Hospitality",
-    heading: "Wood-fired restaurant",
-    thumb: "demo-resto-thumb",
-    features: ["Risograph print look & giant type", "Printed menu with cursor dish previews", "Ticket-style booking that gets stamped", "Pinned horizontal story scroll"],
-  },
-  {
-    src: "/demos/real-estate",
-    host: "meridianhomes.demo",
-    title: "Meridian Homes: real estate demo website",
-    kind: "Real estate",
-    heading: "Modern brokerage",
-    thumb: "demo-re-thumb",
-    features: ["Property search & neighbourhood filters", "Listing gallery, payments & tour booking", "Interactive map with price pins", "Mortgage calculator & home valuation"],
-  },
-  {
-    src: "/demos/tree-services",
-    host: "canopyandcrown.demo",
-    title: "Canopy & Crown: tree services demo website",
-    kind: "Local services",
-    heading: "Tree care company",
-    thumb: "demo-tree-thumb",
-    features: ["Online estimates with photo upload", "Drag-to-compare before/after slider", "Sticky call & quote bar on mobile", "Reviews, service areas & FAQ"],
-  },
-  {
-    src: "/demos/fashion",
-    host: "maisonvale.demo",
-    title: "Maison Vale: fashion e-commerce demo store",
-    kind: "E-commerce",
-    heading: "Fashion boutique",
-    thumb: "demo-fashion-thumb",
-    features: ["Catalogue with filters, search & sort", "Product pages with colour & size", "Slide-out bag with free-shipping bar", "3-step checkout & discount codes"],
-  },
-];
+import { demos } from "@/lib/demos";
 
 /** Homepage: live demo websites visitors can use without leaving the page. */
 export default function Demos() {
