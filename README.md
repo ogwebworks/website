@@ -7,7 +7,10 @@ See [ROADMAP.md](./ROADMAP.md) for strategy, sitemap and phases.
 ## Stack
 - Next.js 16 (App Router, Server Components, Turbopack) + TypeScript
 - Tailwind CSS v4 (design tokens in `src/app/globals.css`)
-- Hero visual: CSS-3D laptop + SVG growth/AI/score/fix cards (`src/components/HeroVisual.tsx`, styles `.hv-*` in `globals.css`), no WebGL, mouse parallax on desktop
+- Hero visual: CSS-3D laptop + SVG cards (`src/components/HeroVisual.tsx`, `.hv-*` styles) paints instantly on every device. On screens ≥1280px it is swapped for a real WebGL scene (`src/components/three/hero-scene.ts`, three.js) after the visitor's first mouse move or scroll: 3D laptop building a site live on its screen, glass growth bars, floating score/AI/fix cards, drag to spin, lid closes on scroll
+- Growth city (`src/components/Stats.tsx` + `three/city-scene.ts`): pinned, scroll-driven WebGL skyline that rises as you scroll, cursor ripple, trend line; loads only when the section is near; CSS skyline fallback
+- Immersive layer (`src/components/fx/`): custom cursor with labels (`data-cursor="Play"`), scroll progress bar, spotlight + tilt cards (`.fx-card` inside `<Spotlight>`), particle network canvas, magnetic footer wordmark, velocity-reactive marquee. Spotlight and ParticleField are adapted from the BizPlainly site
+- 3D rules: never probe WebGL during start-up (`three/support.ts`), respect reduced motion / Save-Data / low-memory devices, pause render loops off-screen
 - Motion: `motion` (Framer Motion) + Lenis smooth scroll
 - Hosting: **Cloudflare Workers (free plan, commercial use allowed)**. Static export (`out/`) served as Worker static assets, plus a tiny Worker (`worker/`) for the form API. Config: `wrangler.jsonc`
 

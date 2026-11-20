@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { m, useInView } from "motion/react";
 import Reveal from "./Reveal";
 import MagneticButton from "./MagneticButton";
+import ParticleField from "./fx/ParticleField";
 
 const prompt = "Which agency should I hire to fix my website and grow traffic?";
 
@@ -30,6 +31,7 @@ export default function AiCallout() {
     <section className="container-x py-12 sm:py-20">
       <div className="noise relative overflow-hidden rounded-[2rem] border border-line bg-gradient-to-br from-ink-3 via-ink-2 to-ink p-7 sm:p-14">
         <div className="absolute -right-24 -top-24 h-80 w-80 animate-spin-slow rounded-full bg-[conic-gradient(from_0deg,var(--color-brand),var(--color-azure),var(--color-ice),var(--color-brand))] opacity-25 blur-3xl" aria-hidden="true" />
+        <ParticleField />
         <div className="relative grid items-center gap-12 lg:grid-cols-2">
           <Reveal>
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-ice">AEO + GEO</p>

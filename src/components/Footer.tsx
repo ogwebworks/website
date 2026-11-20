@@ -1,4 +1,5 @@
 import Logo from "./Logo";
+import FooterWordmark from "./fx/FooterWordmark";
 import { services, site } from "@/lib/site";
 
 export default function Footer() {
@@ -36,15 +37,13 @@ export default function Footer() {
 
       {/* Giant tagline wordmark */}
       <div className="container-x select-none" aria-hidden="true">
-        <p className="bg-gradient-to-b from-white/15 to-transparent bg-clip-text font-display text-[clamp(3rem,13.5vw,13rem)] font-bold leading-[0.8] tracking-[-0.05em] text-transparent">
-          Original.
-        </p>
+        <FooterWordmark />
       </div>
 
       <div className="border-t border-line">
         <div className="container-x flex flex-col justify-between gap-3 py-6 text-sm text-mute sm:flex-row">
           <p>© 2026 {site.legalName}. {site.tagline}</p>
-          <p>Built with Next.js, CSS 3D & a lot of coffee.</p>
+          <p>Built with Next.js, WebGL & a lot of coffee.</p>
         </div>
       </div>
     </footer>

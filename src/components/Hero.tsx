@@ -1,9 +1,10 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import { m, useScroll, useTransform } from "motion/react";
 import MagneticButton from "./MagneticButton";
 import HeroVisual from "./HeroVisual";
+import HeroScene from "./three/HeroScene";
 
 const words = [
   { text: "Original.", className: "text-paper", glow: "rgb(242 246 255 / 0.75)" },
@@ -14,6 +15,8 @@ const words = [
 export default function Hero() {
   const ref = useRef<HTMLElement>(null);
   const [url, setUrl] = useState("");
+  const [webgl, setWebgl] = useState(false);
+  const onSceneReady = useCallback(() => setWebgl(true), []);
 
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
   const sceneScale = useTransform(scrollYProgress, [0, 1], [1, 0.75]);
@@ -38,13 +41,16 @@ export default function Hero() {
         style={{ scale: sceneScale, opacity: sceneOpacity }}
         className="absolute right-[1%] top-1/2 hidden w-[50%] max-w-[48rem] -translate-y-[46%] xl:block"
       >
-        <HeroVisual />
+        <div className={`transition-[opacity,filter] duration-700 ${webgl ? "opacity-0 blur-sm" : ""}`}>
+          <HeroVisual />
+        </div>
+        <HeroScene progress={scrollYProgress} onReady={onSceneReady} />
       </m.div>
 
-      <m.div style={{ y: textY }} className="container-x relative flex min-h-[calc(100svh-8rem)] flex-col justify-center pb-16">
+      <m.div style={{ y: textY }} className="container-x pointer-events-none relative flex min-h-[calc(100svh-8rem)] flex-col justify-center pb-16">
         {/* Entrance animations are pure CSS: they play on first paint, before any JavaScript runs.
             Below 1280px the intro is centred and fills the first screen; the visual follows below. */}
-        <div className="flex min-h-[calc(100svh-9rem)] flex-col items-center justify-center text-center xl:min-h-0 xl:items-start xl:text-left">
+        <div className="flex min-h-[calc(100svh-9rem)] flex-col items-center justify-center text-center xl:min-h-0 xl:items-start xl:text-left [&>*]:pointer-events-auto">
         <p
           className="hero-rise mb-6 inline-flex w-fit items-center gap-2 rounded-full border border-line bg-white/[0.03] px-3.5 py-1.5 text-xs font-medium uppercase tracking-[0.18em] text-mute"
           style={{ "--delay": "0ms" } as React.CSSProperties}
@@ -56,7 +62,7 @@ export default function Hero() {
           Digital agency · Worldwide
         </p>
 
-        <h1 className="font-display text-[clamp(3.4rem,18vw,8rem)] font-bold leading-[0.92] tracking-[-0.045em] xl:text-[clamp(4rem,8.6vw,8rem)]">
+        <h1 className="xl:w-fit font-display text-[clamp(3.4rem,18vw,8rem)] font-bold leading-[0.92] tracking-[-0.045em] xl:text-[clamp(4rem,8.6vw,8rem)]">
           <span className="sr-only">OG WebWorks: Original. Digital. Solutions!</span>
           {words.map((w, i) => (
             <span key={w.text} className="block pb-[0.06em]" aria-hidden="true">
@@ -101,7 +107,7 @@ export default function Hero() {
         </div>
 
         {/* Hero visual (phones/tablets/small laptops): in flow, below the calls to action */}
-        <div className="hero-rise mx-auto mt-6 w-full max-w-lg lg:max-w-2xl xl:hidden" style={{ "--delay": "1800ms" } as React.CSSProperties}>
+        <div className="hero-rise pointer-events-auto mx-auto mt-6 w-full max-w-lg lg:max-w-2xl xl:hidden" style={{ "--delay": "1800ms" } as React.CSSProperties}>
           <HeroVisual />
         </div>
       </m.div>

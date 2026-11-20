@@ -1,5 +1,6 @@
 "use client";
 
+import ParticleField from "./fx/ParticleField";
 import { useEffect, useState } from "react";
 import { AnimatePresence, m } from "motion/react";
 
@@ -80,6 +81,7 @@ export default function ProposalForm() {
       <div className="noise relative overflow-hidden rounded-[2rem] border border-line bg-ink-2">
         <div className="absolute -left-32 -top-32 h-96 w-96 rounded-full bg-brand/15 blur-[100px]" aria-hidden="true" />
         <div className="absolute -bottom-32 -right-32 h-96 w-96 rounded-full bg-azure/20 blur-[100px]" aria-hidden="true" />
+        <ParticleField density={0.00006} />
         <div className="relative grid gap-12 p-7 sm:p-12 lg:grid-cols-[0.9fr_1.1fr] lg:p-16">
           <div>
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-brand">Free proposal</p>

@@ -14,6 +14,8 @@ import Studio from "@/components/Studio";
 import Industries from "@/components/Industries";
 import Demos from "@/components/Demos";
 import SiteImage from "@/components/SiteImage";
+import CustomCursor from "@/components/fx/CustomCursor";
+import ScrollProgress from "@/components/fx/ScrollProgress";
 import { faqs, services, site } from "@/lib/site";
 
 const jsonLd = {
@@ -49,6 +51,8 @@ export default function Home() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }} />
+      <ScrollProgress />
+      <CustomCursor />
       <Header />
       <main id="main">
         <Hero />

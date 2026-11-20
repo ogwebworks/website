@@ -548,3 +548,137 @@ body {
     transition-duration: 0.001ms !important;
   }
 }
+
+/* ======================================================================
+   Immersive layer: cursor, spotlight cards, CSS skyline, footer wordmark
+   ====================================================================== */
+
+/* ---------- Custom cursor (mouse only; enabled by JS adding .has-cursor) ---------- */
+.og-cursor-dot,
+.og-cursor-ring {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 200;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.og-cursor-dot[data-on="1"],
+.og-cursor-ring[data-on="1"] { opacity: 1; }
+.og-cursor-dot {
+  width: 6px;
+  height: 6px;
+  margin: -3px 0 0 -3px;
+  border-radius: 999px;
+  background: var(--color-brand);
+  box-shadow: 0 0 12px var(--color-brand);
+}
+.og-cursor-ring {
+  width: 38px;
+  height: 38px;
+  margin: -19px 0 0 -19px;
+}
+.og-cursor-ring::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 999px;
+  border: 1.5px solid rgb(161 193 250 / 0.55);
+  transition: transform 0.35s var(--ease-out-expo), background-color 0.3s, border-color 0.3s;
+}
+.og-cursor-ring span {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font: 700 11px/1 var(--font-space-grotesk), system-ui, sans-serif;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-ink);
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.og-cursor-ring[data-mode="hover"]::before { transform: scale(1.6); background: rgb(18 214 248 / 0.12); border-color: var(--color-brand); }
+.og-cursor-ring[data-mode="label"]::before { transform: scale(2.3); background: var(--color-brand); border-color: var(--color-brand); }
+.og-cursor-ring[data-mode="label"] span { opacity: 1; }
+.og-cursor-ring[data-mode="text"]::before { transform: scale(0.4); opacity: 0; }
+.og-cursor-ring.press::before { transform: scale(0.8); }
+html.has-cursor body, html.has-cursor a, html.has-cursor button, html.has-cursor summary, html.has-cursor label { cursor: none; }
+
+/* ---------- Spotlight + tilt cards (see fx/Spotlight.tsx) ---------- */
+.fx-card {
+  position: relative;
+  transform: perspective(1100px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  transition: transform 0.5s var(--ease-out-expo);
+  will-change: transform;
+}
+.fx-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s;
+  background:
+    radial-gradient(500px circle at var(--mx, 50%) var(--my, 50%), rgb(18 214 248 / 0.16), transparent 45%),
+    radial-gradient(300px circle at var(--mx, 50%) var(--my, 50%), rgb(255 255 255 / 0.08), transparent 60%);
+}
+.fx-card::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  z-index: 3;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s;
+  padding: 1px;
+  background: radial-gradient(260px circle at var(--mx, 50%) var(--my, 50%), var(--color-brand), transparent 70%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+.fx-card:hover::after,
+.fx-card:hover::before { opacity: 1; }
+
+/* ---------- CSS skyline (fallback for the WebGL growth city) ---------- */
+.city-fallback {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.6%;
+  padding: 0 4% 18vh;
+  background: radial-gradient(ellipse at 70% 80%, rgb(29 109 255 / 0.25), transparent 60%);
+}
+.city-fallback span {
+  flex: 1;
+  height: var(--h);
+  border-radius: 4px 4px 0 0;
+  background: linear-gradient(to top, rgb(12 26 74 / 0.9), var(--color-azure) 70%, var(--color-brand));
+  opacity: 0.55;
+  transform-origin: bottom;
+  animation: city-rise 1.6s var(--ease-out-expo) both;
+  animation-delay: calc(var(--i) * 40ms);
+  animation-timeline: view();
+  animation-range: entry 10% cover 40%;
+}
+@keyframes city-rise { from { transform: scaleY(0.08); } to { transform: scaleY(1); } }
+
+/* ---------- Footer wordmark (letters react to the cursor) ---------- */
+.footer-wordmark span {
+  display: inline-block;
+  --lit: 0;
+  color: transparent;
+  background: linear-gradient(to bottom, rgb(255 255 255 / calc(0.15 + var(--lit) * 0.7)), transparent 85%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  text-shadow: 0 0 calc(var(--lit) * 40px) rgb(18 214 248 / calc(var(--lit) * 0.6));
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .city-fallback span { animation: none; }
+  .fx-card { transform: none; }
+}

@@ -60,6 +60,7 @@ export default function DemoPreview({
             type="button"
             onClick={start}
             className="group/poster relative block h-full w-full overflow-hidden text-left"
+            data-cursor="Play"
             aria-label={`Try the live demo: ${title}`}
           >
             <div className="absolute inset-0 transition-transform duration-700 ease-out-expo group-hover/poster:scale-[1.03]">{poster}</div>

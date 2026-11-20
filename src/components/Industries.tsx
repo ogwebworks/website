@@ -1,5 +1,6 @@
 import SiteImage from "./SiteImage";
 import Reveal from "./Reveal";
+import Spotlight from "./fx/Spotlight";
 import { industries } from "@/lib/site";
 import type { ImageSlot } from "@/lib/images";
 
@@ -16,10 +17,10 @@ export default function Industries() {
           <p className="max-w-sm text-paper/65">Different industries, same goal: a site that earns trust in seconds and turns visitors into customers.</p>
         </Reveal>
       </div>
-      <ul className="grid gap-5 md:grid-cols-2">
+      <Spotlight as="ul" className="grid gap-5 md:grid-cols-2">
         {industries.map((ind, i) => (
           <Reveal as="li" key={ind.slug} delay={i * 0.08}>
-            <a href="#contact" className="group block h-full overflow-hidden rounded-3xl border border-line bg-ink-2 transition-colors duration-500 hover:border-paper/20">
+            <a href="#contact" data-cursor="Talk" className="fx-card group block h-full overflow-hidden rounded-3xl border border-line bg-ink-2 transition-colors duration-500 hover:border-paper/20">
               <div className="relative aspect-video overflow-hidden">
                 <div className="absolute inset-0 transition-transform duration-700 ease-out-expo group-hover:scale-105">
                   <SiteImage name={ind.image as ImageSlot} sizes="(min-width: 768px) 50vw, 100vw" />
@@ -40,7 +41,7 @@ export default function Industries() {
             </a>
           </Reveal>
         ))}
-      </ul>
+      </Spotlight>
     </section>
   );
 }
