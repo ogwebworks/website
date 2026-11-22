@@ -17,6 +17,7 @@ import SiteImage from "@/components/SiteImage";
 import CustomCursor from "@/components/fx/CustomCursor";
 import ScrollProgress from "@/components/fx/ScrollProgress";
 import IntroCurtain from "@/components/fx/IntroCurtain";
+import AnimPauser from "@/components/fx/AnimPauser";
 import WorkGallery from "@/components/work/WorkGallery";
 import Store from "@/components/store/Store";
 import { faqs, services, site } from "@/lib/site";
@@ -56,6 +57,7 @@ export default function Home() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }} />
       <IntroCurtain />
       <ScrollProgress />
+      <AnimPauser />
       <CustomCursor />
       <Header />
       <main id="main">

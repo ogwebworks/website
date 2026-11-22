@@ -11,6 +11,8 @@ export default function ParticleField({ density = 0.00008, className = "" }: { d
   const ref = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
+    // desktop with a mouse only: on touch devices it is decoration that costs scrolling smoothness
+    if (!window.matchMedia("(min-width: 1024px) and (pointer: fine)").matches) return;
     const canvas = ref.current!;
     const ctx = canvas.getContext("2d")!;
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;

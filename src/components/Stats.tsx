@@ -45,6 +45,14 @@ export default function Stats() {
   const canvas = useRef<HTMLCanvasElement>(null);
   const handle = useRef<CityHandle | null>(null);
   const [ready, setReady] = useState(false);
+  const [seen, setSeen] = useState(false);
+  useEffect(() => {
+    const el = section.current;
+    if (!el) return;
+    const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) { setSeen(true); io.disconnect(); } }, { threshold: 0.15 });
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
   const { scrollYProgress } = useScroll({ target: section, offset: ["start start", "end end"] });
   useMotionValueEvent(scrollYProgress, "change", (v) => handle.current?.setProgress(v));
 
@@ -83,7 +91,7 @@ export default function Stats() {
     <section ref={section} aria-labelledby="growth-h" className="relative h-[180vh] border-y border-line md:h-[230vh]">
       <div className="sticky top-0 h-[100svh] overflow-hidden bg-ink">
         {/* CSS skyline fallback */}
-        <div className={`city-fallback absolute inset-0 transition-opacity duration-1000 ${ready ? "opacity-0" : ""}`} aria-hidden="true">
+        <div data-in={seen || undefined} className={`city-fallback absolute inset-0 transition-opacity duration-1000 ${ready ? "opacity-0" : ""}`} aria-hidden="true">
           {Array.from({ length: 28 }, (_, i) => (
             <span key={i} style={{ "--h": `${12 + (i / 27) ** 1.6 * 55 + ((i * 37) % 11)}%`, "--i": i } as React.CSSProperties} />
           ))}
@@ -104,7 +112,7 @@ export default function Stats() {
           <div>
             <dl className="grid grid-cols-2 gap-3 lg:grid-cols-4">
               {stats.map((s) => (
-                <div key={s.label} className="pointer-events-auto rounded-2xl border border-white/10 bg-ink/45 p-4 backdrop-blur-md sm:p-6">
+                <div key={s.label} className="pointer-events-auto rounded-2xl border border-white/10 bg-ink/80 p-4 sm:p-6 lg:bg-ink/45 lg:backdrop-blur-md">
                   <dt className="sr-only">{s.label}</dt>
                   <dd>
                     <span className="block font-display text-3xl font-bold tracking-tight text-paper sm:text-6xl">

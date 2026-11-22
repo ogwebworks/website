@@ -36,7 +36,8 @@ export default function WorkRing({ items }: { items: Item[] }) {
   useEffect(() => {
     const s = state.current;
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    let raf = 0, visible = false, lastScroll = window.scrollY;
+    const touch = !window.matchMedia("(pointer: fine)").matches;
+    let raf = 0, visible = false, lastScroll = window.scrollY, drawn = NaN;
     const norm = (a: number) => ((a % 360) + 360) % 360;
     const frame = (t: number) => {
       const dt = Math.min(48, t - (s.lastT || t));
@@ -51,7 +52,7 @@ export default function WorkRing({ items }: { items: Item[] }) {
           s.angle += s.vel;
           s.vel *= 0.94;
           s.idle += dt;
-          if (Math.abs(s.vel) < 0.02 && s.idle > 2600 && !reduce) s.angle -= dt * 0.006; // slow auto-turn
+          if (Math.abs(s.vel) < 0.02 && s.idle > 2600 && !reduce && !touch) s.angle -= dt * 0.006; // slow auto-turn (mouse devices)
           // gentle snap when nearly stopped after a throw
           if (Math.abs(s.vel) < 0.08 && Math.abs(s.vel) > 0.001 && s.idle < 2600) {
             const snap = Math.round(s.angle / step) * step;
@@ -59,6 +60,8 @@ export default function WorkRing({ items }: { items: Item[] }) {
           }
         }
       }
+      if (Math.abs(s.angle - drawn) < 0.002) { if (visible && !document.hidden) raf = requestAnimationFrame(frame); return; }
+      drawn = s.angle;
       ring.current!.style.transform = `translateZ(${-radius}px) rotateY(${s.angle}deg)`;
       // depth shading: cards facing away fade
       const front = Math.round(norm(-s.angle) / step) % n;
@@ -67,7 +70,7 @@ export default function WorkRing({ items }: { items: Item[] }) {
         const rel = norm(i * step + s.angle);
         const facing = Math.cos((rel * Math.PI) / 180); // 1 front, -1 back
         c.style.opacity = String(Math.max(0, 0.15 + facing * 0.85));
-        c.style.filter = `brightness(${0.45 + Math.max(0, facing) * 0.55})`;
+        c.style.setProperty("--shade", String(0.55 - Math.max(0, facing) * 0.55));
         c.style.pointerEvents = facing > 0.6 ? "auto" : "none";
       });
       setActive((a) => (a === front ? a : front));
@@ -150,6 +153,7 @@ export default function WorkRing({ items }: { items: Item[] }) {
                 <span className="relative block aspect-[16/10] overflow-hidden">
                   <span className="absolute inset-0 block transition-transform duration-700 ease-out-expo group-hover:scale-[1.04]">{it.poster}</span>
                   <span className="absolute inset-0 bg-[linear-gradient(to_top,rgb(3_8_32/0.85),transparent_55%)]" aria-hidden="true" />
+                  <span className="pointer-events-none absolute inset-0 z-10 bg-ink" style={{ opacity: "var(--shade, 0)" }} aria-hidden="true" />
                   <span className="absolute bottom-3 left-4 right-4 flex items-end justify-between gap-3">
                     <span>
                       <span className="block text-[11px] font-semibold uppercase tracking-[0.18em] text-brand">{it.kind}</span>

@@ -1,66 +1,26 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { AnimatePresence, m } from "motion/react";
 import { products, type ProductId } from "@/lib/store";
 import { plan, usePlan } from "@/lib/plan";
-import { canUse3D } from "../three/support";
-import type { StoreHandle } from "../three/store-scene";
 import ProductIcon from "./ProductIcon";
+import ProductVisual from "./ProductVisual";
 import { sfx } from "../fx/sound";
 
 /**
- * "The OG Store": services presented like products on a high-end store. A 3D object per
- * service on a lit turntable (WebGL, lazy), tier selector, what's included, and
- * "Add to plan", which fills the visitor's plan (cart) and later the proposal form.
+ * "The OG Store": services presented like products on a high-end store: a layered
+ * "product shot" per service, package selector, what's included, and "Add to plan",
+ * which fills the visitor's plan (cart) and later the proposal form.
  */
 export default function Store() {
   const [idx, setIdx] = useState(0);
   const [tier, setTier] = useState<Record<string, number>>({});
-  const [ready, setReady] = useState(false);
   const [added, setAdded] = useState<string | null>(null);
   const items = usePlan();
-  const canvas = useRef<HTMLCanvasElement>(null);
-  const section = useRef<HTMLElement>(null);
-  const handle = useRef<StoreHandle | null>(null);
-  const idxRef = useRef(0);
   const p = products[idx];
   const t = tier[p.id] ?? 1;
   const inPlan = items.find((x) => x.id === p.id);
-
-  useEffect(() => {
-    const el = section.current;
-    if (!el) return;
-    let alive = true;
-    const io = new IntersectionObserver(
-      async ([e]) => {
-        if (!e.isIntersecting) return;
-        io.disconnect();
-        if (!canUse3D()) return;
-        const { mountStoreScene } = await import("../three/store-scene");
-        if (!alive || !canvas.current) return;
-        try {
-          handle.current = mountStoreScene(canvas.current, products[idxRef.current].id);
-          requestAnimationFrame(() => setReady(true));
-        } catch {
-          /* CSS stage stays */
-        }
-      },
-      { rootMargin: "700px 0px" },
-    );
-    io.observe(el);
-    return () => {
-      alive = false;
-      io.disconnect();
-      handle.current?.dispose();
-      handle.current = null;
-    };
-  }, []);
-
-  useEffect(() => {
-    idxRef.current = idx;
-    handle.current?.show(products[idx].id);
-  }, [idx]);
 
   const select = (i: number) => {
     if (i === idx) return;
@@ -80,7 +40,7 @@ export default function Store() {
   };
 
   return (
-    <section ref={section} id="store" aria-labelledby="store-h" className="relative py-24 sm:py-32">
+    <section id="store" aria-labelledby="store-h" className="relative py-24 sm:py-32">
       <div className="container-x">
         <div className="mb-10 flex flex-col justify-between gap-6 md:flex-row md:items-end">
           <div>
@@ -121,20 +81,12 @@ export default function Store() {
 
         <div className="grid grid-cols-[minmax(0,1fr)] overflow-hidden rounded-[2rem] border border-line bg-ink-2 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)]">
           {/* stage */}
-          <div className="relative h-[340px] overflow-hidden border-b border-line bg-[radial-gradient(ellipse_at_50%_35%,rgb(29_109_255/0.22),transparent_65%)] sm:h-[440px] lg:h-auto lg:min-h-[600px] lg:border-b-0 lg:border-r">
-            <div className="pointer-events-none absolute left-6 top-6 z-10 font-display text-[clamp(4rem,10vw,8rem)] font-bold leading-none tracking-tighter text-white/[0.04]" aria-hidden="true">
+          <div className="relative h-[340px] overflow-hidden border-b border-line bg-[radial-gradient(ellipse_at_50%_40%,rgb(29_109_255/0.25),transparent_65%)] sm:h-[460px] lg:h-auto lg:min-h-[600px] lg:border-b-0 lg:border-r">
+            <div className="pointer-events-none absolute left-6 top-6 font-display text-[clamp(4rem,10vw,8rem)] font-bold leading-none tracking-tighter text-white/[0.04]" aria-hidden="true">
               0{idx + 1}
             </div>
-            {/* CSS stage until WebGL is ready (or instead of it) */}
-            <div className={`absolute inset-0 grid place-items-center transition-opacity duration-700 ${ready ? "opacity-0" : ""}`} aria-hidden="true">
-              <div className="store-fallback">
-                <ProductIcon id={p.id} className="h-28 w-28 text-brand sm:h-36 sm:w-36" />
-              </div>
-            </div>
-            <canvas ref={canvas} data-cursor="Drag" aria-hidden="true" className={`absolute inset-0 h-full w-full touch-pan-y transition-opacity duration-700 ${ready ? "opacity-100" : "opacity-0"}`} />
-            <p className="pointer-events-none absolute bottom-5 left-6 text-[11px] uppercase tracking-[0.2em] text-mute">
-              {ready ? "Drag to turn" : p.category}
-            </p>
+            <ProductVisual id={p.id} />
+            <p className="pointer-events-none absolute bottom-5 left-6 text-[11px] uppercase tracking-[0.2em] text-mute">Illustration · {p.category}</p>
           </div>
 
           {/* details */}

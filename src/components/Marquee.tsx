@@ -1,7 +1,6 @@
 "use client";
 
-import { useRef } from "react";
-import { m, useAnimationFrame, useMotionValue, useReducedMotion, useScroll, useSpring, useTransform, useVelocity, wrap } from "motion/react";
+import { useEffect, useRef } from "react";
 import { services } from "@/lib/site";
 
 const items = [...services.map((s) => s.title), "Core Web Vitals", "Schema & Entities", "Conversion Design"];
@@ -12,58 +11,74 @@ const Star = () => (
   </svg>
 );
 
+const List = ({ outline, hidden }: { outline?: boolean; hidden?: boolean }) => (
+  <ul className="flex shrink-0 items-center gap-10 pr-10" aria-hidden={hidden || undefined}>
+    {items.map((t) => (
+      <li
+        key={t}
+        className={`flex items-center gap-10 whitespace-nowrap font-display text-2xl font-semibold tracking-tight sm:text-4xl ${outline ? "text-transparent [-webkit-text-stroke:1px_rgb(161_193_250/0.7)]" : ""}`}
+      >
+        {t}
+        <Star />
+      </li>
+    ))}
+  </ul>
+);
+
 /**
- * Two kinetic ribbons running in opposite directions. Scrolling speeds them up,
- * flips their direction with the scroll and skews the type with the velocity.
+ * Two kinetic ribbons running in opposite directions. Scrolling speeds them up, flips their
+ * direction with the scroll and skews the type with the velocity. One small rAF loop for both
+ * rows that runs only while the ribbons are on screen.
  */
-function Row({ base, outline = false, hidden = false }: { base: number; outline?: boolean; hidden?: boolean }) {
-  const reduce = useReducedMotion();
-  const x = useMotionValue(0);
-  const { scrollY } = useScroll();
-  const vel = useSpring(useVelocity(scrollY), { damping: 50, stiffness: 400 });
-  const factor = useTransform(vel, [-2000, 0, 2000], [-5, 0, 5], { clamp: false });
-  const skew = useTransform(vel, [-2500, 0, 2500], [8, 0, -8]);
-  const dir = useRef(1);
-
-  useAnimationFrame((_, delta) => {
-    if (reduce) return;
-    const f = factor.get();
-    if (f < 0) dir.current = -1;
-    else if (f > 0) dir.current = 1;
-    const move = dir.current * base * (delta / 1000) * (1 + Math.abs(f));
-    x.set(wrap(-50, 0, x.get() + move));
-  });
-  const tx = useTransform(x, (v) => `${v}%`);
-
-  const list = (dup: boolean) => (
-    <ul className="flex shrink-0 items-center gap-10 pr-10" aria-hidden={hidden || dup || undefined}>
-      {items.map((t) => (
-        <li
-          key={t}
-          className={`flex items-center gap-10 whitespace-nowrap font-display text-2xl font-semibold tracking-tight sm:text-4xl ${outline ? "text-transparent [-webkit-text-stroke:1px_rgb(161_193_250/0.7)]" : ""}`}
-        >
-          {t}
-          <Star />
-        </li>
-      ))}
-    </ul>
-  );
-
-  return (
-    <div className="flex overflow-hidden [mask-image:linear-gradient(90deg,transparent,black_10%,black_90%,transparent)]">
-      <m.div className="flex w-max will-change-transform" style={{ x: tx, skewX: skew }}>
-        {list(false)}
-        {list(true)}
-      </m.div>
-    </div>
-  );
-}
-
 export default function Marquee() {
+  const section = useRef<HTMLElement>(null);
+  const rows = useRef<(HTMLDivElement | null)[]>([]);
+
+  useEffect(() => {
+    const el = section.current!;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const base = [-2.2, 2.2]; // % of row width per second
+    const x = [0, -50];
+    let dir = 1, vel = 0, lastY = window.scrollY, lastT = 0, raf = 0, on = false;
+
+    const frame = (t: number) => {
+      const dt = lastT ? Math.min(0.05, (t - lastT) / 1000) : 0;
+      lastT = t;
+      const y = window.scrollY;
+      const v = dt ? (y - lastY) / dt : 0; // px/s
+      lastY = y;
+      vel += (v - vel) * 0.12;
+      if (Math.abs(vel) > 30) dir = vel > 0 ? 1 : -1;
+      const boost = 1 + Math.min(5, Math.abs(vel) / 400);
+      const skew = Math.max(-8, Math.min(8, -vel / 300));
+      rows.current.forEach((r, i) => {
+        if (!r) return;
+        x[i] += dir * base[i] * dt * boost;
+        if (x[i] <= -50) x[i] += 50;
+        if (x[i] > 0) x[i] -= 50;
+        r.style.transform = `translate3d(${x[i]}%,0,0) skewX(${skew.toFixed(2)}deg)`;
+      });
+      if (on) raf = requestAnimationFrame(frame);
+    };
+    const io = new IntersectionObserver(([e]) => {
+      on = e.isIntersecting;
+      cancelAnimationFrame(raf);
+      if (on) { lastT = 0; lastY = window.scrollY; raf = requestAnimationFrame(frame); }
+    });
+    io.observe(el);
+    return () => { cancelAnimationFrame(raf); io.disconnect(); };
+  }, []);
+
   return (
-    <section aria-label="What we do" className="relative z-10 -rotate-1 space-y-3 border-y border-line bg-ink-2 py-6">
-      <Row base={-2.2} />
-      <Row base={2.2} outline hidden />
+    <section ref={section} aria-label="What we do" className="relative z-10 -rotate-1 space-y-3 border-y border-line bg-ink-2 py-6">
+      {[false, true].map((outline, i) => (
+        <div key={i} className="flex overflow-hidden [mask-image:linear-gradient(90deg,transparent,black_10%,black_90%,transparent)]">
+          <div ref={(d) => { rows.current[i] = d; }} className="flex w-max" style={{ transform: i ? "translate3d(-50%,0,0)" : undefined }}>
+            <List outline={outline} hidden={outline} />
+            <List outline={outline} hidden />
+          </div>
+        </div>
+      ))}
     </section>
   );
 }

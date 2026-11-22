@@ -5,6 +5,8 @@ export function canUse3D(minWidth = 0) {
   if (typeof window === "undefined") return false;
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return false;
   if (minWidth && !window.matchMedia(`(min-width: ${minWidth}px)`).matches) return false;
+  // phones and tablets get the CSS versions: WebGL drains battery and competes with scrolling there
+  if (!window.matchMedia("(min-width: 1024px) and (pointer: fine)").matches) return false;
   const nav = navigator as Navigator & { connection?: { saveData?: boolean }; deviceMemory?: number };
   if (nav.connection?.saveData) return false;
   if ((nav.hardwareConcurrency ?? 8) < 4) return false;

@@ -611,7 +611,6 @@ html.has-cursor body, html.has-cursor a, html.has-cursor button, html.has-cursor
   position: relative;
   transform: perspective(1100px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
   transition: transform 0.5s var(--ease-out-expo);
-  will-change: transform;
 }
 .fx-card::after {
   content: "";
@@ -659,12 +658,11 @@ html.has-cursor body, html.has-cursor a, html.has-cursor button, html.has-cursor
   background: linear-gradient(to top, rgb(12 26 74 / 0.9), var(--color-azure) 70%, var(--color-brand));
   opacity: 0.55;
   transform-origin: bottom;
-  animation: city-rise 1.6s var(--ease-out-expo) both;
-  animation-delay: calc(var(--i) * 40ms);
-  animation-timeline: view();
-  animation-range: entry 10% cover 40%;
+  transform: scaleY(0.08);
+  transition: transform 1.4s var(--ease-out-expo);
+  transition-delay: calc(var(--i) * 40ms);
 }
-@keyframes city-rise { from { transform: scaleY(0.08); } to { transform: scaleY(1); } }
+.city-fallback[data-in] span { transform: none; }
 
 /* ---------- Footer wordmark (letters react to the cursor) ---------- */
 .footer-wordmark span {
@@ -675,11 +673,10 @@ html.has-cursor body, html.has-cursor a, html.has-cursor button, html.has-cursor
   -webkit-background-clip: text;
   background-clip: text;
   text-shadow: 0 0 calc(var(--lit) * 40px) rgb(18 214 248 / calc(var(--lit) * 0.6));
-  will-change: transform;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .city-fallback span { animation: none; }
+  .city-fallback span { transform: none; transition: none; }
   .fx-card { transform: none; }
 }
 
@@ -709,9 +706,39 @@ html.intro-seen .og-intro { display: none; }
 .og-intro { animation: og-gone 0s linear 1.9s forwards; }
 @keyframes og-gone { to { visibility: hidden; } }
 
-/* ---------- Store ---------- */
-.store-fallback { animation: store-float 4s ease-in-out infinite; filter: drop-shadow(0 20px 40px rgb(18 214 248 / 0.35)); }
-@keyframes store-float { 0%, 100% { transform: translateY(0) rotate(-4deg); } 50% { transform: translateY(-12px) rotate(4deg); } }
+/* ---------- Store product visuals (store/ProductVisual.tsx) ---------- */
+.pv-scene { position: absolute; left: 50%; top: 50%; width: 560px; height: 440px; translate: -50% -50%; scale: var(--s, 1); }
+.pv-orb {
+  background: radial-gradient(circle, rgb(18 214 248 / 0.55), rgb(29 109 255 / 0.18) 55%, transparent 70%);
+  translate: calc(var(--px, 0) * var(--d) * -22px) calc(var(--py, 0) * var(--d) * -16px);
+  transition: translate 0.6s var(--ease-out-expo);
+}
+.pv-card {
+  position: absolute;
+  border-radius: 1rem;
+  border: 1px solid rgb(255 255 255 / 0.1);
+  background: linear-gradient(160deg, rgb(16 32 86 / 0.96), rgb(7 17 52 / 0.96));
+  box-shadow: 0 24px 60px -20px rgb(0 0 0 / 0.75), inset 0 1px 0 rgb(255 255 255 / 0.06);
+  color: var(--color-paper);
+  translate: calc(var(--px, 0) * var(--d) * -22px) calc(var(--py, 0) * var(--d) * -16px);
+  transition: translate 0.6s var(--ease-out-expo);
+  animation:
+    pv-in 0.7s var(--ease-out-expo) both,
+    pv-float 7s ease-in-out infinite;
+  animation-delay: var(--delay, 0ms), calc(var(--delay, 0ms) + var(--d) * -2.3s);
+}
+@keyframes pv-in { from { opacity: 0; scale: 0.92; } }
+@keyframes pv-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(calc(var(--d) * -6px)); } }
+.pv-build { transform-origin: left; animation: pv-x 0.9s var(--ease-out-expo) both; animation-delay: calc(var(--delay, 0ms) + 250ms); }
+.pv-fill { transform-origin: left; animation: pv-x 1.2s var(--ease-out-expo) both 0.3s; }
+@keyframes pv-x { from { transform: scaleX(0); } }
+.pv-grow { transform-origin: bottom; animation: pv-y 0.9s var(--ease-out-expo) both; animation-delay: calc(var(--delay, 0ms) + 300ms); }
+@keyframes pv-y { from { transform: scaleY(0); } }
+.pv-draw { stroke-dasharray: 100; animation: pv-dash 1.4s var(--ease-out-expo) both 0.35s; }
+@keyframes pv-dash { from { stroke-dashoffset: 100; } to { stroke-dashoffset: 0; } }
+.pv-ring { stroke-dasharray: 0 100; animation: pv-ring 1.4s var(--ease-out-expo) both 0.4s; }
+@keyframes pv-ring { to { stroke-dasharray: var(--v) 100; } }
+.pv-spin-slow { animation: spin 18s linear infinite; }
 
 /* ---------- Sound toggle equaliser ---------- */
 .sound-bar { height: 3px; transition: height 0.3s; }
@@ -719,5 +746,16 @@ html.intro-seen .og-intro { display: none; }
 @keyframes eq { from { height: 3px; } to { height: 14px; } }
 
 @media (prefers-reduced-motion: reduce) {
-  .store-fallback, .sound-on .sound-bar { animation: none; }
+  .pv-card, .pv-spin-slow, .sound-on .sound-bar { animation: none; }
 }
+
+/* ---------- Rendering budget ---------- */
+/* Off-screen sections skip layout/paint entirely (big win on phones). Not on the pinned growth section. */
+main > section:not(#top):not([aria-labelledby="growth-h"]):not([aria-label="What we do"]) {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 1000px;
+}
+main > #demos { contain-intrinsic-size: auto 3600px; }
+main > #store { contain-intrinsic-size: auto 1300px; }
+/* Infinite decorative animations pause while their section is off screen (fx/AnimPauser.tsx). */
+[data-offscreen] *, [data-offscreen] *::before, [data-offscreen] *::after { animation-play-state: paused !important; }
