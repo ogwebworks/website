@@ -46,7 +46,7 @@ export const demos: Demo[] = [
     kind: "Real estate",
     heading: "Modern brokerage",
     thumb: "demo-re-thumb",
-    features: ["Property search & neighbourhood filters", "Listing gallery, payments & tour booking", "Interactive map with price pins", "Mortgage calculator & home valuation"],
+    features: ["Interactive new-build apartment selector", "Property search & neighbourhood filters", "Interactive map with price pins", "Mortgage calculator & home valuation"],
   },
   {
     src: "/demos/tree-services",

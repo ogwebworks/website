@@ -6,6 +6,7 @@ import { agency } from "./data";
 const links = [
   { href: "#listings", label: "Buy" },
   { href: "#map", label: "Map" },
+  { href: "#residences", label: "New build" },
   { href: "#mortgage", label: "Mortgage" },
   { href: "#value", label: "Sell" },
   { href: "#agents", label: "Agents" },
