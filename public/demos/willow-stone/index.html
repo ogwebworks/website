@@ -1,0 +1,2679 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Willow &amp; Stone Estates: real estate demo website | OG WebWorks</title>
+  <meta name="description" content="A demo real estate brokerage website built by OG WebWorks for a fictional agency: listings, map, live house tour, mortgage and valuation tools." />
+  <meta name="robots" content="noindex, follow" />
+  <link rel="icon" href="/icon.png" />
+
+  <!-- Load Inter & Plus Jakarta Sans for clean editorial typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="./styles.css" />
+
+  <style>
+    /* Subtle grid pattern for interactive map canvas */
+    .map-grid {
+      background-color: #EEF2EE;
+      background-image:
+        linear-gradient(to right, rgba(30, 77, 59, 0.07) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(30, 77, 59, 0.07) 1px, transparent 1px),
+        radial-gradient(circle at 22% 28%, rgba(166, 124, 82, 0.12), transparent 34%),
+        radial-gradient(circle at 78% 66%, rgba(30, 77, 59, 0.12), transparent 38%);
+      background-size: 48px 48px, 48px 48px, 100% 100%, 100% 100%;
+    }
+
+    /* Smooth range slider styling */
+    input[type="range"].ws-slider {
+      accent-color: #1E4D3B;
+    }
+
+    /* Custom scrollbar for clean modal experience */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    /* Realistic Motion Live Tour Animations & Viewport */
+    @keyframes pulseRing {
+      0% {
+        transform: scale(0.9);
+        opacity: 0.85;
+      }
+      70% {
+        transform: scale(1.9);
+        opacity: 0;
+      }
+      100% {
+        transform: scale(1.9);
+        opacity: 0;
+      }
+    }
+
+    .hotspot-pulse::before {
+      content: '';
+      position: absolute;
+      inset: -4px;
+      border-radius: 9999px;
+      border: 1.5px solid rgba(255, 255, 255, 0.9);
+      animation: pulseRing 2.2s cubic-bezier(0.24, 0, 0.38, 1) infinite;
+      pointer-events: none;
+    }
+
+    #tour-panoramic-stage {
+      touch-action: none;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    .tour-layer-fade {
+      transition: opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1), filter 0.85s ease;
+    }
+  </style>
+</head>
+<body class="bg-surface text-ink font-sans antialiased selection:bg-accent selection:text-white">
+
+  <!-- Top Demo Bar -->
+  <div class="bg-ink text-white text-xs py-2 px-4 sm:px-6">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
+      <div class="flex items-center gap-2">
+        <span class="inline-block w-2 h-2 rounded-full bg-emerald-400"></span>
+        <span class="rounded bg-emerald-400 px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-ink">Demo</span>
+        <span class="font-medium tracking-wide"><span class="hidden sm:inline">Fictional business · </span>Designed &amp; built by <a href="/" target="_top" class="underline underline-offset-4 hover:text-white">OG WebWorks</a></span>
+      </div>
+      <div class="flex items-center gap-4 text-gray-300">
+        <button type="button" onclick="openValuationModal()" class="hidden sm:inline hover:text-white underline underline-offset-4 transition">
+          Instant Home Valuation
+        </button>
+        <span class="hidden sm:inline text-gray-600">|</span>
+        <a href="#tools" class="hidden sm:inline hover:text-white transition">Payment Calculator</a>
+        <span class="hidden sm:inline text-gray-600">|</span>
+        <a href="/#contact" target="_top" class="font-semibold text-white hover:text-emerald-300 transition">Get a site like this →</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sticky Navigation Header -->
+  <header class="sticky top-0 z-30 bg-paper/95 backdrop-blur border-b border-gray-200/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+      <!-- Brand Mark -->
+      <a href="#" class="flex items-center gap-2.5 group rounded-xl focus:outline-none">
+        <div class="w-9 h-9 rounded-xl bg-accent text-white flex items-center justify-center font-display font-bold text-lg shadow-sm group-hover:bg-accent-hover transition">
+          W
+        </div>
+        <div>
+          <span class="font-display font-bold text-lg tracking-tight text-ink block leading-none">Willow &amp; Stone</span>
+          <span class="text-[11px] uppercase tracking-widest text-muted font-medium">Estates</span>
+        </div>
+      </a>
+
+      <!-- Desktop Navigation Links -->
+      <nav class="hidden md:flex items-center gap-7 text-sm font-medium text-muted">
+        <a href="#listings-section" class="hover:text-ink transition">Listings</a>
+        <a href="#neighbourhoods" class="hover:text-ink transition">Neighbourhoods</a>
+        <a href="#tools" class="hover:text-ink transition">Mortgage Calculator</a>
+        <button type="button" onclick="openValuationModal()" class="hover:text-ink transition">Home Valuation</button>
+      </nav>
+
+      <!-- Header Actions -->
+      <div class="flex items-center gap-2.5">
+        <button
+          type="button"
+          onclick="toggleSavedFilter()"
+          id="saved-filter-btn"
+          class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl border border-gray-200 bg-white hover:bg-gray-50 text-xs sm:text-sm font-medium text-ink transition"
+        >
+          <svg class="w-4 h-4 text-accent" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+          </svg>
+          <span>Saved</span>
+          <span id="saved-count-badge" class="ml-0.5 px-1.5 py-0.5 text-[11px] rounded-full bg-accent-soft text-accent font-semibold">0</span>
+        </button>
+        <button
+          type="button"
+          onclick="openValuationModal()"
+          class="px-4 py-2 rounded-xl bg-accent hover:bg-accent-hover text-white text-xs sm:text-sm font-semibold shadow-sm transition"
+        >
+          Sell With Us
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Editorial Hero Section -->
+  <section class="pt-10 pb-8 sm:pt-14 sm:pb-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end">
+      <div class="lg:col-span-8 space-y-4">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-soft text-accent text-xs font-semibold tracking-wide">
+          <span>CURATED ARCHITECTURAL &amp; RESIDENTIAL PORTFOLIO</span>
+        </div>
+        <h1 class="font-display text-3xl sm:text-5xl font-extrabold tracking-tight text-ink leading-[1.12]">
+          Thoughtful homes across the city’s most sought-after blocks.
+        </h1>
+        <p class="text-muted text-base sm:text-lg max-w-2xl leading-relaxed">
+          Explore sunlit townhomes, modern architectural residences, and classic family properties with realistic motion 360° walkthrough tours, interactive map pins, and transparent monthly ownership tools.
+        </p>
+        <div class="pt-1 flex flex-wrap items-center gap-3">
+          <button
+            type="button"
+            onclick="openLiveTour('mh-101')"
+            class="inline-flex items-center gap-2.5 px-5 py-3 rounded-2xl bg-accent hover:bg-accent-hover text-white text-sm font-semibold shadow-elevated transition group"
+          >
+            <span class="relative flex h-2.5 w-2.5">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-300 opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-400"></span>
+            </span>
+            <span>Live 3D House Tour</span>
+            <svg class="w-4 h-4 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+              <path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </button>
+          <a
+            href="#listings-section"
+            class="inline-flex items-center gap-2 px-4 py-3 rounded-2xl bg-white hover:bg-gray-50 border border-gray-200 text-sm font-semibold text-ink transition"
+          >
+            Browse Portfolio
+          </a>
+        </div>
+      </div>
+      <div class="lg:col-span-4 lg:text-right">
+        <div class="inline-flex flex-wrap lg:justify-end gap-4 bg-white border border-gray-200/80 rounded-2xl p-4 shadow-card">
+          <div>
+            <div class="font-display font-bold text-xl text-ink" id="hero-active-count">8</div>
+            <div class="text-xs text-muted">Active Listings</div>
+          </div>
+          <div class="w-px bg-gray-200"></div>
+          <div>
+            <div class="font-display font-bold text-xl text-accent">14 Days</div>
+            <div class="text-xs text-muted">Avg. Days on Market</div>
+          </div>
+          <div class="w-px bg-gray-200"></div>
+          <div>
+            <div class="font-display font-bold text-xl text-ink">99.2%</div>
+            <div class="text-xs text-muted">List-to-Sale Ratio</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Search & Filter Bar -->
+    <div id="listings-section" class="mt-8 bg-white rounded-2xl border border-gray-200/90 p-4 sm:p-5 shadow-card space-y-4">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-3">
+        <!-- Search Input -->
+        <div class="lg:col-span-4 relative">
+          <svg class="w-4 h-4 text-muted absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 104.5 4.5a7.5 7.5 0 0012.15 12.15z" />
+          </svg>
+          <input
+            type="text"
+            id="search-input"
+            oninput="applyFilters()"
+            placeholder="Search address, street, or feature..."
+            class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-gray-200 bg-surface/60 focus:bg-white focus:border-accent focus:outline-none text-sm text-ink placeholder:text-muted transition"
+          />
+        </div>
+
+        <!-- Property Type -->
+        <div class="lg:col-span-2">
+          <select
+            id="type-filter"
+            onchange="applyFilters()"
+            aria-label="Property Type"
+            class="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 bg-surface/60 focus:bg-white focus:border-accent focus:outline-none text-sm text-ink transition"
+          >
+            <option value="ALL">All Types</option>
+            <option value="Single Family">Single Family</option>
+            <option value="Townhome">Townhome</option>
+            <option value="Condo / Loft">Condo / Loft</option>
+            <option value="Modern Villa">Modern Villa</option>
+          </select>
+        </div>
+
+        <!-- Max Price / Status Filter -->
+        <div class="lg:col-span-2">
+          <select
+            id="price-filter"
+            onchange="applyFilters()"
+            aria-label="Price Range"
+            class="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 bg-surface/60 focus:bg-white focus:border-accent focus:outline-none text-sm text-ink transition"
+          >
+            <option value="ALL">Any Price</option>
+            <option value="900000">Up to $900k</option>
+            <option value="1400000">Up to $1.4M</option>
+            <option value="2200000">Up to $2.2M</option>
+            <option value="99999999">$2.2M+ Luxury</option>
+          </select>
+        </div>
+
+        <!-- Bedrooms Filter -->
+        <div class="lg:col-span-2">
+          <select
+            id="beds-filter"
+            onchange="applyFilters()"
+            aria-label="Minimum Bedrooms"
+            class="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 bg-surface/60 focus:bg-white focus:border-accent focus:outline-none text-sm text-ink transition"
+          >
+            <option value="0">Any Beds</option>
+            <option value="2">2+ Beds</option>
+            <option value="3">3+ Beds</option>
+            <option value="4">4+ Beds</option>
+          </select>
+        </div>
+
+        <!-- Sort Dropdown -->
+        <div class="lg:col-span-2">
+          <select
+            id="sort-filter"
+            onchange="applyFilters()"
+            aria-label="Sort Listings"
+            class="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 bg-surface/60 focus:bg-white focus:border-accent focus:outline-none text-sm text-ink transition"
+          >
+            <option value="featured">Sort: Featured</option>
+            <option value="price-asc">Price: Low to High</option>
+            <option value="price-desc">Price: High to Low</option>
+            <option value="sqft-desc">Largest Sqft</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Neighbourhood Pills & View Mode Switcher -->
+      <div class="flex flex-wrap items-center justify-between gap-3 pt-2 border-t border-gray-100">
+        <div id="neighbourhood-pills" class="flex flex-wrap items-center gap-2">
+          <!-- Populated dynamically via JS -->
+        </div>
+
+        <div class="flex items-center gap-2">
+          <button
+            type="button"
+            onclick="resetFilters()"
+            class="px-3 py-1.5 rounded-lg text-xs font-medium text-muted hover:text-ink hover:bg-gray-100 transition"
+          >
+            Reset
+          </button>
+
+          <!-- View Toggle: Grid vs Split Map -->
+          <div class="inline-flex rounded-xl bg-surface p-1 border border-gray-200/80">
+            <button
+              type="button"
+              id="view-grid-btn"
+              onclick="setViewMode('grid')"
+              class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-white text-ink shadow-xs transition flex items-center gap-1.5"
+            >
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+              </svg>
+              Grid
+            </button>
+            <button
+              type="button"
+              id="view-map-btn"
+              onclick="setViewMode('map')"
+              class="px-3 py-1.5 rounded-lg text-xs font-semibold text-muted hover:text-ink transition flex items-center gap-1.5"
+            >
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+              </svg>
+              Map View
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Listings & Interactive Map Section -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+    <!-- Results Summary Bar -->
+    <div class="flex flex-wrap items-center justify-between gap-2 mb-5">
+      <p id="results-summary" class="text-sm text-muted font-medium">Showing 8 properties</p>
+      <p class="text-xs text-muted">Click any card for full gallery, monthly payment breakdown &amp; tour scheduling.</p>
+    </div>
+
+    <!-- Map + Cards Container -->
+    <div id="listings-workspace" class="grid grid-cols-1 gap-8">
+      <!-- Interactive Map Canvas (Visible in Map View or toggleable) -->
+      <div id="map-panel" class="hidden rounded-2xl border border-gray-200 bg-white overflow-hidden shadow-card">
+        <div class="px-4 py-3 border-b border-gray-100 flex flex-wrap items-center justify-between gap-2 bg-surface/70">
+          <div class="flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-accent"></span>
+            <span class="text-xs font-semibold uppercase tracking-wider text-ink">Interactive Neighbourhood Map</span>
+            <span class="text-xs text-muted hidden sm:inline">— Click a price pin to highlight &amp; inspect</span>
+          </div>
+          <button
+            type="button"
+            onclick="selectPropertyPin(null)"
+            class="text-xs font-medium text-accent hover:underline"
+          >
+            Clear selection
+          </button>
+        </div>
+
+        <div class="relative w-full h-[380px] sm:h-[440px] map-grid select-none overflow-hidden" id="interactive-map-canvas">
+          <!-- Stylized street lines & neighbourhood labels -->
+          <div class="absolute inset-0 pointer-events-none">
+            <div class="absolute top-[24%] left-0 right-0 h-[2px] bg-white/80"></div>
+            <div class="absolute top-[62%] left-0 right-0 h-[3px] bg-white/90"></div>
+            <div class="absolute top-0 bottom-0 left-[32%] w-[2px] bg-white/80"></div>
+            <div class="absolute top-0 bottom-0 left-[68%] w-[2px] bg-white/80"></div>
+
+            <span class="hidden sm:block top-5 left-6 text-[11px] font-semibold uppercase tracking-widest text-accent/60 absolute">Oakridge Heights</span>
+            <span class="hidden sm:block top-5 right-8 text-[11px] font-semibold uppercase tracking-widest text-accent/60 absolute">Harbourfront</span>
+            <span class="hidden sm:block bottom-5 left-8 text-[11px] font-semibold uppercase tracking-widest text-accent/60 absolute">Maple Grove</span>
+            <span class="hidden sm:block bottom-5 right-8 text-[11px] font-semibold uppercase tracking-widest text-accent/60 absolute">West End</span>
+          </div>
+
+          <!-- Price Pins injected dynamically -->
+          <div id="map-pins-layer" class="relative w-full h-full"></div>
+
+          <!-- Selected Pin Quick Card -->
+          <div id="map-selected-card" class="hidden absolute bottom-4 left-4 right-4 sm:left-auto sm:right-4 sm:w-80 bg-white rounded-2xl border border-gray-200 shadow-elevated p-3.5 z-20">
+            <!-- Populated when a pin is clicked -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Cards Grid -->
+      <div id="listings-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Cards populated dynamically via JS -->
+      </div>
+
+      <!-- Empty State -->
+      <div id="empty-state" class="hidden text-center py-16 px-4 bg-white rounded-2xl border border-gray-200">
+        <div class="w-12 h-12 rounded-2xl bg-accent-soft text-accent flex items-center justify-center mx-auto mb-3 font-display font-bold text-xl">?</div>
+        <h3 class="font-display font-bold text-lg text-ink">No properties match your filters</h3>
+        <p class="text-sm text-muted mt-1 max-w-md mx-auto">Try clearing your search query, expanding your price range, or switching back to all neighbourhoods.</p>
+        <button
+          type="button"
+          onclick="resetFilters()"
+          class="mt-4 px-4 py-2 rounded-xl bg-accent hover:bg-accent-hover text-white text-sm font-semibold transition"
+        >
+          Reset All Filters
+        </button>
+      </div>
+    </div>
+  </main>
+
+  <!-- Neighbourhood Spotlight Strip -->
+  <section id="neighbourhoods" class="py-12 bg-white border-y border-gray-200/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
+        <div>
+          <span class="text-xs font-semibold uppercase tracking-widest text-accent">Local Market Intelligence</span>
+          <h2 class="font-display text-2xl sm:text-3xl font-bold text-ink mt-1">Explore by Neighbourhood</h2>
+        </div>
+        <p class="text-sm text-muted max-w-md">Filter active inventory immediately by selecting any district below.</p>
+      </div>
+
+      <div id="neighbourhood-cards" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        <!-- Populated dynamically via JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Standalone Mortgage Calculator & Home Valuation Section -->
+  <section id="tools" class="py-14 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+    <div class="mb-8">
+      <span class="text-xs font-semibold uppercase tracking-widest text-accent">Buyer &amp; Seller Toolkit</span>
+      <h2 class="font-display text-2xl sm:text-3xl font-bold text-ink mt-1">Mortgage Estimator &amp; Home Valuation</h2>
+      <p class="text-sm text-muted mt-1 max-w-2xl">
+        Model monthly ownership costs including principal, interest, property tax, and insurance—or get an instant market valuation estimate for your current home.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-7">
+      <!-- Left: Standalone Mortgage Calculator (7 cols) -->
+      <div class="lg:col-span-7 bg-white rounded-2xl border border-gray-200/90 p-6 sm:p-7 shadow-card">
+        <div class="flex items-center justify-between gap-2 pb-4 border-b border-gray-100">
+          <div>
+            <h3 class="font-display font-bold text-lg text-ink">Monthly Payment Calculator</h3>
+            <p class="text-xs text-muted">Adjust home price, down payment, interest rate, and term</p>
+          </div>
+          <span class="px-2.5 py-1 rounded-lg bg-accent-soft text-accent text-xs font-semibold">Live Estimate</span>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 mt-5">
+          <!-- Home Price -->
+          <div>
+            <div class="flex justify-between text-xs font-medium mb-1.5">
+              <label for="calc-price" class="text-muted">Home Price</label>
+              <span id="calc-price-label" class="font-semibold text-ink">$1,250,000</span>
+            </div>
+            <input
+              type="range"
+              id="calc-price"
+              min="350000"
+              max="3500000"
+              step="25000"
+              value="1250000"
+              oninput="calculateMortgage()"
+              class="w-full ws-slider cursor-pointer"
+            />
+          </div>
+
+          <!-- Down Payment % -->
+          <div>
+            <div class="flex justify-between text-xs font-medium mb-1.5">
+              <label for="calc-down-pct" class="text-muted">Down Payment</label>
+              <span id="calc-down-label" class="font-semibold text-ink">20% ($250,000)</span>
+            </div>
+            <input
+              type="range"
+              id="calc-down-pct"
+              min="5"
+              max="60"
+              step="5"
+              value="20"
+              oninput="calculateMortgage()"
+              class="w-full ws-slider cursor-pointer"
+            />
+          </div>
+
+          <!-- Interest Rate -->
+          <div>
+            <div class="flex justify-between text-xs font-medium mb-1.5">
+              <label for="calc-rate" class="text-muted">Interest Rate (APR)</label>
+              <span id="calc-rate-label" class="font-semibold text-ink">6.15%</span>
+            </div>
+            <input
+              type="range"
+              id="calc-rate"
+              min="3.5"
+              max="9.5"
+              step="0.05"
+              value="6.15"
+              oninput="calculateMortgage()"
+              class="w-full ws-slider cursor-pointer"
+            />
+          </div>
+
+          <!-- Loan Term & Tax Rate -->
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label for="calc-term" class="block text-xs font-medium text-muted mb-1.5">Loan Term</label>
+              <select
+                id="calc-term"
+                onchange="calculateMortgage()"
+                class="w-full px-3 py-2 rounded-xl border border-gray-200 bg-surface text-sm font-medium text-ink focus:outline-none focus:border-accent"
+              >
+                <option value="30" selected>30 Years</option>
+                <option value="20">20 Years</option>
+                <option value="15">15 Years</option>
+              </select>
+            </div>
+            <div>
+              <label for="calc-tax" class="block text-xs font-medium text-muted mb-1.5">Prop. Tax / yr</label>
+              <select
+                id="calc-tax"
+                onchange="calculateMortgage()"
+                class="w-full px-3 py-2 rounded-xl border border-gray-200 bg-surface text-sm font-medium text-ink focus:outline-none focus:border-accent"
+              >
+                <option value="0.011" selected>1.10%</option>
+                <option value="0.0085">0.85%</option>
+                <option value="0.0135">1.35%</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Monthly Breakdown Result Box -->
+        <div class="mt-6 rounded-2xl bg-surface border border-gray-200/80 p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-5">
+          <div>
+            <div class="text-xs font-medium text-muted">Estimated Monthly Payment</div>
+            <div id="calc-total-monthly" class="font-display text-3xl sm:text-4xl font-extrabold text-accent mt-0.5">$7,120<span class="text-sm font-normal text-muted">/mo</span></div>
+            <div id="calc-loan-summary" class="text-xs text-muted mt-1">Loan amount: $1,000,000</div>
+          </div>
+
+          <div class="grid grid-cols-3 gap-3 sm:gap-4 text-left sm:text-right border-t sm:border-t-0 pt-3 sm:pt-0 border-gray-200">
+            <div>
+              <div class="text-[11px] text-muted">Principal &amp; Int.</div>
+              <div id="calc-pi" class="text-sm font-bold text-ink">$6,093</div>
+            </div>
+            <div>
+              <div class="text-[11px] text-muted">Est. Tax</div>
+              <div id="calc-tax-mo" class="text-sm font-bold text-ink">$1,146</div>
+            </div>
+            <div>
+              <div class="text-[11px] text-muted">Insurance</div>
+              <div id="calc-ins-mo" class="text-sm font-bold text-ink">$165</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Quick Home Valuation Estimator Card (5 cols) -->
+      <div class="lg:col-span-5 bg-white rounded-2xl border border-gray-200/90 p-6 sm:p-7 shadow-card flex flex-col justify-between">
+        <div>
+          <div class="flex items-center justify-between gap-2 pb-4 border-b border-gray-100">
+            <div>
+              <h3 class="font-display font-bold text-lg text-ink">Instant Home Valuation</h3>
+              <p class="text-xs text-muted">Estimate market value from address &amp; specs</p>
+            </div>
+            <span class="px-2.5 py-1 rounded-lg bg-amber-50 text-amber-900 border border-amber-200/70 text-xs font-semibold">Seller Tool</span>
+          </div>
+
+          <form id="inline-valuation-form" onsubmit="handleValuationSubmit(event, 'inline')" class="mt-5 space-y-3.5">
+            <div>
+              <label for="val-address" class="block text-xs font-medium text-muted mb-1">Property Street Address</label>
+              <input
+                type="text"
+                id="val-address"
+                required
+                placeholder="e.g., 418 Cedarwood Lane"
+                class="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 bg-surface/60 focus:bg-white focus:border-accent focus:outline-none text-sm text-ink"
+              />
+            </div>
+
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label for="val-hood" class="block text-xs font-medium text-muted mb-1">Neighbourhood</label>
+                <select
+                  id="val-hood"
+                  class="w-full px-3 py-2.5 rounded-xl border border-gray-200 bg-surface/60 focus:bg-white focus:border-accent focus:outline-none text-sm text-ink"
+                >
+                  <option value="Oakridge Heights">Oakridge Heights</option>
+                  <option value="Harbourfront">Harbourfront</option>
+                  <option value="Maple Grove">Maple Grove</option>
+                  <option value="West End">West End</option>
+                </select>
+              </div>
+              <div>
+                <label for="val-sqft" class="block text-xs font-medium text-muted mb-1">Living Area (Sqft)</label>
+                <input
+                  type="number"
+                  id="val-sqft"
+                  min="400"
+                  max="12000"
+                  step="50"
+                  value="2150"
+                  required
+                  class="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 bg-surface/60 focus:bg-white focus:border-accent focus:outline-none text-sm text-ink"
+                />
+              </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label for="val-beds" class="block text-xs font-medium text-muted mb-1">Bedrooms</label>
+                <select
+                  id="val-beds"
+                  class="w-full px-3 py-2.5 rounded-xl border border-gray-200 bg-surface/60 focus:bg-white focus:border-accent focus:outline-none text-sm text-ink"
+                >
+                  <option value="2">2 Beds</option>
+                  <option value="3" selected>3 Beds</option>
+                  <option value="4">4 Beds</option>
+                  <option value="5">5+ Beds</option>
+                </select>
+              </div>
+              <div>
+                <label for="val-condition" class="block text-xs font-medium text-muted mb-1">Condition</label>
+                <select
+                  id="val-condition"
+                  class="w-full px-3 py-2.5 rounded-xl border border-gray-200 bg-surface/60 focus:bg-white focus:border-accent focus:outline-none text-sm text-ink"
+                >
+                  <option value="1.08">Renovated / Turnkey</option>
+                  <option value="1.0" selected>Well Maintained</option>
+                  <option value="0.9">Needs Refresh</option>
+                </select>
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              class="w-full mt-2 py-2.5 px-4 rounded-xl bg-accent hover:bg-accent-hover text-white text-sm font-semibold shadow-sm transition"
+            >
+              Calculate Estimated Value
+            </button>
+          </form>
+        </div>
+
+        <!-- Valuation Result Output -->
+        <div id="inline-valuation-result" class="hidden mt-4 p-4 rounded-xl bg-accent-soft border border-accent/20">
+          <!-- Populated dynamically -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-ink text-gray-300 py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+      <div>
+        <div class="flex items-center gap-2 text-white font-display font-bold text-lg">
+          <span class="w-7 h-7 rounded-lg bg-accent text-white inline-flex items-center justify-center text-sm">W</span>
+          <span>Willow &amp; Stone Estates</span>
+        </div>
+        <p class="text-xs text-gray-400 mt-2 max-w-md">
+          Interactive brokerage demo (<span class="text-gray-200">willowandstone.demo</span>). Sample listings, neighbourhood metrics, and mortgage/valuation figures are illustrative. Listing photos: Unsplash. Tour photos: AI-generated images of a fictional home.
+        </p>
+      </div>
+      <div class="flex flex-wrap items-center gap-5 text-xs text-gray-400">
+        <a href="#listings-section" class="hover:text-white transition">Listings</a>
+        <a href="#neighbourhoods" class="hover:text-white transition">Neighbourhoods</a>
+        <a href="#tools" class="hover:text-white transition">Calculator</a>
+        <button type="button" onclick="openValuationModal()" class="hover:text-white transition">Home Valuation</button>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Property Detail Modal (Gallery, Payment Breakdown, Tour Booking) -->
+  <div id="property-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/60 backdrop-blur-xs p-3 sm:p-6 overflow-y-auto" role="dialog" aria-modal="true">
+    <div class="bg-white w-full max-w-4xl rounded-3xl shadow-elevated overflow-hidden my-auto max-h-[92vh] flex flex-col">
+      <!-- Modal Header -->
+      <div class="px-5 py-4 border-b border-gray-100 flex items-center justify-between gap-4 shrink-0">
+        <div>
+          <span id="modal-hood-badge" class="text-xs font-semibold uppercase tracking-wider text-accent">Neighbourhood</span>
+          <h3 id="modal-title" class="font-display font-bold text-lg sm:text-xl text-ink leading-tight">Property Title</h3>
+        </div>
+        <button
+          type="button"
+          onclick="closePropertyModal()"
+          aria-label="Close property details"
+          class="w-9 h-9 rounded-xl bg-gray-100 hover:bg-gray-200 text-ink flex items-center justify-center transition"
+        >
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Modal Scrollable Body -->
+      <div class="overflow-y-auto p-5 sm:p-6 space-y-6">
+        <!-- Photo Gallery Carousel -->
+        <div class="relative rounded-2xl overflow-hidden bg-gray-100 aspect-[16/9] max-h-[360px]">
+          <img
+            id="modal-gallery-img"
+            src=""
+            alt="Property view"
+            onerror="this.src='/tour/glasshouse-1200.webp'"
+            class="w-full h-full object-cover"
+          />
+          <button
+            type="button"
+            onclick="prevGalleryPhoto()"
+            aria-label="Previous photo"
+            class="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/90 hover:bg-white text-ink shadow flex items-center justify-center transition"
+          >
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+            </svg>
+          </button>
+          <button
+            type="button"
+            onclick="nextGalleryPhoto()"
+            aria-label="Next photo"
+            class="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/90 hover:bg-white text-ink shadow flex items-center justify-center transition"
+          >
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
+          <button
+            type="button"
+            onclick="launchLiveTourFromModal()"
+            class="absolute top-3 right-3 inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-ink/85 hover:bg-accent text-white backdrop-blur text-xs font-semibold shadow-elevated transition"
+          >
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span>Launch Live Motion Tour</span>
+          </button>
+          <div id="modal-gallery-dots" class="absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-1.5 bg-black/40 px-3 py-1.5 rounded-full">
+            <!-- Dots injected dynamically -->
+          </div>
+        </div>
+
+        <!-- Price, Specs & Save Action -->
+        <div class="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-gray-100">
+          <div>
+            <div id="modal-price" class="font-display text-2xl sm:text-3xl font-extrabold text-ink">$1,450,000</div>
+            <div id="modal-address" class="text-sm text-muted">124 Oakridge Ave</div>
+          </div>
+          <div class="flex flex-wrap items-center gap-3 text-sm font-medium text-ink">
+            <span id="modal-beds" class="px-3 py-1.5 rounded-xl bg-surface">4 Beds</span>
+            <span id="modal-baths" class="px-3 py-1.5 rounded-xl bg-surface">3.5 Baths</span>
+            <span id="modal-sqft" class="px-3 py-1.5 rounded-xl bg-surface">2,640 Sqft</span>
+            <button
+              type="button"
+              onclick="launchLiveTourFromModal()"
+              class="px-3.5 py-1.5 rounded-xl bg-accent hover:bg-accent-hover text-white text-xs font-semibold shadow-xs transition inline-flex items-center gap-1.5"
+            >
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+              </svg>
+              <span>Launch Live Motion Tour</span>
+            </button>
+            <button
+              type="button"
+              id="modal-save-btn"
+              onclick="toggleSaveCurrentModalProperty()"
+              class="px-3.5 py-1.5 rounded-xl border border-gray-200 hover:bg-gray-50 text-xs font-semibold transition"
+            >
+              Save Listing
+            </button>
+          </div>
+        </div>
+
+        <!-- Description & Highlights -->
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+          <div class="md:col-span-7 space-y-4">
+            <div>
+              <h4 class="font-display font-bold text-sm uppercase tracking-wider text-muted mb-1.5">Architectural Overview</h4>
+              <p id="modal-description" class="text-sm text-ink/90 leading-relaxed"></p>
+            </div>
+            <div>
+              <h4 class="font-display font-bold text-sm uppercase tracking-wider text-muted mb-2">Key Highlights</h4>
+              <div id="modal-features" class="flex flex-wrap gap-2"></div>
+            </div>
+            <div class="p-4 rounded-2xl bg-surface border border-gray-200/80 space-y-3">
+              <div class="flex items-center justify-between gap-2">
+                <span class="text-xs font-semibold text-ink">Estimated Monthly Ownership</span>
+                <button
+                  type="button"
+                  onclick="loadPropertyIntoCalculator()"
+                  class="text-xs font-semibold text-accent hover:underline"
+                >
+                  Customize in Calculator →
+                </button>
+              </div>
+              <div id="modal-payment-breakdown" class="grid grid-cols-2 sm:grid-cols-4 gap-2.5"></div>
+            </div>
+          </div>
+
+          <!-- Schedule Private or Video Tour Form -->
+          <div class="md:col-span-5 bg-surface rounded-2xl border border-gray-200/80 p-4 sm:p-5">
+            <h4 class="font-display font-bold text-base text-ink">Schedule a Tour</h4>
+            <p class="text-xs text-muted mt-0.5 mb-3">Book an in-person walkthrough or live video showing.</p>
+
+            <form id="tour-booking-form" onsubmit="handleTourSubmit(event)" class="space-y-3">
+              <div>
+                <label for="tour-type" class="block text-xs font-medium text-muted mb-1">Tour Format</label>
+                <select
+                  id="tour-type"
+                  class="w-full px-3 py-2 rounded-xl border border-gray-200 bg-white text-sm text-ink focus:outline-none focus:border-accent"
+                >
+                  <option value="In-Person Private Showing">In-Person Private Showing</option>
+                  <option value="Live Video Walkthrough">Live Video Walkthrough</option>
+                </select>
+              </div>
+
+              <div>
+                <label for="tour-date" class="block text-xs font-medium text-muted mb-1">Preferred Date</label>
+                <input
+                  type="date"
+                  id="tour-date"
+                  required
+                  class="w-full px-3 py-2 rounded-xl border border-gray-200 bg-white text-sm text-ink focus:outline-none focus:border-accent"
+                />
+              </div>
+
+              <div>
+                <label for="tour-name" class="block text-xs font-medium text-muted mb-1">Your Name</label>
+                <input
+                  type="text"
+                  id="tour-name"
+                  required
+                  placeholder="Alex Rivera"
+                  class="w-full px-3 py-2 rounded-xl border border-gray-200 bg-white text-sm text-ink focus:outline-none focus:border-accent"
+                />
+              </div>
+
+              <div>
+                <label for="tour-email" class="block text-xs font-medium text-muted mb-1">Email Address</label>
+                <input
+                  type="email"
+                  id="tour-email"
+                  required
+                  placeholder="alex@example.com"
+                  class="w-full px-3 py-2 rounded-xl border border-gray-200 bg-white text-sm text-ink focus:outline-none focus:border-accent"
+                />
+              </div>
+
+              <button
+                type="submit"
+                class="w-full py-2.5 px-4 rounded-xl bg-accent hover:bg-accent-hover text-white text-sm font-semibold shadow-sm transition"
+              >
+                Request Tour
+              </button>
+            </form>
+
+            <div id="tour-confirmation" class="hidden mt-3 p-3 rounded-xl bg-accent-soft border border-accent/20 text-xs text-accent font-medium leading-relaxed"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Instant Home Valuation Modal -->
+  <div id="valuation-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/60 backdrop-blur-xs p-3 sm:p-6 overflow-y-auto" role="dialog" aria-modal="true">
+    <div class="bg-white w-full max-w-lg rounded-3xl shadow-elevated overflow-hidden my-auto">
+      <div class="px-5 py-4 border-b border-gray-100 flex items-center justify-between gap-4">
+        <div>
+          <span class="text-xs font-semibold uppercase tracking-wider text-accent">Seller Advisory</span>
+          <h3 class="font-display font-bold text-lg text-ink">Instant Home Valuation</h3>
+        </div>
+        <button
+          type="button"
+          onclick="closeValuationModal()"
+          aria-label="Close valuation modal"
+          class="w-9 h-9 rounded-xl bg-gray-100 hover:bg-gray-200 text-ink flex items-center justify-center transition"
+        >
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <div class="p-5 sm:p-6">
+        <form onsubmit="handleValuationSubmit(event, 'modal')" class="space-y-3.5">
+          <div>
+            <label for="mval-address" class="block text-xs font-medium text-muted mb-1">Property Street Address</label>
+            <input
+              type="text"
+              id="mval-address"
+              required
+              placeholder="e.g., 418 Cedarwood Lane"
+              class="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 bg-surface/60 focus:bg-white focus:border-accent focus:outline-none text-sm text-ink"
+            />
+          </div>
+
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label for="mval-hood" class="block text-xs font-medium text-muted mb-1">Neighbourhood</label>
+              <select
+                id="mval-hood"
+                class="w-full px-3 py-2.5 rounded-xl border border-gray-200 bg-surface/60 focus:bg-white focus:border-accent focus:outline-none text-sm text-ink"
+              >
+                <option value="Oakridge Heights">Oakridge Heights</option>
+                <option value="Harbourfront">Harbourfront</option>
+                <option value="Maple Grove">Maple Grove</option>
+                <option value="West End">West End</option>
+              </select>
+            </div>
+            <div>
+              <label for="mval-sqft" class="block text-xs font-medium text-muted mb-1">Living Area (Sqft)</label>
+              <input
+                type="number"
+                id="mval-sqft"
+                min="400"
+                max="12000"
+                step="50"
+                value="2200"
+                required
+                class="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 bg-surface/60 focus:bg-white focus:border-accent focus:outline-none text-sm text-ink"
+              />
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label for="mval-beds" class="block text-xs font-medium text-muted mb-1">Bedrooms</label>
+              <select
+                id="mval-beds"
+                class="w-full px-3 py-2.5 rounded-xl border border-gray-200 bg-surface/60 focus:bg-white focus:border-accent focus:outline-none text-sm text-ink"
+              >
+                <option value="2">2 Beds</option>
+                <option value="3" selected>3 Beds</option>
+                <option value="4">4 Beds</option>
+                <option value="5">5+ Beds</option>
+              </select>
+            </div>
+            <div>
+              <label for="mval-condition" class="block text-xs font-medium text-muted mb-1">Condition</label>
+              <select
+                id="mval-condition"
+                class="w-full px-3 py-2.5 rounded-xl border border-gray-200 bg-surface/60 focus:bg-white focus:border-accent focus:outline-none text-sm text-ink"
+              >
+                <option value="1.08">Renovated / Turnkey</option>
+                <option value="1.0" selected>Well Maintained</option>
+                <option value="0.9">Needs Refresh</option>
+              </select>
+            </div>
+          </div>
+
+          <button
+            type="submit"
+            class="w-full mt-2 py-2.5 px-4 rounded-xl bg-accent hover:bg-accent-hover text-white text-sm font-semibold shadow-sm transition"
+          >
+            Generate Valuation Estimate
+          </button>
+        </form>
+
+        <div id="modal-valuation-result" class="hidden mt-4 p-4 rounded-xl bg-accent-soft border border-accent/20"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Full-Screen Realistic Motion Live House Tour Viewer -->
+  <div
+    id="live-tour-modal"
+    class="fixed inset-0 z-50 hidden flex-col bg-zinc-950 text-white overflow-hidden select-none"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Live Motion House Tour"
+  >
+    <!-- Top Floating HUD Bar -->
+    <div class="relative z-30 flex flex-wrap items-center justify-between gap-3 px-4 sm:px-7 py-3.5 bg-gradient-to-b from-black/85 via-black/45 to-transparent">
+      <div class="flex items-center gap-3 min-w-0">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-950/80 border border-emerald-400/30 text-emerald-300 text-[11px] font-semibold tracking-wider uppercase backdrop-blur-md">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span>Live Motion 360°</span>
+        </div>
+        <div class="min-w-0">
+          <h2 id="tour-property-title" class="font-serif text-base sm:text-xl font-bold text-white truncate">
+            The Cedar &amp; Glass Residence
+          </h2>
+          <p id="tour-property-meta" class="text-[11px] sm:text-xs text-zinc-300 truncate">
+            412 Oakridge Crest • $1,685,000 • 4 Beds • 3.5 Baths • 2,890 Sqft
+          </p>
+        </div>
+      </div>
+
+      <!-- Property Switcher & Exit Controls -->
+      <div class="flex items-center gap-2.5">
+        <select
+          id="tour-property-selector"
+          onchange="switchTourProperty(this.value)"
+          aria-label="Select Residence for Live Tour"
+          class="hidden md:block px-3 py-2 rounded-xl bg-white/10 hover:bg-white/15 border border-white/15 text-xs font-medium text-white backdrop-blur-md focus:outline-none focus:border-emerald-400"
+        >
+          <!-- Populated dynamically -->
+        </select>
+
+        <button
+          type="button"
+          onclick="bookShowingFromTour()"
+          class="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-accent hover:bg-accent-hover text-white text-xs font-semibold shadow-lg transition"
+        >
+          <span>Book In-Person Showing</span>
+        </button>
+
+        <button
+          type="button"
+          onclick="closeLiveTour()"
+          aria-label="Exit Live House Tour"
+          class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-white/15 hover:bg-white/25 border border-white/20 text-white text-xs font-semibold backdrop-blur-md transition"
+        >
+          <span>Exit Tour</span>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Center Panoramic Motion Stage -->
+    <div
+      id="tour-panoramic-stage"
+      class="relative flex-1 w-full overflow-hidden cursor-grab active:cursor-grabbing"
+    >
+      <!-- Dual Crossfading Panoramic Image Layers for Seamless Room-to-Room Walkthrough -->
+      <div id="tour-layer-prev" class="absolute inset-0 pointer-events-none opacity-0 tour-layer-fade overflow-hidden">
+        <img
+          id="tour-img-prev"
+          src=""
+          alt=""
+          class="w-full h-full object-cover max-w-none will-change-transform"
+        />
+      </div>
+
+      <div id="tour-layer-curr" class="absolute inset-0 pointer-events-none opacity-100 tour-layer-fade overflow-hidden">
+        <img
+          id="tour-img-curr"
+          src=""
+          alt="Current room panoramic view"
+          class="w-full h-full object-cover max-w-none will-change-transform"
+        />
+      </div>
+
+      <!-- Subtle Architectural Vignette & Daylight Atmosphere Overlay -->
+      <div class="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_center,transparent_48%,rgba(0,0,0,0.58)_100%)]"></div>
+
+      <!-- Interactive Floating Hotspots Layer (Moves in Parallax with Camera Pan) -->
+      <div id="tour-hotspots-layer" class="absolute inset-0 z-20 pointer-events-none">
+        <!-- Populated dynamically with room portals & architectural finish callouts -->
+      </div>
+
+      <!-- Top-Left Room Narrative & Guided Progress Pill -->
+      <div class="absolute top-3 left-4 sm:left-7 z-20 max-w-sm pointer-events-none">
+        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-2xl bg-black/55 border border-white/15 backdrop-blur-md">
+          <span id="tour-room-step" class="text-[11px] font-bold text-emerald-400">01 / 05</span>
+          <span class="text-white/30">|</span>
+          <span id="tour-room-name" class="font-serif text-sm sm:text-base font-semibold text-white">Foyer &amp; Entryway</span>
+        </div>
+        <p id="tour-room-caption" class="mt-2 text-xs text-zinc-200/90 bg-black/45 border border-white/10 backdrop-blur-md rounded-xl px-3.5 py-2 leading-relaxed">
+          Double-height architectural entry with custom white oak pivot door and diffused skylight.
+        </p>
+      </div>
+
+      <!-- Top-Right Mini Interactive Floorplan Radar with Dynamic Field-of-View Cone -->
+      <div class="hidden sm:block absolute top-3 right-4 sm:right-7 z-20 bg-black/65 border border-white/15 backdrop-blur-md rounded-2xl p-3 w-52 shadow-2xl">
+        <div class="flex items-center justify-between text-[10px] uppercase tracking-wider text-zinc-300 font-semibold mb-2">
+          <span>Floorplan Radar</span>
+          <span id="tour-yaw-readout" class="text-emerald-400 font-mono">0° N</span>
+        </div>
+        <div id="tour-mini-floorplan" class="relative w-full h-32 rounded-xl bg-zinc-900/90 border border-white/10 overflow-hidden">
+          <!-- Architectural floorplan SVG & interactive room dots rendered via JS -->
+        </div>
+        <div class="mt-2 flex items-center justify-between text-[10px] text-zinc-400">
+          <span>Drag view to look 360°</span>
+          <span>Click dot to jump</span>
+        </div>
+      </div>
+
+      <!-- Architectural Finish Detail Popover Card (Shown when clicking a Finish Hotspot) -->
+      <div
+        id="tour-finish-popover"
+        class="hidden absolute bottom-6 left-4 right-4 sm:left-7 sm:right-auto sm:w-88 z-30 bg-zinc-900/90 border border-white/20 backdrop-blur-xl rounded-2xl p-4 shadow-2xl"
+      >
+        <div class="flex items-start justify-between gap-3">
+          <div>
+            <span class="text-[10px] uppercase tracking-widest text-emerald-400 font-bold">Architectural Specification</span>
+            <h4 id="tour-finish-title" class="font-display font-bold text-sm sm:text-base text-white mt-0.5">
+              White Oak Herringbone Flooring
+            </h4>
+          </div>
+          <button
+            type="button"
+            onclick="closeTourFinishPopover()"
+            aria-label="Close finish detail"
+            class="w-7 h-7 rounded-lg bg-white/10 hover:bg-white/20 text-white flex items-center justify-center text-xs transition"
+          >
+            ✕
+          </button>
+        </div>
+        <p id="tour-finish-desc" class="text-xs text-zinc-300 mt-2 leading-relaxed">
+          Sustainably harvested European white oak planks laid in a continuous herringbone pattern over hydronic radiant heating.
+        </p>
+      </div>
+
+      <!-- Subtle Drag Hint Badge (Fades once user interacts) -->
+      <div
+        id="tour-drag-hint"
+        class="pointer-events-none absolute bottom-5 left-1/2 -translate-x-1/2 z-20 px-3.5 py-1.5 rounded-full bg-black/55 border border-white/15 backdrop-blur-md text-[11px] text-zinc-200 flex items-center gap-2 transition-opacity duration-500"
+      >
+        <svg class="w-3.5 h-3.5 text-emerald-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
+        </svg>
+        <span>Drag to pan 360° • Click glowing rings to walk rooms or inspect finishes</span>
+      </div>
+    </div>
+
+    <!-- Bottom Playback & Room Strip Controls Bar -->
+    <div class="relative z-30 bg-zinc-950/95 border-t border-white/10 px-4 sm:px-7 py-3.5">
+      <div class="max-w-7xl mx-auto flex flex-col lg:flex-row lg:items-center justify-between gap-3.5">
+        <!-- Left: Play/Pause Auto-Walkthrough & Motion Speed Toggle -->
+        <div class="flex flex-wrap items-center gap-2.5">
+          <button
+            type="button"
+            id="tour-play-btn"
+            onclick="toggleTourPlayback()"
+            class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-accent hover:bg-accent-hover text-white text-xs font-semibold shadow transition"
+          >
+            <span id="tour-play-icon">❚❚</span>
+            <span id="tour-play-label">Pause Walkthrough</span>
+          </button>
+
+          <!-- Prev / Next Room Step Buttons -->
+          <div class="inline-flex items-center rounded-xl bg-white/10 border border-white/10 p-0.5">
+            <button
+              type="button"
+              onclick="stepTourRoom(-1)"
+              title="Previous Room"
+              class="px-2.5 py-1.5 rounded-lg hover:bg-white/15 text-xs font-medium text-zinc-200 transition"
+            >
+              ← Prev
+            </button>
+            <button
+              type="button"
+              onclick="stepTourRoom(1)"
+              title="Next Room"
+              class="px-2.5 py-1.5 rounded-lg hover:bg-white/15 text-xs font-medium text-zinc-200 transition"
+            >
+              Next →
+            </button>
+          </div>
+
+          <!-- Camera Motion Speed Toggle (Calm / Cinema / Manual Drag) -->
+          <div class="inline-flex items-center rounded-xl bg-white/10 border border-white/10 p-0.5 text-[11px]">
+            <button
+              type="button"
+              id="speed-btn-calm"
+              onclick="setTourMotionMode('calm')"
+              class="px-2.5 py-1.5 rounded-lg font-semibold transition text-zinc-300 hover:text-white"
+            >
+              Calm
+            </button>
+            <button
+              type="button"
+              id="speed-btn-cinema"
+              onclick="setTourMotionMode('cinema')"
+              class="px-2.5 py-1.5 rounded-lg font-semibold transition bg-white text-ink shadow-xs"
+            >
+              Cinema
+            </button>
+            <button
+              type="button"
+              id="speed-btn-manual"
+              onclick="setTourMotionMode('manual')"
+              class="px-2.5 py-1.5 rounded-lg font-semibold transition text-zinc-300 hover:text-white"
+            >
+              Manual Drag
+            </button>
+          </div>
+        </div>
+
+        <!-- Center/Right: Room Selector Strip with Thumbnails -->
+        <div id="tour-room-strip" class="flex items-center gap-2 overflow-x-auto no-scrollbar py-0.5">
+          <!-- Room thumbnails rendered dynamically -->
+        </div>
+
+        <!-- Mobile Quick Book CTA -->
+        <button
+          type="button"
+          onclick="bookShowingFromTour()"
+          class="sm:hidden w-full py-2.5 rounded-xl bg-accent hover:bg-accent-hover text-white text-xs font-semibold text-center transition"
+        >
+          Book In-Person Showing
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification (Non-blocking feedback instead of alert()) -->
+  <div id="toast-banner" class="fixed bottom-5 right-5 z-50 hidden max-w-sm bg-ink text-white text-xs sm:text-sm font-medium px-4 py-3 rounded-2xl shadow-elevated items-center gap-2.5">
+    <span class="w-2 h-2 rounded-full bg-emerald-400 shrink-0"></span>
+    <span id="toast-message">Updated</span>
+  </div>
+
+  <script>
+    /**
+     * Willow & Stone Estates (willowandstone.demo) Application State & Logic
+     */
+
+    const NEIGHBOURHOODS = [
+      {
+        name: 'Oakridge Heights',
+        tagline: 'Tree-lined avenues, classic gables & panoramic ridge views.',
+        medianPrice: '$1.48M',
+        avgDom: '12 days'
+      },
+      {
+        name: 'Harbourfront',
+        tagline: 'Architectural lofts, waterfront promenades & gallery dining.',
+        medianPrice: '$1.12M',
+        avgDom: '15 days'
+      },
+      {
+        name: 'Maple Grove',
+        tagline: 'Quiet cul-de-sacs, expansive yards & top-rated schools.',
+        medianPrice: '$1.64M',
+        avgDom: '11 days'
+      },
+      {
+        name: 'West End',
+        tagline: 'Brick townhomes, independent bakeries & transit convenience.',
+        medianPrice: '$945K',
+        avgDom: '16 days'
+      }
+    ];
+
+    const PROPERTIES = [
+      {
+        id: 'mh-101',
+        title: 'The Glasshouse',
+        address: '412 Oakridge Crest',
+        neighbourhood: 'Oakridge Heights',
+        type: 'Single Family',
+        status: 'Featured',
+        price: 1685000,
+        beds: 4,
+        baths: 3.5,
+        sqft: 2890,
+        mapX: 24,
+        mapY: 26,
+        featuredRank: 1,
+        description: 'Glass, oak and travertine around a heated 12-metre pool: a double-height living room, travertine kitchen and a primary suite with its own balcony. Take the live 3D tour.',
+        features: ['Heated 12 m Pool', 'Linear Gas Fireplace', 'Travertine Kitchen', 'Radiant Heated Floors'],
+        images: [
+          '/tour/glasshouse-1200.webp',
+          '/tour/rooms/living.webp',
+          '/tour/rooms/kitchen.webp',
+          '/tour/rooms/suite.webp'
+        ]
+      },
+      {
+        id: 'mh-102',
+        title: 'Pier 9 Architectural Loft',
+        address: '88 Mariner Quay, Unit 6B',
+        neighbourhood: 'Harbourfront',
+        type: 'Condo / Loft',
+        status: 'New Listing',
+        price: 985000,
+        beds: 2,
+        baths: 2,
+        sqft: 1540,
+        mapX: 74,
+        mapY: 24,
+        featuredRank: 2,
+        description: 'Soaring 12-foot concrete ceilings, unobstructed harbour glimpses, and a sheltered west-facing terrace ideal for sunset dining.',
+        features: ['Harbour Terrace', '12ft Ceilings', 'Concierge & Gym', 'Custom Built-Ins'],
+        images: [
+          'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=1400&q=85',
+          'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=1400&q=85'
+        ]
+      },
+      {
+        id: 'mh-103',
+        title: 'Maple Grove Heritage Revival',
+        address: '219 Maplewood Terrace',
+        neighbourhood: 'Maple Grove',
+        type: 'Single Family',
+        status: 'Open House Sun',
+        price: 1840000,
+        beds: 5,
+        baths: 4,
+        sqft: 3420,
+        mapX: 28,
+        mapY: 72,
+        featuredRank: 3,
+        description: 'A thoughtful modern restoration of a classic Maple Grove home featuring a vaulted family room, library study, and mature garden.',
+        features: ['5 Bedrooms', 'Garden Patio', 'Home Office Suite', 'Wine Cellar'],
+        images: [
+          'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1400&q=85',
+          'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1400&q=85'
+        ]
+      },
+      {
+        id: 'mh-104',
+        title: 'Brampton Row Townhome',
+        address: '504 West End Row',
+        neighbourhood: 'West End',
+        type: 'Townhome',
+        status: 'Featured',
+        price: 875000,
+        beds: 3,
+        baths: 2.5,
+        sqft: 1820,
+        mapX: 72,
+        mapY: 70,
+        featuredRank: 4,
+        description: 'Three finished levels of smartly zoned living steps from West End cafés, complete with a roof deck and private rear mudroom.',
+        features: ['Private Roof Deck', 'Walk Score 94', 'Quartz Island', 'Low HOA'],
+        images: [
+          'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1400&q=85',
+          'https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=1400&q=85'
+        ]
+      },
+      {
+        id: 'mh-105',
+        title: 'Sutton Ridge Modern Villa',
+        address: '77 Ridgeview Overlook',
+        neighbourhood: 'Oakridge Heights',
+        type: 'Modern Villa',
+        status: 'Exclusive',
+        price: 2490000,
+        beds: 4,
+        baths: 4.5,
+        sqft: 3860,
+        mapX: 46,
+        mapY: 20,
+        featuredRank: 5,
+        description: 'Cantilevered concrete and cedar planes frame sweeping valley horizons, offering a primary suite wing, lap pool, and guest casita.',
+        features: ['Lap Pool & Terrace', 'Primary Wing', 'Guest Casita', 'Smart Climate'],
+        images: [
+          'https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=1400&q=85',
+          'https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&w=1400&q=85'
+        ]
+      },
+      {
+        id: 'mh-106',
+        title: 'Foundry Yard Corner Townhome',
+        address: '142 Foundry Lane',
+        neighbourhood: 'West End',
+        type: 'Townhome',
+        status: 'New Listing',
+        price: 1045000,
+        beds: 3,
+        baths: 3,
+        sqft: 2050,
+        mapX: 56,
+        mapY: 78,
+        featuredRank: 6,
+        description: 'Extra corner window exposure floods every floor with daylight, paired with wide-plank oak floors and direct garage access.',
+        features: ['Corner Exposure', 'Direct Garage', 'Primary Balcony', 'Built-In Shelving'],
+        images: [
+          'https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?auto=format&fit=crop&w=1400&q=85',
+          'https://images.unsplash.com/photo-1600573472550-8090b5e0745e?auto=format&fit=crop&w=1400&q=85'
+        ]
+      },
+      {
+        id: 'mh-107',
+        title: 'Promenade Penthouse Suite',
+        address: '310 Harbour Walk, PH2',
+        neighbourhood: 'Harbourfront',
+        type: 'Condo / Loft',
+        status: 'Featured',
+        price: 1390000,
+        beds: 3,
+        baths: 2.5,
+        sqft: 2110,
+        mapX: 82,
+        mapY: 45,
+        featuredRank: 7,
+        description: 'Top-floor corner penthouse featuring wraparound balcony views, custom walnut cabinetry, and two deeded parking stalls.',
+        features: ['Wraparound Balcony', 'Walnut Millwork', '2 Parking Stalls', 'Floor-to-Ceiling Glass'],
+        images: [
+          'https://images.unsplash.com/photo-1600607687644-c7171b42498f?auto=format&fit=crop&w=1400&q=85',
+          'https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&fit=crop&w=1400&q=85'
+        ]
+      },
+      {
+        id: 'mh-108',
+        title: 'Brookside Family Residence',
+        address: '630 Brookside Way',
+        neighbourhood: 'Maple Grove',
+        type: 'Single Family',
+        status: 'New Listing',
+        price: 1525000,
+        beds: 4,
+        baths: 3,
+        sqft: 2710,
+        mapX: 16,
+        mapY: 52,
+        featuredRank: 8,
+        description: 'Classic proportions and an inviting kitchen-family hub overlooking a deep, sun-drenched backyard ideal for weekend gatherings.',
+        features: ['Deep Backyard', 'Mudroom & Pantry', 'Finished Lower Level', 'Quiet Street'],
+        images: [
+          'https://images.unsplash.com/photo-1583608205776-bfd35f0d9f83?auto=format&fit=crop&w=1400&q=85',
+          'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=1400&q=85'
+        ]
+      }
+    ];
+
+    /**
+     * Curated 5-Room Architectural Walkthrough Data for Realistic Motion Live Tour
+     * Each room includes high-res panoramic imagery, floorplan coordinates,
+     * initial camera yaw, interactive room portals, and architectural finish callouts.
+     */
+    const WALKTHROUGH_ROOMS = [
+      {
+        id: 'room-foyer',
+        name: 'Entrance Hall',
+        shortName: 'Entrance',
+        caption: 'Double-height entry with a solid oak pivot door, a floating oak stair and a paper lantern glowing overhead.',
+        image: '/tour/rooms/entrance.webp',
+        fallbackImage: '/tour/glasshouse-1200.webp',
+        mapX: 22, mapY: 74, baseYaw: -10,
+        hotspots: [
+          { type: 'portal', x: 60, y: 56, label: 'Step into the Double-Height Living Room', targetRoomIndex: 1 },
+          { type: 'finish', x: 80, y: 40, label: 'Floating Oak Stair', detail: 'Cantilevered 70 mm European oak treads with a frameless glass balustrade and LED step lights.' },
+          { type: 'finish', x: 26, y: 56, label: 'Solid Oak Pivot Door', detail: 'A 2.8 m solid oak pivot door with a full-height black steel pull.' }
+        ]
+      },
+      {
+        id: 'room-living',
+        name: 'Double-Height Living Room',
+        shortName: 'Living Room',
+        caption: 'Six metres of sliding glass open onto the pool terrace; a honed travertine wall frames the linear fireplace.',
+        image: '/tour/rooms/living.webp',
+        fallbackImage: '/tour/glasshouse-1200.webp',
+        mapX: 46, mapY: 56, baseYaw: 8,
+        hotspots: [
+          { type: 'portal', x: 8, y: 60, label: 'Walk to the Travertine Kitchen', targetRoomIndex: 2 },
+          { type: 'portal', x: 44, y: 52, label: 'Step out to the Terrace & Pool', targetRoomIndex: 4 },
+          { type: 'finish', x: 82, y: 72, label: 'Linear Gas Fireplace', detail: 'A 1.8 m linear gas fire set into a wall of honed Roman travertine.' }
+        ]
+      },
+      {
+        id: 'room-kitchen',
+        name: 'Travertine Kitchen & Dining',
+        shortName: 'Kitchen',
+        caption: 'A 4-metre honed travertine island, flush oak joinery and a dining table for eight facing the olive garden.',
+        image: '/tour/rooms/kitchen.webp',
+        fallbackImage: '/tour/glasshouse-1200.webp',
+        mapX: 74, mapY: 54, baseYaw: -18,
+        hotspots: [
+          { type: 'portal', x: 86, y: 40, label: 'Head upstairs to the Primary Suite', targetRoomIndex: 3 },
+          { type: 'finish', x: 30, y: 62, label: 'Travertine Waterfall Island', detail: 'A single slab of honed travertine with an integrated sink and a brushed brass tap.' },
+          { type: 'finish', x: 36, y: 30, label: 'Hand-Blown Glass Pendants', detail: 'Three amber glass pendants on a dimmable circuit.' }
+        ]
+      },
+      {
+        id: 'room-primary',
+        name: 'Primary Suite',
+        shortName: 'Primary Suite',
+        caption: 'Corner glazing, a low oak bed and a private balcony above the pool, with a travertine en-suite next door.',
+        image: '/tour/rooms/suite.webp',
+        fallbackImage: '/tour/glasshouse-1200.webp',
+        mapX: 72, mapY: 26, baseYaw: 14,
+        hotspots: [
+          { type: 'portal', x: 74, y: 58, label: 'Step onto the Balcony & Terrace', targetRoomIndex: 4 },
+          { type: 'finish', x: 32, y: 66, label: 'Oak Platform Bed', detail: 'Low solid oak bed with a bouclé bench and travertine bedside tables.' }
+        ]
+      },
+      {
+        id: 'room-terrace',
+        name: 'Terrace & Pool',
+        shortName: 'Terrace',
+        caption: 'A covered terrace with a travertine outdoor kitchen, dining for eight and a heated 12-metre pool.',
+        image: '/tour/rooms/terrace.webp',
+        fallbackImage: '/tour/glasshouse-1200.webp',
+        mapX: 34, mapY: 26, baseYaw: -5,
+        hotspots: [
+          { type: 'portal', x: 46, y: 50, label: 'Return to the Entrance Hall', targetRoomIndex: 0 },
+          { type: 'finish', x: 16, y: 64, label: 'Travertine Outdoor Kitchen', detail: 'Built-in grill and fridge drawers under the cantilevered roof.' },
+          { type: 'finish', x: 84, y: 60, label: 'Heated Pool', detail: 'A 12 m heated pool with LED lighting and a travertine surround.' }
+        ]
+      }
+    ];
+
+    // Application state
+    const state = {
+      selectedNeighbourhood: 'ALL',
+      viewMode: 'grid', // 'grid' | 'map'
+      selectedPinId: null,
+      savedIds: new Set(),
+      onlySaved: false,
+      activeModalPropertyId: null,
+      activeGalleryIndex: 0,
+      // Live Motion Tour State
+      tour: {
+        isOpen: false,
+        propertyId: 'mh-101',
+        roomIndex: 0,
+        isPlaying: true,
+        motionMode: 'cinema', // 'calm' | 'cinema' | 'manual'
+        panX: 0, // -1 to +1 normalized horizontal look offset
+        panY: 0, // -1 to +1 normalized vertical tilt offset
+        velX: 0,
+        velY: 0,
+        isDragging: false,
+        dragStartX: 0,
+        dragStartY: 0,
+        dragOriginPanX: 0,
+        dragOriginPanY: 0,
+        roomElapsedMs: 0,
+        zoomPhase: 0,
+        breathingPhase: 0,
+        rafId: null,
+        lastFrameTime: 0,
+        hasInteracted: false
+      }
+    };
+
+    // Format currency helper
+    function formatCurrency(num, compact = false) {
+      if (compact) {
+        if (num >= 1000000) {
+          const val = (num / 1000000).toFixed(2).replace(/\.?0+$/, '');
+          return `$${val}M`;
+        }
+        return `$${Math.round(num / 1000)}k`;
+      }
+      return new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+        maximumFractionDigits: 0
+      }).format(num);
+    }
+
+    // Standard fixed-rate monthly mortgage math + property tax + insurance
+    function computeMonthlyBreakdown(price, downPct = 0.2, annualRate = 0.0615, years = 30, taxRate = 0.011) {
+      const downPayment = price * downPct;
+      const principal = Math.max(0, price - downPayment);
+      const monthlyRate = annualRate / 12;
+      const n = years * 12;
+
+      let pi = 0;
+      if (principal > 0) {
+        if (monthlyRate === 0) {
+          pi = principal / n;
+        } else {
+          const factor = Math.pow(1 + monthlyRate, n);
+          pi = principal * ((monthlyRate * factor) / (factor - 1));
+        }
+      }
+
+      const taxMonthly = (price * taxRate) / 12;
+      const insuranceMonthly = Math.max(95, (price / 1000) * 0.13);
+      const totalMonthly = pi + taxMonthly + insuranceMonthly;
+
+      return {
+        downPayment,
+        principal,
+        pi: Math.round(pi),
+        taxMonthly: Math.round(taxMonthly),
+        insuranceMonthly: Math.round(insuranceMonthly),
+        totalMonthly: Math.round(totalMonthly)
+      };
+    }
+
+    // Non-blocking toast notification
+    let toastTimer = null;
+    function showToast(message) {
+      const banner = document.getElementById('toast-banner');
+      const msgEl = document.getElementById('toast-message');
+      msgEl.textContent = message;
+      banner.classList.remove('hidden');
+      banner.classList.add('flex');
+
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        banner.classList.add('hidden');
+        banner.classList.remove('flex');
+      }, 2800);
+    }
+
+    // Render neighbourhood filter pills
+    function renderNeighbourhoodPills() {
+      const container = document.getElementById('neighbourhood-pills');
+      const hoods = ['ALL', ...NEIGHBOURHOODS.map(n => n.name)];
+
+      container.innerHTML = hoods.map(hood => {
+        const isActive = state.selectedNeighbourhood === hood;
+        const label = hood === 'ALL' ? 'All Neighbourhoods' : hood;
+        return `
+          <button
+            type="button"
+            onclick="selectNeighbourhood('${hood.replace(/'/g, "\\'")}')"
+            class="px-3 py-1.5 rounded-xl text-xs font-semibold transition ${
+              isActive
+                ? 'bg-accent text-white shadow-xs'
+                : 'bg-surface text-muted hover:text-ink hover:bg-gray-200/70'
+            }"
+          >
+            ${label}
+          </button>
+        `;
+      }).join('');
+    }
+
+    // Select neighbourhood from pill or spotlight card
+    function selectNeighbourhood(hood, scrollToListings = false) {
+      state.selectedNeighbourhood = hood;
+      renderNeighbourhoodPills();
+      applyFilters();
+      if (scrollToListings) {
+        document.getElementById('listings-section').scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+
+    // Toggle saved filter
+    function toggleSavedFilter() {
+      state.onlySaved = !state.onlySaved;
+      const btn = document.getElementById('saved-filter-btn');
+      if (state.onlySaved) {
+        btn.classList.add('border-accent', 'bg-accent-soft', 'text-accent');
+      } else {
+        btn.classList.remove('border-accent', 'bg-accent-soft', 'text-accent');
+      }
+      applyFilters();
+    }
+
+    // Reset all filters
+    function resetFilters() {
+      document.getElementById('search-input').value = '';
+      document.getElementById('type-filter').value = 'ALL';
+      document.getElementById('price-filter').value = 'ALL';
+      document.getElementById('beds-filter').value = '0';
+      document.getElementById('sort-filter').value = 'featured';
+      state.selectedNeighbourhood = 'ALL';
+      state.onlySaved = false;
+      state.selectedPinId = null;
+      document.getElementById('saved-filter-btn').classList.remove('border-accent', 'bg-accent-soft', 'text-accent');
+      renderNeighbourhoodPills();
+      applyFilters();
+    }
+
+    // Filter & sort properties
+    function getFilteredProperties() {
+      const query = document.getElementById('search-input').value.trim().toLowerCase();
+      const type = document.getElementById('type-filter').value;
+      const maxPrice = Number(document.getElementById('price-filter').value);
+      const minBeds = Number(document.getElementById('beds-filter').value);
+      const sort = document.getElementById('sort-filter').value;
+
+      let list = PROPERTIES.filter(prop => {
+        if (state.onlySaved && !state.savedIds.has(prop.id)) return false;
+        if (state.selectedNeighbourhood !== 'ALL' && prop.neighbourhood !== state.selectedNeighbourhood) return false;
+        if (type !== 'ALL' && prop.type !== type) return false;
+        if (document.getElementById('price-filter').value !== 'ALL' && prop.price > maxPrice) return false;
+        if (minBeds > 0 && prop.beds < minBeds) return false;
+
+        if (query) {
+          const haystack = `${prop.title} ${prop.address} ${prop.neighbourhood} ${prop.type} ${prop.features.join(' ')}`.toLowerCase();
+          if (!haystack.includes(query)) return false;
+        }
+        return true;
+      });
+
+      if (sort === 'price-asc') {
+        list.sort((a, b) => a.price - b.price);
+      } else if (sort === 'price-desc') {
+        list.sort((a, b) => b.price - a.price);
+      } else if (sort === 'sqft-desc') {
+        list.sort((a, b) => b.sqft - a.sqft);
+      } else {
+        list.sort((a, b) => a.featuredRank - b.featuredRank);
+      }
+
+      return list;
+    }
+
+    // Render listing cards and map pins
+    function applyFilters() {
+      const filtered = getFilteredProperties();
+      const grid = document.getElementById('listings-grid');
+      const emptyState = document.getElementById('empty-state');
+      const summary = document.getElementById('results-summary');
+
+      summary.textContent = `Showing ${filtered.length} ${filtered.length === 1 ? 'property' : 'properties'}${
+        state.selectedNeighbourhood !== 'ALL' ? ` in ${state.selectedNeighbourhood}` : ''
+      }`;
+
+      if (filtered.length === 0) {
+        grid.innerHTML = '';
+        emptyState.classList.remove('hidden');
+        renderMapPins([]);
+        return;
+      }
+
+      emptyState.classList.add('hidden');
+
+      grid.innerHTML = filtered.map(prop => {
+        const est = computeMonthlyBreakdown(prop.price);
+        const isSaved = state.savedIds.has(prop.id);
+        const isSelected = state.selectedPinId === prop.id;
+
+        return `
+          <article
+            id="card-${prop.id}"
+            onclick="openPropertyModal('${prop.id}')"
+            class="group cursor-pointer bg-white rounded-2xl border ${
+              isSelected ? 'border-accent ring-2 ring-accent/25' : 'border-gray-200/90 hover:border-gray-300'
+            } overflow-hidden shadow-card hover:shadow-elevated transition duration-200 flex flex-col justify-between"
+          >
+            <div>
+              <!-- Image Container -->
+              <div class="relative aspect-[16/10] bg-gray-100 overflow-hidden">
+                <img
+                  src="${prop.images[0]}"
+                  alt="${prop.title}"
+                  loading="lazy"
+                  onerror="this.src='/tour/glasshouse-1200.webp'"
+                  class="w-full h-full object-cover group-hover:scale-[1.03] transition duration-300"
+                />
+                <div class="absolute top-3 left-3 flex items-center gap-1.5">
+                  <span class="px-2.5 py-1 rounded-lg bg-white/95 backdrop-blur text-ink text-[11px] font-semibold shadow-xs">
+                    ${prop.status}
+                  </span>
+                  <span class="px-2.5 py-1 rounded-lg bg-ink/80 backdrop-blur text-white text-[11px] font-medium">
+                    ${prop.type}
+                  </span>
+                </div>
+
+                <!-- Save Button -->
+                <button
+                  type="button"
+                  onclick="event.stopPropagation(); toggleSaveProperty('${prop.id}')"
+                  aria-label="Save ${prop.title}"
+                  class="absolute top-3 right-3 w-9 h-9 rounded-xl bg-white/95 hover:bg-white text-ink shadow-xs flex items-center justify-center transition"
+                >
+                  <svg class="w-4 h-4 ${isSaved ? 'fill-accent text-accent' : 'text-gray-600'}" fill="${isSaved ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                  </svg>
+                </button>
+
+                <!-- Photo Count Badge -->
+                <span class="absolute bottom-3 right-3 px-2 py-0.5 rounded-md bg-black/65 text-white text-[11px] font-medium">
+                  360° Live Tour • ${prop.images.length} photos
+                </span>
+              </div>
+
+              <!-- Card Body -->
+              <div class="p-4 sm:p-5">
+                <div class="flex items-baseline justify-between gap-2">
+                  <div class="font-display font-extrabold text-xl text-ink">${formatCurrency(prop.price)}</div>
+                  <div class="text-xs font-medium text-muted">Est. ${formatCurrency(est.totalMonthly)}/mo</div>
+                </div>
+
+                <h3 class="font-display font-bold text-base text-ink mt-1 group-hover:text-accent transition truncate">
+                  ${prop.title}
+                </h3>
+                <p class="text-xs text-muted mt-0.5 truncate">
+                  ${prop.address} • <span class="font-medium text-ink/80">${prop.neighbourhood}</span>
+                </p>
+              </div>
+            </div>
+
+            <!-- Specs Footer -->
+            <div class="px-4 sm:px-5 py-3 bg-surface/70 border-t border-gray-100 flex items-center justify-between text-xs font-medium text-ink">
+              <div class="flex items-center gap-3">
+                <span><strong>${prop.beds}</strong> beds</span>
+                <span class="text-gray-300">•</span>
+                <span><strong>${prop.baths}</strong> baths</span>
+                <span class="text-gray-300">•</span>
+                <span><strong>${prop.sqft.toLocaleString()}</strong> sqft</span>
+              </div>
+              <span class="text-accent font-semibold group-hover:translate-x-0.5 transition-transform">Details →</span>
+            </div>
+          </article>
+        `;
+      }).join('');
+
+      renderMapPins(filtered);
+    }
+
+    // Switch between Grid and Map View
+    function setViewMode(mode) {
+      state.viewMode = mode;
+      const mapPanel = document.getElementById('map-panel');
+      const gridBtn = document.getElementById('view-grid-btn');
+      const mapBtn = document.getElementById('view-map-btn');
+
+      if (mode === 'map') {
+        mapPanel.classList.remove('hidden');
+        mapBtn.classList.add('bg-white', 'text-ink', 'shadow-xs');
+        mapBtn.classList.remove('text-muted');
+        gridBtn.classList.remove('bg-white', 'text-ink', 'shadow-xs');
+        gridBtn.classList.add('text-muted');
+        renderMapPins(getFilteredProperties());
+      } else {
+        mapPanel.classList.add('hidden');
+        gridBtn.classList.add('bg-white', 'text-ink', 'shadow-xs');
+        gridBtn.classList.remove('text-muted');
+        mapBtn.classList.remove('bg-white', 'text-ink', 'shadow-xs');
+        mapBtn.classList.add('text-muted');
+      }
+    }
+
+    // Render clickable price pins on the interactive map
+    function renderMapPins(properties) {
+      const layer = document.getElementById('map-pins-layer');
+      if (!layer) return;
+
+      layer.innerHTML = properties.map(prop => {
+        const isSelected = state.selectedPinId === prop.id;
+        return `
+          <button
+            type="button"
+            onclick="selectPropertyPin('${prop.id}')"
+            style="left: ${prop.mapX}%; top: ${prop.mapY}%;"
+            class="-translate-x-1/2 -translate-y-1/2 absolute z-10 px-3 py-1.5 rounded-full font-display font-bold text-xs shadow-elevated border transition transform hover:scale-105 ${
+              isSelected
+                ? 'bg-ink text-white border-white scale-110 z-20'
+                : 'bg-white text-ink border-accent/30 hover:border-accent'
+            }"
+          >
+            ${formatCurrency(prop.price, true)}
+          </button>
+        `;
+      }).join('');
+
+      updateSelectedMapCard();
+    }
+
+    // Highlight pin & sync with listing card
+    function selectPropertyPin(id) {
+      state.selectedPinId = id;
+      renderMapPins(getFilteredProperties());
+      applyFilters();
+      updateSelectedMapCard();
+
+      if (id) {
+        const cardEl = document.getElementById(`card-${id}`);
+        if (cardEl && state.viewMode === 'grid') {
+          cardEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+      }
+    }
+
+    // Update quick summary card inside map view
+    function updateSelectedMapCard() {
+      const cardBox = document.getElementById('map-selected-card');
+      if (!state.selectedPinId) {
+        cardBox.classList.add('hidden');
+        return;
+      }
+
+      const prop = PROPERTIES.find(p => p.id === state.selectedPinId);
+      if (!prop) {
+        cardBox.classList.add('hidden');
+        return;
+      }
+
+      cardBox.classList.remove('hidden');
+      cardBox.innerHTML = `
+        <div class="flex gap-3 items-center">
+          <img
+            src="${prop.images[0]}"
+            alt="${prop.title}"
+            onerror="this.src='/tour/glasshouse-1200.webp'"
+            class="w-20 h-16 rounded-xl object-cover shrink-0 bg-gray-100"
+          />
+          <div class="min-w-0 flex-1">
+            <div class="font-display font-bold text-sm text-ink">${formatCurrency(prop.price)}</div>
+            <div class="text-xs font-semibold text-ink truncate">${prop.title}</div>
+            <div class="text-[11px] text-muted truncate">${prop.address}</div>
+          </div>
+        </div>
+        <div class="mt-3 flex items-center justify-between gap-2">
+          <span class="text-[11px] text-muted">${prop.beds} bd • ${prop.baths} ba • ${prop.sqft.toLocaleString()} sf</span>
+          <button
+            type="button"
+            onclick="openPropertyModal('${prop.id}')"
+            class="px-3 py-1.5 rounded-lg bg-accent hover:bg-accent-hover text-white text-xs font-semibold transition"
+          >
+            View Details
+          </button>
+        </div>
+      `;
+    }
+
+    // Save / unsave property
+    function toggleSaveProperty(id) {
+      if (state.savedIds.has(id)) {
+        state.savedIds.delete(id);
+        showToast('Removed from saved listings');
+      } else {
+        state.savedIds.add(id);
+        showToast('Saved listing to your shortlist');
+      }
+      document.getElementById('saved-count-badge').textContent = state.savedIds.size;
+      applyFilters();
+      updateModalSaveButton();
+    }
+
+    function toggleSaveCurrentModalProperty() {
+      if (state.activeModalPropertyId) {
+        toggleSaveProperty(state.activeModalPropertyId);
+      }
+    }
+
+    function updateModalSaveButton() {
+      const btn = document.getElementById('modal-save-btn');
+      if (!btn || !state.activeModalPropertyId) return;
+      const isSaved = state.savedIds.has(state.activeModalPropertyId);
+      btn.textContent = isSaved ? 'Saved ✓' : 'Save Listing';
+      btn.className = isSaved
+        ? 'px-3.5 py-1.5 rounded-xl bg-accent-soft text-accent border border-accent/20 text-xs font-semibold transition'
+        : 'px-3.5 py-1.5 rounded-xl border border-gray-200 hover:bg-gray-50 text-xs font-semibold transition';
+    }
+
+    // Open Property Detail Modal
+    function openPropertyModal(id) {
+      const prop = PROPERTIES.find(p => p.id === id);
+      if (!prop) return;
+
+      state.activeModalPropertyId = id;
+      state.activeGalleryIndex = 0;
+
+      document.getElementById('modal-hood-badge').textContent = `${prop.neighbourhood} • ${prop.type}`;
+      document.getElementById('modal-title').textContent = prop.title;
+      document.getElementById('modal-price').textContent = formatCurrency(prop.price);
+      document.getElementById('modal-address').textContent = prop.address;
+      document.getElementById('modal-beds').textContent = `${prop.beds} Beds`;
+      document.getElementById('modal-baths').textContent = `${prop.baths} Baths`;
+      document.getElementById('modal-sqft').textContent = `${prop.sqft.toLocaleString()} Sqft`;
+      document.getElementById('modal-description').textContent = prop.description;
+
+      document.getElementById('modal-features').innerHTML = prop.features
+        .map(f => `<span class="px-3 py-1 rounded-lg bg-accent-soft text-accent text-xs font-semibold">${f}</span>`)
+        .join('');
+
+      // Monthly cost breakdown for this property
+      const est = computeMonthlyBreakdown(prop.price);
+      document.getElementById('modal-payment-breakdown').innerHTML = `
+        <div class="bg-white rounded-xl p-2.5 border border-gray-100">
+          <div class="text-[11px] text-muted">Est. Total</div>
+          <div class="font-display font-bold text-sm text-accent">${formatCurrency(est.totalMonthly)}/mo</div>
+        </div>
+        <div class="bg-white rounded-xl p-2.5 border border-gray-100">
+          <div class="text-[11px] text-muted">Principal &amp; Int.</div>
+          <div class="font-bold text-sm text-ink">${formatCurrency(est.pi)}</div>
+        </div>
+        <div class="bg-white rounded-xl p-2.5 border border-gray-100">
+          <div class="text-[11px] text-muted">Est. Tax</div>
+          <div class="font-bold text-sm text-ink">${formatCurrency(est.taxMonthly)}</div>
+        </div>
+        <div class="bg-white rounded-xl p-2.5 border border-gray-100">
+          <div class="text-[11px] text-muted">Insurance</div>
+          <div class="font-bold text-sm text-ink">${formatCurrency(est.insuranceMonthly)}</div>
+        </div>
+      `;
+
+      // Default tour date to tomorrow
+      const tomorrow = new Date(Date.now() + 86400000).toISOString().split('T')[0];
+      document.getElementById('tour-date').min = new Date().toISOString().split('T')[0];
+      document.getElementById('tour-date').value = tomorrow;
+      document.getElementById('tour-confirmation').classList.add('hidden');
+      document.getElementById('tour-booking-form').reset();
+      document.getElementById('tour-date').value = tomorrow;
+
+      updateModalSaveButton();
+      renderGallerySlide();
+
+      const modal = document.getElementById('property-modal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function launchLiveTourFromModal() {
+      const targetId = state.activeModalPropertyId || 'mh-101';
+      closePropertyModal();
+      openLiveTour(targetId);
+    }
+
+    function closePropertyModal() {
+      const modal = document.getElementById('property-modal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+      document.body.style.overflow = '';
+      state.activeModalPropertyId = null;
+    }
+
+    function renderGallerySlide() {
+      const prop = PROPERTIES.find(p => p.id === state.activeModalPropertyId);
+      if (!prop) return;
+      const idx = state.activeGalleryIndex;
+      const imgEl = document.getElementById('modal-gallery-img');
+      imgEl.src = prop.images[idx] || prop.images[0];
+
+      const dotsEl = document.getElementById('modal-gallery-dots');
+      dotsEl.innerHTML = prop.images.map((_, i) => `
+        <button
+          type="button"
+          onclick="setGallerySlide(${i})"
+          aria-label="Photo ${i + 1}"
+          class="w-2 h-2 rounded-full transition ${i === idx ? 'bg-white scale-125' : 'bg-white/50'}"
+        ></button>
+      `).join('');
+    }
+
+    function setGallerySlide(i) {
+      state.activeGalleryIndex = i;
+      renderGallerySlide();
+    }
+
+    function prevGalleryPhoto() {
+      const prop = PROPERTIES.find(p => p.id === state.activeModalPropertyId);
+      if (!prop) return;
+      state.activeGalleryIndex = (state.activeGalleryIndex - 1 + prop.images.length) % prop.images.length;
+      renderGallerySlide();
+    }
+
+    function nextGalleryPhoto() {
+      const prop = PROPERTIES.find(p => p.id === state.activeModalPropertyId);
+      if (!prop) return;
+      state.activeGalleryIndex = (state.activeGalleryIndex + 1) % prop.images.length;
+      renderGallerySlide();
+    }
+
+    // Load active property price into standalone mortgage calculator
+    function loadPropertyIntoCalculator() {
+      const prop = PROPERTIES.find(p => p.id === state.activeModalPropertyId);
+      if (!prop) return;
+      const slider = document.getElementById('calc-price');
+      const clamped = Math.min(Number(slider.max), Math.max(Number(slider.min), prop.price));
+      slider.value = clamped;
+      closePropertyModal();
+      calculateMortgage();
+      document.getElementById('tools').scrollIntoView({ behavior: 'smooth' });
+      showToast(`Loaded ${formatCurrency(prop.price)} into mortgage calculator`);
+    }
+
+    // Tour booking form submission
+    function handleTourSubmit(e) {
+      e.preventDefault();
+      const prop = PROPERTIES.find(p => p.id === state.activeModalPropertyId);
+      const date = document.getElementById('tour-date').value;
+      const type = document.getElementById('tour-type').value;
+      const name = document.getElementById('tour-name').value.trim();
+
+      const conf = document.getElementById('tour-confirmation');
+      conf.classList.remove('hidden');
+      conf.textContent = `Tour request received for ${prop ? prop.title : 'this residence'} (${type} on ${date}). A Willow & Stone advisor will confirm with ${name} shortly.`;
+      showToast('Tour request submitted');
+    }
+
+    // Render Neighbourhood Spotlight cards
+    function renderNeighbourhoodCards() {
+      const container = document.getElementById('neighbourhood-cards');
+      container.innerHTML = NEIGHBOURHOODS.map(hood => {
+        const count = PROPERTIES.filter(p => p.neighbourhood === hood.name).length;
+        return `
+          <div
+            onclick="selectNeighbourhood('${hood.name.replace(/'/g, "\\'")}', true)"
+            class="cursor-pointer rounded-2xl border border-gray-200/90 bg-surface/60 hover:bg-white hover:shadow-card p-5 transition flex flex-col justify-between"
+          >
+            <div>
+              <div class="flex items-center justify-between gap-2">
+                <h3 class="font-display font-bold text-base text-ink">${hood.name}</h3>
+                <span class="text-xs font-semibold px-2 py-0.5 rounded-full bg-accent-soft text-accent">${count} active</span>
+              </div>
+              <p class="text-xs text-muted mt-2 leading-relaxed">${hood.tagline}</p>
+            </div>
+            <div class="mt-4 pt-3 border-t border-gray-200/70 flex items-center justify-between text-xs">
+              <div>
+                <span class="text-muted">Median:</span>
+                <strong class="text-ink ml-1">${hood.medianPrice}</strong>
+              </div>
+              <span class="text-muted">Avg. ${hood.avgDom}</span>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // Standalone Mortgage Calculator logic
+    function calculateMortgage() {
+      const price = Number(document.getElementById('calc-price').value);
+      const downPct = Number(document.getElementById('calc-down-pct').value) / 100;
+      const rate = Number(document.getElementById('calc-rate').value) / 100;
+      const years = Number(document.getElementById('calc-term').value);
+      const taxRate = Number(document.getElementById('calc-tax').value);
+
+      const res = computeMonthlyBreakdown(price, downPct, rate, years, taxRate);
+
+      document.getElementById('calc-price-label').textContent = formatCurrency(price);
+      document.getElementById('calc-down-label').textContent = `${Math.round(downPct * 100)}% (${formatCurrency(res.downPayment)})`;
+      document.getElementById('calc-rate-label').textContent = `${(rate * 100).toFixed(2)}%`;
+
+      document.getElementById('calc-total-monthly').innerHTML = `${formatCurrency(res.totalMonthly)}<span class="text-sm font-normal text-muted">/mo</span>`;
+      document.getElementById('calc-loan-summary').textContent = `Loan amount: ${formatCurrency(res.principal)} • ${years}-year fixed`;
+      document.getElementById('calc-pi').textContent = formatCurrency(res.pi);
+      document.getElementById('calc-tax-mo').textContent = formatCurrency(res.taxMonthly);
+      document.getElementById('calc-ins-mo').textContent = formatCurrency(res.insuranceMonthly);
+    }
+
+    // Home Valuation estimator logic
+    function estimateHomeValue({ hood, sqft, beds, conditionFactor }) {
+      const baseSqftRates = {
+        'Oakridge Heights': 565,
+        'Harbourfront': 610,
+        'Maple Grove': 535,
+        'West End': 485
+      };
+      const baseRate = baseSqftRates[hood] || 520;
+      const bedAdjustment = 1 + (Number(beds) - 3) * 0.03;
+      const rawEstimate = sqft * baseRate * bedAdjustment * Number(conditionFactor);
+      const rounded = Math.round(rawEstimate / 5000) * 5000;
+      const low = Math.round((rounded * 0.95) / 5000) * 5000;
+      const high = Math.round((rounded * 1.05) / 5000) * 5000;
+      return { estimate: rounded, low, high };
+    }
+
+    function handleValuationSubmit(e, source) {
+      e.preventDefault();
+      const isModal = source === 'modal';
+      const address = document.getElementById(isModal ? 'mval-address' : 'val-address').value.trim();
+      const hood = document.getElementById(isModal ? 'mval-hood' : 'val-hood').value;
+      const sqft = Number(document.getElementById(isModal ? 'mval-sqft' : 'val-sqft').value);
+      const beds = Number(document.getElementById(isModal ? 'mval-beds' : 'val-beds').value);
+      const conditionFactor = Number(document.getElementById(isModal ? 'mval-condition' : 'val-condition').value);
+
+      const { estimate, low, high } = estimateHomeValue({ hood, sqft, beds, conditionFactor });
+      const resultBox = document.getElementById(isModal ? 'modal-valuation-result' : 'inline-valuation-result');
+
+      resultBox.classList.remove('hidden');
+      resultBox.innerHTML = `
+        <div class="text-xs font-semibold text-accent uppercase tracking-wide">Estimated Value • ${address}</div>
+        <div class="font-display font-extrabold text-2xl text-ink mt-0.5">${formatCurrency(estimate)}</div>
+        <div class="text-xs text-muted mt-1">
+          Expected range: <strong class="text-ink">${formatCurrency(low)} – ${formatCurrency(high)}</strong> in ${hood} (${sqft.toLocaleString()} sqft).
+        </div>
+      `;
+      showToast('Instant home valuation generated');
+    }
+
+    function openValuationModal() {
+      const modal = document.getElementById('valuation-modal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeValuationModal() {
+      const modal = document.getElementById('valuation-modal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+      document.body.style.overflow = '';
+    }
+
+    /* ==========================================================================
+       REALISTIC MOTION LIVE HOUSE TOUR ENGINE
+       ========================================================================== */
+
+    function getTourRoomsForProperty(propertyId) {
+      const prop = PROPERTIES.find(p => p.id === propertyId) || PROPERTIES[0];
+      // Tailor the first room image to the selected property's hero exterior/interior
+      // while preserving seamless multi-room architectural walkthrough flow
+      // The live tour is a sample walk-through of The Glasshouse (one consistent house)
+      if (prop) return WALKTHROUGH_ROOMS;
+      return WALKTHROUGH_ROOMS.map((room, idx) => {
+        if (idx === 0 && prop.images && prop.images[0]) {
+          return {
+            ...room,
+            image: prop.images[0]
+          };
+        }
+        if (idx === 1 && prop.images && prop.images[1]) {
+          return {
+            ...room,
+            image: prop.images[1]
+          };
+        }
+        return room;
+      });
+    }
+
+    function populateTourPropertySelector() {
+      const select = document.getElementById('tour-property-selector');
+      if (!select) return;
+      select.innerHTML = PROPERTIES.filter(prop => prop.id === 'mh-101').map(prop => `
+        <option value="${prop.id}" ${prop.id === state.tour.propertyId ? 'selected' : ''}>
+          ${prop.title} — ${formatCurrency(prop.price, true)}
+        </option>
+      `).join('');
+    }
+
+    function openLiveTour(propertyId = 'mh-101', startRoomIndex = 0) {
+      // every "live tour" button opens the sample tour of The Glasshouse
+      const prop = PROPERTIES.find(p => p.id === 'mh-101') || PROPERTIES[0];
+      state.tour.propertyId = prop.id;
+      state.tour.roomIndex = startRoomIndex;
+      state.tour.isOpen = true;
+      state.tour.isPlaying = true;
+      state.tour.motionMode = 'cinema';
+      state.tour.panX = -0.22;
+      state.tour.panY = 0;
+      state.tour.velX = 0;
+      state.tour.velY = 0;
+      state.tour.roomElapsedMs = 0;
+      state.tour.zoomPhase = 0;
+      state.tour.lastFrameTime = performance.now();
+
+      document.getElementById('tour-property-title').textContent = prop.title;
+      document.getElementById('tour-property-meta').textContent =
+        `${prop.address} • ${formatCurrency(prop.price)} • ${prop.beds} Beds • ${prop.baths} Baths • ${prop.sqft.toLocaleString()} Sqft`;
+
+      populateTourPropertySelector();
+      updateTourPlaybackUI();
+      updateTourMotionModeUI();
+      renderTourRoomStrip();
+      transitionToTourRoom(startRoomIndex, false);
+
+      const modal = document.getElementById('live-tour-modal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      document.body.style.overflow = 'hidden';
+
+      startTourAnimationLoop();
+    }
+
+    function closeLiveTour() {
+      state.tour.isOpen = false;
+      if (state.tour.rafId) {
+        cancelAnimationFrame(state.tour.rafId);
+        state.tour.rafId = null;
+      }
+      const modal = document.getElementById('live-tour-modal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+      document.body.style.overflow = '';
+    }
+
+    function switchTourProperty(newPropertyId) {
+      openLiveTour(newPropertyId, 0);
+      const prop = PROPERTIES.find(p => p.id === newPropertyId);
+      if (prop) {
+        showToast(`Loaded walkthrough for ${prop.title}`);
+      }
+    }
+
+    function bookShowingFromTour() {
+      const propId = state.tour.propertyId;
+      closeLiveTour();
+      openPropertyModal(propId);
+      setTimeout(() => {
+        const nameInput = document.getElementById('tour-name');
+        if (nameInput) nameInput.focus();
+      }, 150);
+    }
+
+    function toggleTourPlayback() {
+      state.tour.isPlaying = !state.tour.isPlaying;
+      if (state.tour.isPlaying && state.tour.motionMode === 'manual') {
+        setTourMotionMode('cinema');
+      }
+      updateTourPlaybackUI();
+    }
+
+    function updateTourPlaybackUI() {
+      const icon = document.getElementById('tour-play-icon');
+      const label = document.getElementById('tour-play-label');
+      if (!icon || !label) return;
+      if (state.tour.isPlaying) {
+        icon.textContent = '❚❚';
+        label.textContent = 'Pause Walkthrough';
+      } else {
+        icon.textContent = '▶';
+        label.textContent = 'Resume Glide';
+      }
+    }
+
+    function setTourMotionMode(mode) {
+      state.tour.motionMode = mode;
+      if (mode === 'manual') {
+        state.tour.isPlaying = false;
+      } else {
+        state.tour.isPlaying = true;
+      }
+      updateTourPlaybackUI();
+      updateTourMotionModeUI();
+    }
+
+    function updateTourMotionModeUI() {
+      ['calm', 'cinema', 'manual'].forEach(mode => {
+        const btn = document.getElementById(`speed-btn-${mode}`);
+        if (!btn) return;
+        if (state.tour.motionMode === mode) {
+          btn.className = 'px-2.5 py-1.5 rounded-lg font-semibold transition bg-white text-ink shadow-xs';
+        } else {
+          btn.className = 'px-2.5 py-1.5 rounded-lg font-semibold transition text-zinc-300 hover:text-white';
+        }
+      });
+    }
+
+    function stepTourRoom(delta) {
+      const rooms = getTourRoomsForProperty(state.tour.propertyId);
+      const nextIdx = (state.tour.roomIndex + delta + rooms.length) % rooms.length;
+      transitionToTourRoom(nextIdx, true);
+    }
+
+    function transitionToTourRoom(targetIndex, smoothCrossfade = true) {
+      const rooms = getTourRoomsForProperty(state.tour.propertyId);
+      const prevRoom = rooms[state.tour.roomIndex];
+      const nextRoom = rooms[targetIndex];
+      if (!nextRoom) return;
+
+      const prevLayer = document.getElementById('tour-layer-prev');
+      const prevImg = document.getElementById('tour-img-prev');
+      const currLayer = document.getElementById('tour-layer-curr');
+      const currImg = document.getElementById('tour-img-curr');
+
+      if (smoothCrossfade && prevRoom && currImg.src) {
+        prevImg.src = currImg.src;
+        prevImg.style.transform = currImg.style.transform;
+        prevLayer.style.opacity = '1';
+        currLayer.style.opacity = '0';
+      }
+
+      state.tour.roomIndex = targetIndex;
+      state.tour.roomElapsedMs = 0;
+      state.tour.zoomPhase = 0;
+      state.tour.panX = -0.26;
+      state.tour.panY = 0;
+      state.tour.velX = 0;
+      state.tour.velY = 0;
+
+      currImg.onerror = () => {
+        currImg.src = nextRoom.fallbackImage;
+      };
+      currImg.src = nextRoom.image;
+
+      requestAnimationFrame(() => {
+        currLayer.style.opacity = '1';
+        prevLayer.style.opacity = '0';
+      });
+
+      // Update room metadata HUD
+      document.getElementById('tour-room-step').textContent =
+        `${String(targetIndex + 1).padStart(2, '0')} / ${String(rooms.length).padStart(2, '0')}`;
+      document.getElementById('tour-room-name').textContent = nextRoom.name;
+      document.getElementById('tour-room-caption').textContent = nextRoom.caption;
+
+      closeTourFinishPopover();
+      renderTourHotspots();
+      renderTourRoomStrip();
+      renderTourMiniFloorplan();
+    }
+
+    function renderTourRoomStrip() {
+      const strip = document.getElementById('tour-room-strip');
+      if (!strip) return;
+      const rooms = getTourRoomsForProperty(state.tour.propertyId);
+
+      strip.innerHTML = rooms.map((room, idx) => {
+        const active = idx === state.tour.roomIndex;
+        return `
+          <button
+            type="button"
+            onclick="transitionToTourRoom(${idx}, true)"
+            class="group flex items-center gap-2.5 pr-3 pl-1.5 py-1 rounded-xl border text-left shrink-0 transition ${
+              active
+                ? 'bg-white/15 border-emerald-400/70 text-white shadow-sm'
+                : 'bg-white/5 border-white/10 text-zinc-300 hover:bg-white/10 hover:text-white'
+            }"
+          >
+            <img
+              src="${room.image}"
+              alt="${room.shortName}"
+              onerror="this.src='${room.fallbackImage}'"
+              class="w-10 h-7 rounded-lg object-cover bg-zinc-800 shrink-0"
+            />
+            <div>
+              <div class="text-[11px] font-semibold leading-tight">${room.shortName}</div>
+              <div class="text-[9px] text-zinc-400">Room 0${idx + 1}</div>
+            </div>
+          </button>
+        `;
+      }).join('');
+    }
+
+    function renderTourHotspots() {
+      const layer = document.getElementById('tour-hotspots-layer');
+      if (!layer) return;
+      const rooms = getTourRoomsForProperty(state.tour.propertyId);
+      const room = rooms[state.tour.roomIndex];
+      if (!room) return;
+
+      layer.innerHTML = room.hotspots.map((spot, idx) => {
+        const isPortal = spot.type === 'portal';
+        return `
+          <div
+            data-base-x="${spot.x}"
+            data-base-y="${spot.y}"
+            class="tour-hotspot-node absolute -translate-x-1/2 -translate-y-1/2 pointer-events-auto transition-transform duration-75"
+            style="left: ${spot.x}%; top: ${spot.y}%;"
+          >
+            <button
+              type="button"
+              onclick="${isPortal ? `transitionToTourRoom(${spot.targetRoomIndex}, true)` : `openTourFinishPopover(${idx})`}"
+              class="group flex items-center gap-2.5 focus:outline-none"
+            >
+              <span class="relative w-8 h-8 rounded-full flex items-center justify-center hotspot-pulse shadow-lg transition transform group-hover:scale-110 ${
+                isPortal
+                  ? 'bg-accent text-white border-2 border-white'
+                  : 'bg-zinc-950/85 text-emerald-300 border-2 border-emerald-400/80'
+              }">
+                ${
+                  isPortal
+                    ? '<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>'
+                    : '<span class="w-2 h-2 rounded-full bg-emerald-400"></span>'
+                }
+              </span>
+              <span class="px-3 py-1.5 rounded-xl bg-black/70 group-hover:bg-black/90 border border-white/20 backdrop-blur-md text-xs font-semibold text-white whitespace-nowrap shadow-xl transition">
+                ${spot.label}
+              </span>
+            </button>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function openTourFinishPopover(hotspotIdx) {
+      const rooms = getTourRoomsForProperty(state.tour.propertyId);
+      const room = rooms[state.tour.roomIndex];
+      const spot = room && room.hotspots[hotspotIdx];
+      if (!spot) return;
+
+      document.getElementById('tour-finish-title').textContent = spot.label;
+      document.getElementById('tour-finish-desc').textContent = spot.detail || '';
+      const box = document.getElementById('tour-finish-popover');
+      box.classList.remove('hidden');
+    }
+
+    function closeTourFinishPopover() {
+      const box = document.getElementById('tour-finish-popover');
+      if (box) box.classList.add('hidden');
+    }
+
+    function renderTourMiniFloorplan() {
+      const container = document.getElementById('tour-mini-floorplan');
+      if (!container) return;
+      const rooms = getTourRoomsForProperty(state.tour.propertyId);
+      const activeRoom = rooms[state.tour.roomIndex];
+
+      // Build architectural floorplan outline + connecting walkthrough path + active camera FOV cone
+      const pathPoints = rooms.map(r => `${r.mapX},${r.mapY}`).join(' ');
+      const yawDeg = (activeRoom ? activeRoom.baseYaw : 0) + state.tour.panX * 65;
+
+      document.getElementById('tour-yaw-readout').textContent = `${Math.round(((yawDeg % 360) + 360) % 360)}°`;
+
+      container.innerHTML = `
+        <svg viewBox="0 0 100 100" preserveAspectRatio="none" class="w-full h-full">
+          <!-- Architectural Room Partitions -->
+          <rect x="8" y="10" width="84" height="80" rx="4" fill="none" stroke="rgba(255,255,255,0.22)" stroke-width="1.2" />
+          <line x1="8" y1="42" x2="92" y2="42" stroke="rgba(255,255,255,0.14)" stroke-width="1" />
+          <line x1="56" y1="10" x2="56" y2="90" stroke="rgba(255,255,255,0.14)" stroke-width="1" />
+          <line x1="36" y1="42" x2="36" y2="90" stroke="rgba(255,255,255,0.14)" stroke-width="1" />
+
+          <!-- Guided Walkthrough Path -->
+          <polyline
+            points="${pathPoints}"
+            fill="none"
+            stroke="rgba(52, 211, 153, 0.35)"
+            stroke-width="1.3"
+            stroke-dasharray="2.5 2"
+          />
+
+          <!-- Camera Field-of-View Cone -->
+          ${
+            activeRoom
+              ? `<g transform="translate(${activeRoom.mapX}, ${activeRoom.mapY}) rotate(${yawDeg})">
+                   <polygon points="0,0 -13,-24 13,-24" fill="rgba(52, 211, 153, 0.34)" />
+                 </g>`
+              : ''
+          }
+        </svg>
+
+        <!-- Clickable Room Nodes on Radar -->
+        ${rooms.map((r, idx) => {
+          const isCurr = idx === state.tour.roomIndex;
+          return `
+            <button
+              type="button"
+              onclick="transitionToTourRoom(${idx}, true)"
+              title="${r.name}"
+              style="left: ${r.mapX}%; top: ${r.mapY}%;"
+              class="-translate-x-1/2 -translate-y-1/2 absolute rounded-full transition ${
+                isCurr
+                  ? 'w-3 h-3 bg-emerald-400 ring-4 ring-emerald-400/30 z-10'
+                  : 'w-2 h-2 bg-white/70 hover:bg-white'
+              }"
+            ></button>
+          `;
+        }).join('')}
+      `;
+    }
+
+    // Continuous 60fps Realistic Motion Loop (Ken Burns Zoom + Breathing Sway + Drag Inertia + Auto-Walkthrough)
+    function startTourAnimationLoop() {
+      if (state.tour.rafId) cancelAnimationFrame(state.tour.rafId);
+
+      function tick(now) {
+        if (!state.tour.isOpen) return;
+        const dt = Math.min(64, now - (state.tour.lastFrameTime || now));
+        state.tour.lastFrameTime = now;
+
+        const t = state.tour;
+        const currImg = document.getElementById('tour-img-curr');
+
+        // Apply drag inertia when released
+        if (!t.isDragging) {
+          t.panX += t.velX;
+          t.panY += t.velY;
+          t.velX *= 0.92;
+          t.velY *= 0.92;
+
+          // Automatic guided camera glide when playing
+          if (t.isPlaying && t.motionMode !== 'manual') {
+            const speedMultiplier = t.motionMode === 'calm' ? 0.55 : 1.0;
+            t.roomElapsedMs += dt * speedMultiplier;
+            t.zoomPhase += dt * 0.00018 * speedMultiplier;
+
+            // Smooth horizontal sweep from -0.28 to +0.28 across the room
+            const sweepSpeed = 0.000065 * speedMultiplier;
+            t.panX += sweepSpeed * dt;
+
+            // Auto-advance to next room after completing scenic sweep (~9.5s in Cinema mode)
+            if (t.roomElapsedMs >= 9500) {
+              stepTourRoom(1);
+            }
+          }
+        }
+
+        // Clamp panoramic bounds cleanly
+        t.panX = Math.max(-0.42, Math.min(0.42, t.panX));
+        t.panY = Math.max(-0.22, Math.min(0.22, t.panY));
+
+        // Ambient human-eye breathing sway
+        t.breathingPhase += dt * 0.0016;
+        const swayX = Math.sin(t.breathingPhase) * 0.006;
+        const swayY = Math.cos(t.breathingPhase * 0.8) * 0.005;
+
+        // Subtle Ken Burns forward walk-in zoom (1.16 -> 1.24)
+        const scale = 1.17 + Math.min(0.08, t.zoomPhase * 0.45);
+        const translateXPercent = -(t.panX + swayX) * 14;
+        const translateYPercent = -(t.panY + swayY) * 10;
+
+        if (currImg) {
+          currImg.style.transform = `scale(${scale.toFixed(4)}) translate3d(${translateXPercent.toFixed(3)}%, ${translateYPercent.toFixed(3)}%, 0)`;
+        }
+
+        // Sync floating hotspots with camera parallax
+        const hotspotNodes = document.querySelectorAll('.tour-hotspot-node');
+        hotspotNodes.forEach(node => {
+          const baseX = Number(node.getAttribute('data-base-x'));
+          const baseY = Number(node.getAttribute('data-base-y'));
+          const shiftedX = baseX - (t.panX + swayX) * 18;
+          const shiftedY = baseY - (t.panY + swayY) * 12;
+          node.style.left = `${shiftedX}%`;
+          node.style.top = `${shiftedY}%`;
+        });
+
+        // Update mini floorplan field-of-view cone angle
+        const rooms = getTourRoomsForProperty(t.propertyId);
+        const activeRoom = rooms[t.roomIndex];
+        const fovGroup = document.querySelector('#tour-mini-floorplan svg g');
+        const yawReadout = document.getElementById('tour-yaw-readout');
+        if (activeRoom && fovGroup) {
+          const yawDeg = activeRoom.baseYaw + (t.panX + swayX) * 65;
+          fovGroup.setAttribute('transform', `translate(${activeRoom.mapX}, ${activeRoom.mapY}) rotate(${yawDeg.toFixed(1)})`);
+          if (yawReadout) {
+            yawReadout.textContent = `${Math.round(((yawDeg % 360) + 360) % 360)}°`;
+          }
+        }
+
+        t.rafId = requestAnimationFrame(tick);
+      }
+
+      state.tour.rafId = requestAnimationFrame(tick);
+    }
+
+    // Bind Mouse & Touch Drag-to-Pan 360° Controls on Panoramic Stage
+    function initTourStageControls() {
+      const stage = document.getElementById('tour-panoramic-stage');
+      if (!stage) return;
+
+      const onPointerDown = (clientX, clientY) => {
+        state.tour.isDragging = true;
+        state.tour.dragStartX = clientX;
+        state.tour.dragStartY = clientY;
+        state.tour.dragOriginPanX = state.tour.panX;
+        state.tour.dragOriginPanY = state.tour.panY;
+        state.tour.velX = 0;
+        state.tour.velY = 0;
+
+        if (!state.tour.hasInteracted) {
+          state.tour.hasInteracted = true;
+          const hint = document.getElementById('tour-drag-hint');
+          if (hint) hint.style.opacity = '0';
+        }
+      };
+
+      const onPointerMove = (clientX, clientY) => {
+        if (!state.tour.isDragging) return;
+        const rect = stage.getBoundingClientRect();
+        const dx = (clientX - state.tour.dragStartX) / Math.max(1, rect.width);
+        const dy = (clientY - state.tour.dragStartY) / Math.max(1, rect.height);
+
+        const nextPanX = state.tour.dragOriginPanX - dx * 1.15;
+        const nextPanY = state.tour.dragOriginPanY - dy * 0.9;
+
+        state.tour.velX = (nextPanX - state.tour.panX) * 0.35;
+        state.tour.velY = (nextPanY - state.tour.panY) * 0.35;
+        state.tour.panX = nextPanX;
+        state.tour.panY = nextPanY;
+      };
+
+      const onPointerUp = () => {
+        state.tour.isDragging = false;
+      };
+
+      stage.addEventListener('mousedown', (e) => {
+        if (e.target.closest('button')) return;
+        onPointerDown(e.clientX, e.clientY);
+      });
+      window.addEventListener('mousemove', (e) => onPointerMove(e.clientX, e.clientY));
+      window.addEventListener('mouseup', onPointerUp);
+
+      stage.addEventListener('touchstart', (e) => {
+        if (e.target.closest('button') || !e.touches[0]) return;
+        onPointerDown(e.touches[0].clientX, e.touches[0].clientY);
+      }, { passive: true });
+      stage.addEventListener('touchmove', (e) => {
+        if (!state.tour.isDragging || !e.touches[0]) return;
+        onPointerMove(e.touches[0].clientX, e.touches[0].clientY);
+      }, { passive: true });
+      stage.addEventListener('touchend', onPointerUp);
+    }
+
+    // Close modals on backdrop click or Escape key
+    const propertyModalEl = document.getElementById('property-modal');
+    if (propertyModalEl) {
+      propertyModalEl.addEventListener('click', (e) => {
+        if (e.target.id === 'property-modal') closePropertyModal();
+      });
+    }
+    const valuationModalEl = document.getElementById('valuation-modal');
+    if (valuationModalEl) {
+      valuationModalEl.addEventListener('click', (e) => {
+        if (e.target.id === 'valuation-modal') closeValuationModal();
+      });
+    }
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeLiveTour();
+        closePropertyModal();
+        closeValuationModal();
+      } else if (state.tour.isOpen && e.key === 'ArrowRight') {
+        stepTourRoom(1);
+      } else if (state.tour.isOpen && e.key === 'ArrowLeft') {
+        stepTourRoom(-1);
+      } else if (state.tour.isOpen && e.key === ' ') {
+        e.preventDefault();
+        toggleTourPlayback();
+      }
+    });
+
+    // Initialize application
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('hero-active-count').textContent = PROPERTIES.length;
+      renderNeighbourhoodPills();
+      renderNeighbourhoodCards();
+      applyFilters();
+      calculateMortgage();
+      initTourStageControls();
+    });
+  </script>
+</body>
+</html>

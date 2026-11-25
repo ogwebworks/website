@@ -19,7 +19,7 @@ export default function WorkGallery() {
         <Reveal>
           <p className="text-sm font-semibold uppercase tracking-[0.2em] text-brand">Selected work</p>
           <h2 id="work-h" className="mt-4 max-w-2xl font-display text-4xl font-bold tracking-tight sm:text-6xl">
-            Seven sites. <span className="text-gradient">Zero templates.</span>
+            {demos.length} live sites. <span className="text-gradient">Zero templates.</span>
           </h2>
         </Reveal>
         <Reveal delay={0.1}>

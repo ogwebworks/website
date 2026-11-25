@@ -49,6 +49,15 @@ export const demos: Demo[] = [
     features: ["Living 3D photo tour: scroll, look, lights", "Property search & neighbourhood filters", "Interactive map with price pins", "Mortgage calculator & home valuation"],
   },
   {
+    src: "/demos/willow-stone/",
+    host: "willowandstone.demo",
+    title: "Willow & Stone Estates: real estate brokerage demo website",
+    kind: "Real estate",
+    heading: "Boutique brokerage",
+    thumb: "demo-ws-thumb",
+    features: ["Live motion house tour, room to room", "Listings with map view & saved homes", "Mortgage calculator & instant valuation", "Neighbourhood guides & tour booking"],
+  },
+  {
     src: "/demos/tree-services",
     host: "canopyandcrown.demo",
     title: "Canopy & Crown: tree services demo website",
