@@ -49,6 +49,15 @@ export const demos: Demo[] = [
     features: ["Living 3D photo tour: scroll, look, lights", "Property search & neighbourhood filters", "Interactive map with price pins", "Mortgage calculator & home valuation"],
   },
   {
+    src: "/demos/halcyon-bay",
+    host: "halcyonbay.demo",
+    title: "Halcyon Bay Residences: new-development tower demo website",
+    kind: "New development",
+    heading: "Waterfront tower launch",
+    thumb: "demo-hb-thumb",
+    features: ["Scroll through the tower floor by floor", "Dive into 3D residence cutaways & interiors", "Live stacking plan with filters & pricing", "Private preview booking, pre-filled per home"],
+  },
+  {
     src: "/demos/willow-stone/",
     host: "willowandstone.demo",
     title: "Willow & Stone Estates: real estate brokerage demo website",

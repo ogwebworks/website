@@ -11,6 +11,8 @@
   --font-cl: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
   --font-lw: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
   --font-gm: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+  --font-hb: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+  --font-hb-serif: var(--font-playfair), Georgia, serif;
 }
 
 @theme {
@@ -40,6 +42,14 @@
   --color-mv-ink: #030820;
   --color-mv-mute: #55627f;
   --color-mv-clay: #1958d6;
+
+  /* Demo: Halcyon Bay (new-development tower) */
+  --color-hb-ink: #0a1222;
+  --color-hb-navy: #0d2346;
+  --color-hb-ivory: #f5f0e8;
+  --color-hb-sand: #e9e0d2;
+  --color-hb-gold: #c9a96e;
+  --color-hb-mute: #5d6474;
 
   /* Demo: restaurant ("risograph menu": own palette) */
   --color-rs-paper: #f2ebdd;
