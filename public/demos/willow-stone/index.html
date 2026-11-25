@@ -187,7 +187,7 @@
       <div class="lg:col-span-4 lg:text-right">
         <div class="inline-flex flex-wrap lg:justify-end gap-4 bg-white border border-gray-200/80 rounded-2xl p-4 shadow-card">
           <div>
-            <div class="font-display font-bold text-xl text-ink" id="hero-active-count">8</div>
+            <div class="font-display font-bold text-xl text-ink" id="hero-active-count">9</div>
             <div class="text-xs text-muted">Active Listings</div>
           </div>
           <div class="w-px bg-gray-200"></div>
@@ -651,7 +651,7 @@
           <span>Willow &amp; Stone Estates</span>
         </div>
         <p class="text-xs text-gray-400 mt-2 max-w-md">
-          Interactive brokerage demo (<span class="text-gray-200">willowandstone.demo</span>). Sample listings, neighbourhood metrics, and mortgage/valuation figures are illustrative. Listing photos: Unsplash. Tour photos: AI-generated images of a fictional home.
+          Interactive brokerage demo (<span class="text-gray-200">willowandstone.demo</span>). Sample listings, neighbourhood metrics, and mortgage/valuation figures are illustrative. Photos: Unsplash. The Glasshouse: AI-generated images of a fictional home.
         </p>
       </div>
       <div class="flex flex-wrap items-center gap-5 text-xs text-gray-400">
@@ -1226,7 +1226,7 @@
     const PROPERTIES = [
       {
         id: 'mh-101',
-        title: 'The Glasshouse',
+        title: 'The Cedar & Glass Residence',
         address: '412 Oakridge Crest',
         neighbourhood: 'Oakridge Heights',
         type: 'Single Family',
@@ -1238,13 +1238,12 @@
         mapX: 24,
         mapY: 26,
         featuredRank: 1,
-        description: 'Glass, oak and travertine around a heated 12-metre pool: a double-height living room, travertine kitchen and a primary suite with its own balcony. Take the live 3D tour.',
-        features: ['Heated 12 m Pool', 'Linear Gas Fireplace', 'Travertine Kitchen', 'Radiant Heated Floors'],
+        description: 'Warm white-oak millwork, floor-to-ceiling steel glazing, and a private landscaped courtyard designed for indoor-outdoor entertaining.',
+        features: ['Chef’s Scullery', 'Radiant Heated Floors', 'Private Courtyard', 'EV 2-Car Garage'],
         images: [
-          '/tour/glasshouse-1200.webp',
-          '/tour/rooms/living.webp',
-          '/tour/rooms/kitchen.webp',
-          '/tour/rooms/suite.webp'
+          'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1400&q=85',
+          'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1400&q=85',
+          'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1400&q=85'
         ]
       },
       {
@@ -1393,6 +1392,29 @@
           'https://images.unsplash.com/photo-1583608205776-bfd35f0d9f83?auto=format&fit=crop&w=1400&q=85',
           'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=1400&q=85'
         ]
+      },
+      {
+        id: 'mh-109',
+        title: 'The Glasshouse',
+        address: '18 Olive Grove Lane',
+        neighbourhood: 'Oakridge Heights',
+        type: 'Single Family',
+        status: 'Live 3D Tour',
+        price: 2450000,
+        beds: 4,
+        baths: 3.5,
+        sqft: 3420,
+        mapX: 36,
+        mapY: 40,
+        featuredRank: 9,
+        description: 'Glass, oak and travertine around a heated 12-metre pool: a double-height living room, travertine kitchen and a primary suite with its own balcony. Take the room-by-room live tour.',
+        features: ['Heated 12 m Pool', 'Linear Gas Fireplace', 'Travertine Kitchen', 'Radiant Heated Floors'],
+        images: [
+          '/tour/glasshouse-1200.webp',
+          '/tour/rooms/living.webp',
+          '/tour/rooms/kitchen.webp',
+          '/tour/rooms/suite.webp'
+        ]
       }
     ];
 
@@ -1402,6 +1424,152 @@
      * initial camera yaw, interactive room portals, and architectural finish callouts.
      */
     const WALKTHROUGH_ROOMS = [
+      {
+        id: 'room-foyer',
+        name: 'Foyer & Entryway',
+        shortName: 'Foyer',
+        caption: 'Double-height architectural entry with custom white oak pivot door, limestone plinths, and diffused skylight.',
+        image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=2200&q=85',
+        fallbackImage: '/tour/glasshouse-1200.webp',
+        mapX: 22,
+        mapY: 74,
+        baseYaw: -15,
+        hotspots: [
+          {
+            type: 'portal',
+            x: 56,
+            y: 52,
+            label: 'Step into Double-Height Living Room',
+            targetRoomIndex: 1
+          },
+          {
+            type: 'finish',
+            x: 34,
+            y: 66,
+            label: 'White Oak Herringbone Flooring',
+            detail: 'Sustainably harvested European white oak planks laid in a continuous herringbone pattern over hydronic radiant heating.'
+          }
+        ]
+      },
+      {
+        id: 'room-living',
+        name: 'Double-Height Living Room',
+        shortName: 'Living Room',
+        caption: '18-foot acoustic cedar ceiling with motorized floor-to-ceiling steel glazing and sunken hearth lounge.',
+        image: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=2200&q=85',
+        fallbackImage: '/tour/glasshouse-1200.webp',
+        mapX: 46,
+        mapY: 56,
+        baseYaw: 10,
+        hotspots: [
+          {
+            type: 'portal',
+            x: 68,
+            y: 54,
+            label: 'Walk to Chef’s Marble Kitchen',
+            targetRoomIndex: 2
+          },
+          {
+            type: 'portal',
+            x: 24,
+            y: 58,
+            label: 'Glide out to Terrace & Garden',
+            targetRoomIndex: 4
+          },
+          {
+            type: 'finish',
+            x: 47,
+            y: 38,
+            label: 'Motorized Floor-to-Ceiling Glazing',
+            detail: 'Thermally broken architectural steel frames with triple-pane low-iron glass and concealed motorized solar shades.'
+          }
+        ]
+      },
+      {
+        id: 'room-kitchen',
+        name: 'Chef’s Marble Kitchen',
+        shortName: 'Kitchen',
+        caption: 'Monolithic honed Calacatta Viola waterfall island, integrated Gaggenau suite, and concealed butler’s scullery.',
+        image: 'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=2200&q=85',
+        fallbackImage: '/tour/glasshouse-1200.webp',
+        mapX: 74,
+        mapY: 54,
+        baseYaw: -25,
+        hotspots: [
+          {
+            type: 'portal',
+            x: 72,
+            y: 50,
+            label: 'Ascend to Primary Suite',
+            targetRoomIndex: 3
+          },
+          {
+            type: 'finish',
+            x: 48,
+            y: 64,
+            label: 'Calacatta Viola Island',
+            detail: 'Book-matched Italian Calacatta Viola marble slab with mitered waterfall edges and integrated induction cooking zone.'
+          }
+        ]
+      },
+      {
+        id: 'room-primary',
+        name: 'Primary Suite & Spa Wing',
+        shortName: 'Primary Suite',
+        caption: 'Corner canopy views, fluted walnut headboard wall, dressing gallery, and travertine soaking bath.',
+        image: 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=2200&q=85',
+        fallbackImage: '/tour/glasshouse-1200.webp',
+        mapX: 72,
+        mapY: 26,
+        baseYaw: 20,
+        hotspots: [
+          {
+            type: 'portal',
+            x: 34,
+            y: 55,
+            label: 'Step onto Terrace & Garden',
+            targetRoomIndex: 4
+          },
+          {
+            type: 'finish',
+            x: 60,
+            y: 46,
+            label: 'Fluted American Walnut Millwork',
+            detail: 'Custom acoustic slatted walnut paneling with concealed warm LED cove illumination and integrated drapery pockets.'
+          }
+        ]
+      },
+      {
+        id: 'room-terrace',
+        name: 'Terrace & Landscaped Garden',
+        shortName: 'Terrace',
+        caption: 'Cantilevered limestone loggia overlooking private reflection pool, outdoor hearth, and mature botanical plantings.',
+        image: 'https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=2200&q=85',
+        fallbackImage: '/tour/glasshouse-1200.webp',
+        mapX: 34,
+        mapY: 26,
+        baseYaw: -5,
+        hotspots: [
+          {
+            type: 'portal',
+            x: 52,
+            y: 56,
+            label: 'Return to Foyer & Entryway',
+            targetRoomIndex: 0
+          },
+          {
+            type: 'finish',
+            x: 38,
+            y: 68,
+            label: 'Honed Jura Limestone Pavers',
+            detail: 'Slip-resistant, frost-rated European limestone terrace slabs set flush with interior threshold tracks.'
+          }
+        ]
+      }
+    ];
+
+    /** Live tour for The Glasshouse: AI photos of one consistent house (other listings keep the original tour). */
+    const GLASSHOUSE_ROOMS = [
       {
         id: 'room-foyer',
         name: 'Entrance Hall',
@@ -2153,10 +2321,9 @@
 
     function getTourRoomsForProperty(propertyId) {
       const prop = PROPERTIES.find(p => p.id === propertyId) || PROPERTIES[0];
+      if (prop.id === 'mh-109') return GLASSHOUSE_ROOMS;
       // Tailor the first room image to the selected property's hero exterior/interior
       // while preserving seamless multi-room architectural walkthrough flow
-      // The live tour is a sample walk-through of The Glasshouse (one consistent house)
-      if (prop) return WALKTHROUGH_ROOMS;
       return WALKTHROUGH_ROOMS.map((room, idx) => {
         if (idx === 0 && prop.images && prop.images[0]) {
           return {
@@ -2177,7 +2344,7 @@
     function populateTourPropertySelector() {
       const select = document.getElementById('tour-property-selector');
       if (!select) return;
-      select.innerHTML = PROPERTIES.filter(prop => prop.id === 'mh-101').map(prop => `
+      select.innerHTML = PROPERTIES.map(prop => `
         <option value="${prop.id}" ${prop.id === state.tour.propertyId ? 'selected' : ''}>
           ${prop.title} — ${formatCurrency(prop.price, true)}
         </option>
@@ -2185,8 +2352,7 @@
     }
 
     function openLiveTour(propertyId = 'mh-101', startRoomIndex = 0) {
-      // every "live tour" button opens the sample tour of The Glasshouse
-      const prop = PROPERTIES.find(p => p.id === 'mh-101') || PROPERTIES[0];
+      const prop = PROPERTIES.find(p => p.id === propertyId) || PROPERTIES[0];
       state.tour.propertyId = prop.id;
       state.tour.roomIndex = startRoomIndex;
       state.tour.isOpen = true;
