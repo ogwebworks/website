@@ -4,7 +4,7 @@ import HeroSearch from "@/components/demos/realestate/HeroSearch";
 import Listings from "@/components/demos/realestate/Listings";
 import ListingModal from "@/components/demos/realestate/ListingModal";
 import SiteImage from "@/components/SiteImage";
-import Residences from "@/components/demos/realestate/Residences";
+import GlasshouseTour from "@/components/demos/realestate/GlasshouseTour";
 import { ListingMap, Mortgage, TourForm, Valuation } from "@/components/demos/realestate/Tools";
 import { agency, agents, testimonials } from "@/components/demos/realestate/data";
 import { CountUp, InView, Marquee, Particles, Tilt, Words } from "@/components/demos/motion";
@@ -84,6 +84,9 @@ export default function RealEstateDemo() {
         </section>
 
         {/* ---------- Listings ---------- */}
+        {/* ---------- Living 3D tour of the hero home ---------- */}
+        <GlasshouseTour />
+
         <section id="listings" className="mx-auto max-w-7xl scroll-mt-24 px-4 py-20 sm:px-6 sm:py-28">
           <InView className="mb-10 flex flex-col justify-between gap-4 md:flex-row md:items-end">
             <div>
@@ -119,9 +122,6 @@ export default function RealEstateDemo() {
         </div>
 
         {/* ---------- Mortgage ---------- */}
-
-        {/* ---------- New development: apartment selector ---------- */}
-        <Residences />
 
         <section id="mortgage" className="mx-auto max-w-7xl scroll-mt-24 px-4 py-20 sm:px-6 sm:py-28">
           <InView className="mb-10">

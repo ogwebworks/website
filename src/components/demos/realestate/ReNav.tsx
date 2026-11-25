@@ -4,9 +4,9 @@ import { useEffect, useState } from "react";
 import { agency } from "./data";
 
 const links = [
+  { href: "#tour3d", label: "Tour" },
   { href: "#listings", label: "Buy" },
   { href: "#map", label: "Map" },
-  { href: "#residences", label: "New build" },
   { href: "#mortgage", label: "Mortgage" },
   { href: "#value", label: "Sell" },
   { href: "#agents", label: "Agents" },
