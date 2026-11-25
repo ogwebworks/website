@@ -172,3 +172,11 @@ Save each as `images-src/<file name>.png`, run `npm run images`, and every produ
 No photos needed. The redesign is a risograph "printed menu" concept: every dish illustration is generated in code (overprinted olive/tomato/ink shapes with halftone dots), so the look stays flat, printed and consistent. Real photography would fight the style. If a real client wants photos, shoot them flat-lay on cream paper and run them through a two-colour riso/duotone filter (olive #4a5a2a + tomato #d9432b).
 
 `demo-resto-thumb` is generated automatically (a screenshot of the demo).
+
+
+---
+
+# Demo site: Meridian Homes (real estate)
+
+## RE1. `demo-re-hero`: "The Glasshouse" hero listing (4:3). Generated with Higgsfield (Nano Banana Pro, 2k)
+> Professional real-estate architectural photograph of a modern two-storey luxury home at dusk (blue hour). Clean contemporary design: flat cantilevered roof, floor-to-ceiling glass walls on both floors, white render and warm vertical timber cladding, slim black window frames. Warm golden interior lighting glows through every window, revealing a minimal living room with a designer sofa and pendant lights. In front: a long rectangular pool with soft underwater lights reflecting the house, a stone terrace with lounge chairs, low architectural garden lighting, ornamental grasses and two olive trees. Sky graded from deep navy at the top to cobalt and soft azure blue near the horizon, a few early stars, no clouds. Shot on a full-frame camera with a 24mm tilt-shift lens from a slightly low three-quarter angle, verticals perfectly straight, crisp detail, high dynamic range, magazine-quality real-estate photography. No people, no text, no watermark, no logos.

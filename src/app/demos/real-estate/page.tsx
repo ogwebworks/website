@@ -3,7 +3,7 @@ import ReNav, { ReLogo } from "@/components/demos/realestate/ReNav";
 import HeroSearch from "@/components/demos/realestate/HeroSearch";
 import Listings from "@/components/demos/realestate/Listings";
 import ListingModal from "@/components/demos/realestate/ListingModal";
-import HouseArt from "@/components/demos/realestate/HouseArt";
+import SiteImage from "@/components/SiteImage";
 import { ListingMap, Mortgage, TourForm, Valuation } from "@/components/demos/realestate/Tools";
 import { agency, agents, testimonials } from "@/components/demos/realestate/data";
 import { CountUp, InView, Marquee, Particles, Tilt, Words } from "@/components/demos/motion";
@@ -39,7 +39,7 @@ export default function RealEstateDemo() {
           <div className="relative mx-auto hidden w-full max-w-[460px] lg:block">
             <Tilt className="overflow-hidden rounded-[2rem] border border-white/15 bg-white/10 shadow-[0_40px_80px_-30px_rgba(0,0,0,0.6)] backdrop-blur-xl">
               <div className="aspect-[4/3] overflow-hidden">
-                <div className="dm-kenburns h-full w-full"><HouseArt style="modern" seed={3} dusk /></div>
+                <div className="dm-kenburns h-full w-full"><SiteImage name="demo-re-hero" sizes="460px" /></div>
               </div>
               <div className="p-5">
                 <p className="text-xs font-semibold uppercase tracking-[0.18em] text-re-cyan">Just listed</p>

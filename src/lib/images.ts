@@ -39,6 +39,7 @@ export const imageSlots = {
   "demo-law-thumb": { w: 1600, h: 1000, alt: "Preview of the Ashford Lane Law demo website" },
   "demo-clinic-thumb": { w: 1600, h: 1000, alt: "Preview of the Harbourside Health clinic demo website" },
   "demo-re-thumb": { w: 1600, h: 1000, alt: "Preview of the Meridian Homes real estate demo website" },
+  "demo-re-hero": { w: 1200, h: 900, alt: "Modern two-storey glass and timber home at dusk with warm interior lights and a lit pool" },
 } as const;
 
 export type ImageSlot = keyof typeof imageSlots;
